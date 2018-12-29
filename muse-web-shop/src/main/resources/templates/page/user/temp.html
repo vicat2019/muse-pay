@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>半岛-上传图片</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+
+    <style type="text/css">
+
+        .login_win {
+            width: 400px;
+            height: 400px;
+            background: #fffef9;
+            text-align: center;
+            border: 1px solid #f6f5ec;
+        }
+
+        .login {
+            font-size: 16px;
+            font-family: "微软雅黑 Light";
+            margin: 0 auto;
+        }
+
+        .login input {
+            height: 22px;
+            border: 1px solid #769149;
+            padding-left: 5px;
+        }
+
+        a:link {
+            color: #abc88b;
+        }
+        a:hover {
+            color: #cde6c7;
+        }
+        a:visited {
+            color: #abc88b;
+        }
+
+        /* 未访问链接 */
+
+
+    </style>
+
+</head>
+
+
+<body>
+<center>
+    <div><img src="/img/logo2.png" style="width: 110px;height: 115px;opacity:0.4;"/></div>
+    <hr style="color: #f6f5ec;">
+    <div style="height: 30px;"><span th:text="${msg}" style="font-size: 16px;color: red;"/></div>
+    <img th:src="${path}"/>
+</center>
+</body>
+</html>

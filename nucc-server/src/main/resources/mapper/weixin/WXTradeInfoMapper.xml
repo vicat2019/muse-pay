@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nucc.dao.weixin.WXTradeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.nucc.entity.weixin.WXTradeInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="transaction_id" jdbcType="VARCHAR" property="transaction_id"/>
+        <result column="out_trade_no" jdbcType="VARCHAR" property="out_trade_no"/>
+
+        <result column="appid" jdbcType="VARCHAR" property="appid"/>
+        <result column="sub_appid" jdbcType="VARCHAR" property="sub_appid"/>
+        <result column="mch_id" jdbcType="VARCHAR" property="mch_id"/>
+        <result column="sub_mch_id" jdbcType="VARCHAR" property="sub_mch_id"/>
+        <result column="channel_id" jdbcType="VARCHAR" property="channel_id"/>
+        <result column="device_info" jdbcType="VARCHAR" property="device_info"/>
+        <result column="body" jdbcType="VARCHAR" property="body"/>
+        <result column="attach" jdbcType="VARCHAR" property="attach"/>
+        <result column="total_fee" jdbcType="INTEGER" property="total_fee"/>
+        <result column="fee_type" jdbcType="VARCHAR" property="fee_type"/>
+        <result column="spbill_create_ip" jdbcType="VARCHAR" property="spbill_create_ip"/>
+        <result column="goods_tag" jdbcType="VARCHAR" property="goods_tag"/>
+        <result column="limit_pay" jdbcType="VARCHAR" property="limit_pay"/>
+        <result column="need_receipt" jdbcType="BIT" property="need_receipt"/>
+        <result column="trade_type" jdbcType="VARCHAR" property="trade_type"/>
+        <result column="bank_type" jdbcType="VARCHAR" property="bank_type"/>
+        <result column="coupon_fee" jdbcType="INTEGER" property="coupon_fee"/>
+        <result column="settlement_total_fee" jdbcType="INTEGER" property="settlement_total_fee"/>
+        <result column="time_end" jdbcType="VARCHAR" property="time_end"/>
+        <result column="trade_state_desc" jdbcType="VARCHAR" property="trade_state_desc"/>
+        <result column="cash_fee" jdbcType="INTEGER" property="cash_fee"/>
+        <result column="cash_fee_type" jdbcType="VARCHAR" property="cash_fee_type"/>
+        <result column="notify_url" jdbcType="VARCHAR" property="notify_url"/>
+        <result column="trade_status" jdbcType="VARCHAR" property="trade_status"/>
+        <result column="perpay_id" jdbcType="VARCHAR" property="perpay_id"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="table_name">
+        nucc_wx_trade_info
+    </sql>
+
+    <sql id="Base_Column_List">
+        id, transaction_id, out_trade_no, appid, sub_appid, mch_id, sub_mch_id, channel_id,
+        device_info, body, attach, total_fee, fee_type, spbill_create_ip, goods_tag, limit_pay,
+        need_receipt, trade_type, bank_type, coupon_fee, settlement_total_fee, time_end,
+        trade_state_desc, cash_fee, cash_fee_type, notify_url, trade_status, perpay_id, version, modify_time, create_time
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from nucc_wx_trade_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from nucc_wx_trade_info
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.nucc.entity.weixin.WXTradeInfo">
+        insert into nucc_wx_trade_info (transaction_id, out_trade_no, appid, sub_appid, mch_id, sub_mch_id, channel_id,
+        device_info, body, attach, total_fee, fee_type, spbill_create_ip, goods_tag, limit_pay,
+        need_receipt, trade_type, bank_type, coupon_fee, settlement_total_fee, time_end,
+        trade_state_desc, cash_fee, cash_fee_type, notify_url, trade_status, perpay_id)
+        values (#{transaction_id,jdbcType=VARCHAR}, #{out_trade_no,jdbcType=VARCHAR},
+          #{appid,jdbcType=VARCHAR}, #{sub_appid,jdbcType=VARCHAR}, #{mch_id,jdbcType=VARCHAR},
+          #{sub_mch_id,jdbcType=VARCHAR}, #{channel_id,jdbcType=VARCHAR}, #{device_info,jdbcType=VARCHAR},
+          #{body,jdbcType=VARCHAR}, #{attach,jdbcType=VARCHAR}, #{total_fee,jdbcType=INTEGER},
+          #{fee_type,jdbcType=VARCHAR}, #{spbill_create_ip,jdbcType=VARCHAR}, #{goods_tag,jdbcType=VARCHAR},
+          #{limit_pay,jdbcType=VARCHAR}, #{need_receipt,jdbcType=BIT}, #{trade_type,jdbcType=VARCHAR},
+          #{bank_type,jdbcType=VARCHAR}, #{coupon_fee,jdbcType=INTEGER}, #{settlement_total_fee,jdbcType=INTEGER},
+          #{time_end,jdbcType=VARCHAR}, #{trade_state_desc,jdbcType=VARCHAR}, #{cash_fee,jdbcType=INTEGER},
+          #{cash_fee_type,jdbcType=VARCHAR}, #{notify_url,jdbcType=VARCHAR}, #{trade_status,jdbcType=VARCHAR}, #{perpay_id,jdbcType=VARCHAR})
+      </insert>
+
+    <update id="updateByTransactionId" parameterType="com.nucc.entity.weixin.WXTradeInfo">
+        update nucc_wx_trade_info
+        set
+        appid = #{appid,jdbcType=VARCHAR},
+        sub_appid = #{sub_appid,jdbcType=VARCHAR},
+        mch_id = #{mch_id,jdbcType=VARCHAR},
+        sub_mch_id = #{sub_mch_id,jdbcType=VARCHAR},
+        channel_id = #{channel_id,jdbcType=VARCHAR},
+        device_info = #{device_info,jdbcType=VARCHAR},
+        body = #{body,jdbcType=VARCHAR},
+        attach = #{attach,jdbcType=VARCHAR},
+        total_fee = #{total_fee,jdbcType=INTEGER},
+        fee_type = #{fee_type,jdbcType=VARCHAR},
+        spbill_create_ip = #{spbill_create_ip,jdbcType=VARCHAR},
+        goods_tag = #{goods_tag,jdbcType=VARCHAR},
+        limit_pay = #{limit_pay,jdbcType=VARCHAR},
+        need_receipt = #{need_receipt,jdbcType=BIT},
+        trade_type = #{trade_type,jdbcType=VARCHAR},
+        bank_type = #{bank_type,jdbcType=VARCHAR},
+        coupon_fee = #{coupon_fee,jdbcType=INTEGER},
+        settlement_total_fee = #{settlement_total_fee,jdbcType=INTEGER},
+        time_end = #{time_end,jdbcType=VARCHAR},
+        trade_state_desc = #{trade_state_desc,jdbcType=VARCHAR},
+        trade_status = #{trade_status,jdbcType=VARCHAR},
+        cash_fee = #{cash_fee,jdbcType=INTEGER},
+        cash_fee_type = #{cash_fee_type,jdbcType=VARCHAR},
+        notify_url = #{notify_url,jdbcType=VARCHAR},
+        version = version+1,
+        modify_time = now()
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="getWXTradeByOutTradeNo" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from <include refid="table_name"/>
+        where
+        out_trade_no=#{outTradeNo, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getCountByOutTradeNo" resultMap="BaseResultMap">
+        select count(1) as total from <include refid="table_name"/>
+        where
+        out_trade_no = #{outTradeNo, jdbcType=VARCHAR}
+    </select>
+
+    <update id="setTradePayStatus">
+        update <include refid="table_name"/>
+        set trade_status=#{tradeStatus, jdbcType=VARCHAR}
+        where out_trade_no=#{outTradeNo, jdbcType=VARCHAR}
+    </update>
+
+    <select id="getTradeByTransactionId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from <include refid="table_name"/>
+        where
+        transaction_id = #{transactionId, jdbcType=VARCHAR}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seckill.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.seckill.entity.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, sex, age, address, amount, status, version, modify_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sk_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sk_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.seckill.entity.UserInfo">
+    insert into sk_user_info (id, name, sex, 
+      age, address, amount, 
+      status, version, modify_time, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{status,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seckill.entity.UserInfo">
+    insert into sk_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.seckill.entity.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from sk_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seckill.entity.UserInfo">
+    update sk_user_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seckill.entity.UserInfo">
+    update sk_user_info
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <resultMap id="BaseResultMap" type="com.muse.pay.entity.UserInfo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+
+        <result column="amount" jdbcType="DECIMAL" property="amount" />
+        <result column="frozen_amount" jdbcType="DECIMAL" property="frozenAmount" />
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+
+        <result column="age" jdbcType="INTEGER" property="age" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, email, user_name, password, amount, frozen_amount, pic_url, age, sex, address, version, modify_time, create_time
+    </sql>
+
+    <select id="getUserById" resultMap="BaseResultMap">
+        SELECT
+              <include refid="Base_Column_List" />
+        FROM t_user_info
+        WHERE ID = #{id}
+    </select>
+
+    <sql id="condition_sql">
+        <if test="email!=null and email!=''">
+            and email = #{email}
+        </if>
+        <if test="userName!=null and userName!=''">
+            and user_name=#{userName}
+        </if>
+        <if test="password!=null and password!=''">
+            and password=#{password}
+        </if>
+    </sql>
+
+    <select id="selectUserByColumn" resultMap="BaseResultMap" resultType="com.muse.pay.entity.UserInfo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_user_info
+        <where>
+            <include refid="condition_sql" />
+        </where>
+        limit 1
+    </select>
+
+    <update id="updateUser" parameterType="com.muse.pay.entity.UserInfo">
+        UPDATE t_user_info
+        SET user_name = #{userName},
+            sex = #{sex},
+            age = #{age},
+            address = #{address},
+            version = version+1,
+            modify_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updatePassword">
+        update t_user_info set password=#{password} where id=#{userId}
+    </update>
+    
+    <update id="setPwd">
+        update t_user_info set password=#{password} where email=#{email}
+    </update>
+    
+    <update id="modUserIcon">
+        update t_user_info set pic_url = #{iconUrl} where id=#{userId}
+    </update>
+    
+    
+
+    <insert id="insertUser">
+        INSERT INTO
+            t_user_info(email, user_name, password, pic_url, sex, age, address, version)
+            VALUES (
+                #{email},
+                #{userName},
+                #{password},
+                #{picUrl},
+                #{sex},
+                #{age},
+                #{address},
+                0
+            )
+    </insert>
+
+
+    <delete id="deleteUserById">
+        DELETE t_user_info WHERE ID = #{id}
+    </delete>
+
+
+    <select id="login" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from t_user_info
+        where email=#{email} and password=#{password} limit 1
+    </select>
+
+    <select id="getAllUser" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_user_info order by id;
+    </select>
+
+    <select id="getAllUserIds" resultType="int">
+        select id from t_user_info;
+    </select>
+
+    <select id="getUserIdByName" parameterType="string" resultType="int">
+        select id from t_user_info where user_name like CONCAT('%' ,CONCAT(#{name},'%'))
+    </select>
+    
+    <select id="getUserCountByEmail" resultType="int">
+        select count(1) from t_user_info where email=#{email}
+    </select>
+
+    <update id="modifyUserAmount">
+        update t_user_info set amount=amount + #{amount,jdbcType=DECIMAL} where id=#{userId,jdbcType=INTEGER}
+    </update>
+
+    
+
+
+
+</mapper>

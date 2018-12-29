@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+</head>
+<script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/css/style.css" type="text/css"/>
+
+<style type="text/css">
+
+    .center {
+        margin-top: 10px;
+        border: 1px solid #d9d6c3;
+        font-family: 微软雅黑;
+        width: 1000px;
+        height: auto;
+        background: #fffef9;
+        width: 1080px;
+        color: #5c7a29;
+    }
+
+    .info {
+        height: 100%;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+
+    .info tr {
+        height: 30px;
+    }
+
+    .security {
+        width: 100%;
+        text-align: left;
+        margin-left: 10px;
+        margin-top: 20px;
+        padding-bottom: 50px;
+        font-size: 16px;
+    }
+
+    .security tr {
+        height: 36px;
+    }
+
+    a {
+        color: #5c7a29;
+        font-family: 微软雅黑;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+
+</style>
+<body>
+<center>
+    <div style="height: 140px;padding-top: 8px;position: relative;">
+        <table>
+            <tr style="text-align: center">
+                <td style="width: 100%;"><img src="/img/logo2.png" style="width: 90px;height: 90px;"></td>
+            </tr>
+        </table>
+        <table class="shopping_cart_tip">
+            <tr>
+                <td style="text-align: left;">
+                    <a href="/book/list">首页</a>&nbsp;>&nbsp;用户中心
+                </td>
+                <td>
+                    <span style="margin-right: 20px;"><span th:text="${session.user.userName}"/>，您好！</span>
+                    <a th:href="@{'/order/list/' + ${session.user.id}}">我的订单[<span id="orderCount"
+                                                                                   th:text="${orderCount}"/>]</a> |
+                    <a th:href="@{'/shoppingCart/detail/' + ${session.user.id}}">购物车[<span id="shopCarCount"
+                                                                                           th:text="${shopCarCount}"/>]</a>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="userId" th:value="${session.user.id}"/>
+        <hr>
+    </div>
+
+    <div class="center">
+        <table width="100%">
+            <tr>
+                <td width="150" style="text-align: center">
+                    <a href="/user/to_upload">
+                        <img th:if="${user.picUrl} eq null" src="/img/default_icon.jpg" width="150" height="150"
+                             style="margin: 5px">
+                        <img th:if="${user.picUrl} ne null" th:src="${user.picUrl}" width="150" height="150"
+                             style="margin: 5px">
+                    </a>
+                </td>
+                <td>
+                    <table class="info">
+                        <tr>
+                            <td>名称：</td>
+                            <td><span th:text="${user.userName}"/></td>
+                        </tr>
+                        <tr>
+                            <td>邮箱：</td>
+                            <td><span th:text="${user.email}"/></td>
+                        </tr>
+                        <tr>
+                            <td>性别：</td>
+                            <td><span th:text="${user.sex}"/></td>
+                        </tr>
+                        <tr>
+                            <td>年龄：</td>
+                            <td><span th:text="${user.age}"/></td>
+                        </tr>
+                        <tr>
+                            <td>地址：</td>
+                            <td><span th:text="${user.address}"/></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="50" style="text-align: right;margin-top: 0px; position: relative;">
+                    <input type="button" id="modify_user" value="编辑"
+                           style="width: 50px; height: 26px;margin-right: 20px;" class="b_button">
+                </td>
+            </tr>
+        </table>
+
+        <div style="width: 99%;height: 1px;background: #d9d6c3;margin-top: 0px;"></div>
+
+        <table style="text-align: left;margin-left: 10px;margin-top: 20px;padding-bottom: 20px;" width="100%">
+            <tr style="">
+                <td width="50">余额：</td>
+                <td style="font-size: 24px;font-weight: bold;width: 200px;"><span
+                        th:text="${#numbers.formatDecimal(user.amount,2,1)}"/>元
+                </td>
+                <td width="50">冻结：</td>
+                <td><span th:text="${user.frozenAmount}"/>元</td>
+                <td style="text-align: right"><input type="button" value="充值"
+                                                     style="width: 50px; height: 26px; margin-right: 20px;"
+                                                     class="b_button" onclick="toRecharge()"></td>
+            </tr>
+        </table>
+
+        <div style="width: 99%;height: 1px;background: #d9d6c3;margin-top: 0px;"></div>
+
+        <table class="security">
+            <tr>
+                <td width="50">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                <td>**********</td>
+                <td style="text-align: right"><input type="button" id="modPwd" value="修改"
+                                                     style="width: 50px; height: 26px;margin-right: 20px;"
+                                                     class="b_button"></td>
+            </tr>
+            <tr>
+                <td width="100">绑定邮箱：</td>
+                <td>103****780@qq.com</td>
+                <td style="text-align: right"><input type="button" value="修改"
+                                                     style="width: 50px; height: 26px;margin-right: 20px;"
+                                                     class="b_button"></td>
+            </tr>
+            <tr>
+                <td width="100">手&nbsp;机&nbsp;&nbsp;号：</td>
+                <td>183****0000</td>
+                <td style="text-align: right"><input type="button" value="修改"
+                                                     style="width: 50px; height: 26px;margin-right: 20px;"
+                                                     class="b_button"></td>
+            </tr>
+            <tr>
+                <td width="100">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保：</td>
+                <td>**********</td>
+                <td style="text-align: right"><input type="button" value="修改"
+                                                     style="width: 50px; height: 26px; margin-right: 20px;"
+                                                     class="b_button"></td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;text-align: left;">
+            <tr>
+                <td style="padding-left: 10px;">
+                    <a th:href="@{'/consignee/list?userId=' + ${session.user.id}}">常用地址</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</center>
+</body>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var userId = $("#userId").val();
+
+        $("#modify_user").bind("click", function () {
+            window.location.href = '/user/modify/' + userId;
+        });
+
+        $("#modPwd").bind("click", function () {
+            window.location.href = '/user/modPwd/' + userId;
+        });
+
+        get_order_count(userId);
+
+        get_shopping_cart_item_count(userId)
+
+    });
+
+    function toRecharge() {
+        window.location.href = '/user/toRecharge?userId=' + $("#userId").val();
+    }
+
+    function get_order_count(userId) {
+        if (userId == '') {
+            $("#orderCount").html(0);
+        } else {
+            $.get("/order/count/" + userId, function (data) {
+                console.log(data);
+                if (data.code != 0) {
+                    $("#orderCount").html(0);
+                } else {
+                    $("#orderCount").html(data.data);
+                }
+            });
+        }
+    }
+
+    function get_shopping_cart_item_count(userId) {
+        if (userId == '') {
+            $("#shopCarCount").html(0);
+        } else {
+            $.get("/shoppingCart/count/" + userId, function (data) {
+                console.log(data);
+                if (data.code != 0) {
+                    $("#shopCarCount").html(0);
+                } else {
+                    $("#shopCarCount").html(data.data);
+                }
+            });
+        }
+    }
+
+
+</script>
+
+
+</html>

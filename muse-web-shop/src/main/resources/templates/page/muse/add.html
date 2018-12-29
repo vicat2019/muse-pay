@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商户</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+</head>
+<script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/css/style.css" type="text/css"/>
+<style type="text/css">
+
+    .add_form {
+        border-collapse: collapse;
+        margin-top: 18px;
+        text-align: center;
+        border: 1px solid #d9d6c3;
+        font-family: 微软雅黑;
+        width: 600px;
+        height: 200px;
+        background: #fffef9;
+    }
+
+    .add_form tr {
+        height: 28px;
+        background: #fffef9;
+    }
+
+    .input_stype {
+        padding-left: 2px;
+        width: 90%;
+        /*background: #d9d6c3;*/
+        background: #78cdd1;
+        border: 0px;
+        height: 26px;
+        font-size: 17px;
+    }
+
+</style>
+<body>
+<center>
+    <h2>商户管理</h2>
+    <div style="text-align: right;width: 1080px;">
+        <input type="button" id="back" value="返回" class="b_button"
+               style="text-align:center; width: 50px; height: 26px;"></input>
+    </div>
+    <hr>
+
+    <form id="add" action="/muse/admin/add" method="post">
+        <table class="add_form">
+            <tr style="height: 60px;"><td colspan="2"><span th:text="${msg}" style="color: red;font-size: 16px;"/> </td></tr>
+            <tr>
+                <td style="text-align: right">编号：</td><td style="text-align: left"><input class="input_stype" type="text" id="orderNo" name="userNo" th:value="${userNo}"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right">名称：</td><td style="text-align: left"><input class="input_stype" type="text" id="name" name="name"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right">秘钥：</td><td style="text-align: left"><input class="input_stype" type="text" id="secret" name="secret" th:value="${secret}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding-top: 20px;height: 35px;"><input type="submit" class="b_button" value="提交"></td>
+            </tr>
+        </table>
+    </form>
+
+</center>
+</body>
+
+<script type="application/javascript">
+
+    $(function () {
+
+        $("#back").bind("click", function () {
+           history.back();
+        });
+    });
+
+
+</script>
+
+
+
+</html>

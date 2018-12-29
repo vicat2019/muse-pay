@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- 文件输出格式 -->
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{30}[%line] - %msg %n"/>
+
+    <!-- 每天产生一个文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>D:/java_workspace/logs/pay.%d{yyyy-MM-dd.HH}.log</fileNamePattern>
+            <!--<fileNamePattern>/root/soft/pay_logs/pay.%d{yyyy-MM-dd.HH}.log</fileNamePattern>-->
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>50</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${PATTERN}</pattern>
+        </layout>
+    </appender>
+
+
+    <appender name="druid" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>D:/java_workspace/logs/${myAppName}-druid.log</File>
+        <encoder>
+            <pattern>%d [%level] [%thread] %logger{15}:%line %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/java_workspace/logs/${myAppName}-druid.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="druid-queue" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <appender-ref ref="druid"/>
+    </appender>
+    <logger name="druid.sql.DataSource" level="DEBUG" additivity="false">
+        <appender-ref ref="druid-queue"/>
+    </logger>
+    <logger name="druid.sql.Connection" level="DEBUG" additivity="false">
+        <appender-ref ref="druid-queue"/>
+    </logger>
+    <logger name="druid.sql.Statement" level="DEBUG" additivity="false">
+        <appender-ref ref="druid-queue"/>
+    </logger>
+
+
+
+    <logger name="org.apache.curator" level="ERROR"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" level="INFO"/>
+    <logger name="org.mybatis" level="INFO"/>
+
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="druid"/>
+    </root>
+
+
+</configuration>

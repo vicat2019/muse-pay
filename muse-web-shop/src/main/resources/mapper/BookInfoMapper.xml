@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muse.pay.dao.BookInfoMapper">
+    <resultMap id="BaseResultMap" type="com.muse.pay.entity.BookInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="isbn" jdbcType="VARCHAR" property="isbn"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="title_desc" jdbcType="VARCHAR" property="titleDesc"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="book_concern" jdbcType="VARCHAR" property="bookConcern"/>
+        <result column="publishing_time" jdbcType="VARCHAR" property="publishingTime"/>
+        <result column="score" jdbcType="VARCHAR" property="score"/>
+        <result column="price" jdbcType="VARCHAR" property="price"/>
+        <result column="fixed_price" jdbcType="VARCHAR" property="fixedPrice"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="page_count" jdbcType="VARCHAR" property="pageCount"/>
+        <result column="printing_time" jdbcType="VARCHAR" property="printingTime"/>
+        <result column="book_size" jdbcType="VARCHAR" property="bookSize"/>
+        <result column="paper" jdbcType="VARCHAR" property="paper"/>
+        <result column="suit" jdbcType="VARCHAR" property="suit"/>
+        <result column="packing" jdbcType="VARCHAR" property="packing"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="detail_url" jdbcType="VARCHAR" property="detailUrl"/>
+        <result column="data_sources" jdbcType="VARCHAR" property="dataSources"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="content_desc" jdbcType="VARCHAR" property="contentDesc"/>
+        <result column="recommendation" jdbcType="VARCHAR" property="recommendation"/>
+        <result column="author_desc" jdbcType="VARCHAR" property="authorDesc"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, isbn, title, title_desc, pic_url, author, book_concern, publishing_time, score,
+        price, fixed_price, edition, page_count, printing_time, book_size, paper, suit, packing,
+        category, detail_url, data_sources, create_time, content_desc, recommendation, author_desc
+      </sql>
+
+    <update id="updateByPrimaryKey" parameterType="com.muse.pay.entity.BookInfo">
+        update t_book_info
+        set title = #{title,jdbcType=VARCHAR},
+          title_desc = #{titleDesc,jdbcType=VARCHAR},
+          pic_url = #{picUrl,jdbcType=VARCHAR},
+          author = #{author,jdbcType=VARCHAR},
+          book_concern = #{bookConcern,jdbcType=VARCHAR},
+          publishing_time = #{publishingTime,jdbcType=VARCHAR},
+          score = #{score,jdbcType=VARCHAR},
+          price = #{price,jdbcType=VARCHAR},
+          fixed_price = #{fixedPrice,jdbcType=VARCHAR},
+          edition = #{edition,jdbcType=VARCHAR},
+          page_count = #{pageCount,jdbcType=VARCHAR},
+          printing_time = #{printingTime,jdbcType=VARCHAR},
+          book_size = #{bookSize,jdbcType=VARCHAR},
+          paper = #{paper,jdbcType=VARCHAR},
+          suit = #{suit,jdbcType=VARCHAR},
+          packing = #{packing,jdbcType=VARCHAR},
+          category = #{category,jdbcType=VARCHAR},
+          detail_url = #{detailUrl,jdbcType=VARCHAR},
+          data_sources = #{dataSources,jdbcType=VARCHAR},
+          create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+          and isbn = #{isbn,jdbcType=VARCHAR}
+      </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_book_info where id=#{id}
+    </select>
+
+    <select id="selectSimpleByPK" resultMap="BaseResultMap">
+        select id, title, price, pic_url, author, book_concern from t_book_info where id=#{id}
+    </select>
+
+    <sql id="condition_sql">
+        <if test="title != null and title != ''">and title like CONCAT('%' ,CONCAT(#{title},'%'))</if>
+        <if test="author != null and author != ''">and author like CONCAT('%' ,CONCAT(#{author},'%'))</if>
+        <if test="price != null and price != ''">and price like CONCAT('%' ,CONCAT(#{price},'%'))</if>
+        <if test="category != null and category != ''">and category like CONCAT('%' ,CONCAT(#{category},'%'))</if>
+        <if test="publishingTime != null and publishingTime != ''">and publishing_time like CONCAT('%'
+            ,CONCAT(#{publishingTime},'%'))
+        </if>
+    </sql>
+
+
+    <select id="selectByColumn" parameterType="com.muse.pay.entity.BookInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_book_info
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="queryBookIn" parameterType="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_book_info
+        <where>
+            id in
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="getAllBookIds" resultType="int">
+        select id from t_book_info where title not like '%\%%' order by id;
+    </select>
+
+</mapper>

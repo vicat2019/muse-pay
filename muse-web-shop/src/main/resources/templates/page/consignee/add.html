@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>常用联系人</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+</head>
+<script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/css/style.css" type="text/css"/>
+
+<style type="text/css">
+
+    .start {
+        padding-left: 5px;
+        color: red;
+        text-align: center;
+    }
+
+    .user_edit {
+        margin-top: 20px;
+        padding-left: 20px;
+        width: 600px;
+        font-size: 16px;
+        color: #5c7a29;
+    }
+
+    .user_edit tr {
+        height: 30px;
+    }
+
+    .user_input {
+        color: #5c7a29;
+        border: 1px solid #d9d6c3;
+        background: #fffef9;
+        height: 24px;
+        padding-left: 5px;
+        width: 90%;
+    }
+
+
+</style>
+<body>
+<center>
+
+    <div style="height: 140px;padding-top: 8px;position: relative;">
+        <table>
+            <tr style="text-align: center">
+                <td style="width: 100%;"><img src="/img/logo2.png" style="width: 90px;height: 90px;"></td>
+            </tr>
+        </table>
+        <table class="shopping_cart_tip">
+            <tr>
+                <td style="text-align: left;">
+                    <a href="/book/list">首页</a>&nbsp;>&nbsp;添加
+                </td>
+                <td>
+                    <span style="margin-right: 20px;"><a th:href="@{'/user/index/' + ${session.user.id}}"><span
+                            th:text="${session.user.userName}"/></a>，您好！
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="userId" th:value="${session.user.id}"/>
+        <hr>
+    </div>
+
+    <form action="/consignee/add" method="post">
+        <input type="hidden" id="id" name="userId" th:value="${session.user.id}"/>
+        <table class="user_edit">
+            <tr>
+                <td width="100">收货人：</td>
+                <td><input type="text" id="name" name="name" class="user_input">&nbsp;&nbsp;<span class="start">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td>联系方式：</td>
+                <td><input type="text" id="mobile" name="mobile" class="user_input">&nbsp;&nbsp;<span
+                        class="start">*</span></td>
+            </tr>
+            <tr>
+                <td>联系地址：</td>
+                <td><input type="text" id="address" name="address" class="user_input">&nbsp;&nbsp;<span
+                        class="start">*</span></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2" style="padding-top: 10px;width: 50px;"><input type="submit" value="提交" class="b_button">
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>
+</body>
+
+</html>

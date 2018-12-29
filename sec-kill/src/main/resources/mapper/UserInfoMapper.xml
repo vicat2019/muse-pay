@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seckill.dao.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.seckill.entity.UserInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, sex, age, address, amount, status, version, modify_time, create_time
+      </sql>
+
+    <sql id="table_name">
+        sk_user_info
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sk_user_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sk_user_info
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.seckill.entity.UserInfo">
+        insert into sk_user_info (name, sex, age, address, amount)
+        values (#{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+          #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL})
+      </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.seckill.entity.UserInfo">
+        update sk_user_info
+        set name = #{name,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=VARCHAR},
+          age = #{age,jdbcType=INTEGER},
+          address = #{address,jdbcType=VARCHAR},
+          amount = #{amount,jdbcType=DECIMAL},
+          status = #{status,jdbcType=VARCHAR},
+          version = #{version,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+          create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+
+
+    <insert id="insertBatch" parameterType="list">
+        insert into <include refid="table_name"/>(name, sex, age, address, amount) values
+        <foreach collection="list" separator="," item="user">
+            (#{user.name},#{user.sex}, #{user.age}, #{user.address}, 0)
+        </foreach>
+    </insert>
+
+
+
+</mapper>
