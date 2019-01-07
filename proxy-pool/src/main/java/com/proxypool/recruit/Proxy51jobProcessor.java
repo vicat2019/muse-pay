@@ -2,7 +2,7 @@ package com.proxypool.recruit;
 
 import com.muse.common.util.SpringBeanUtils;
 import com.proxypool.entry.RecruitInfo;
-import com.proxypool.spider.ProcessorTemplate;
+import com.proxypool.component.ProcessorTemplate;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -122,7 +122,7 @@ public class Proxy51jobProcessor extends ProcessorTemplate {
     }
 
     @Override
-    public List<String> parsePageUrl(Page page) {
+    public List<String> parseUrl(Page page) {
         List<String> urlList = new ArrayList<>();
 
         // 如果是列表页，解析一下地址

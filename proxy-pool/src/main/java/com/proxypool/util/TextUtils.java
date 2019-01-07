@@ -5,6 +5,8 @@ import org.thymeleaf.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @program: muse-pay
@@ -40,6 +42,7 @@ public class TextUtils {
 
     /**
      * 生成随机交易好
+     *
      * @return
      */
     public static String makeTradeNo() {
@@ -60,6 +63,42 @@ public class TextUtils {
             length -= 1;
         }
         return sb.toString();
+    }
+
+    /**
+     * 正则表达式匹配内容
+     *
+     * @param regex   正则表达式
+     * @param content 内容
+     * @return 是否匹配
+     */
+    public static boolean isMatch(String regex, String content) {
+        if (StringUtils.isEmpty(regex) || StringUtils.isEmpty(content)) {
+            return false;
+        }
+
+        return Pattern.matches(regex, content);
+    }
+
+    /**
+     * 获取匹配的内容
+     *
+     * @param regex
+     * @param content
+     * @return
+     */
+    public static String getMatch(String regex, String content) {
+        if (StringUtils.isEmpty(regex) || StringUtils.isEmpty(content)) {
+            return "";
+        }
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(content);
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return "";
+        }
     }
 
 

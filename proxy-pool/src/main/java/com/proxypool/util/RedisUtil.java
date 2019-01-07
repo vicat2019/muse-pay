@@ -2,7 +2,7 @@ package com.proxypool.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: Administrator
  * @Date: 2018 2018/7/23 10 13
  **/
-@Service("localRedisUtil")
+@Component("localRedisUtil")
 public class RedisUtil {
 
     @Autowired

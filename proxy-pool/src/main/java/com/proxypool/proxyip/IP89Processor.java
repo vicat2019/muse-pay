@@ -1,4 +1,4 @@
-package com.proxypool.spider;
+package com.proxypool.proxyip;
 
 import com.proxypool.entry.ProxyIpInfo;
 import org.jsoup.helper.StringUtil;

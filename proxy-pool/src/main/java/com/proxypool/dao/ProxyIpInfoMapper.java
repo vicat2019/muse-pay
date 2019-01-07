@@ -32,4 +32,10 @@ public interface ProxyIpInfoMapper {
     List<ProxyIpInfo> getUsableProxyIp(@Param("size") int size);
 
     int updateStatusInfo(ProxyIpInfo proxyIpInfo);
+
+    int setProxyIpStatus(@Param("id") int id, @Param("status") String status);
+
+    List<ProxyIpInfo> getRecentlyIp(@Param("size") int size);
+
+    int setStatusByIp(@Param("ip") String ip, @Param("status") String status);
 }

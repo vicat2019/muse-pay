@@ -1,6 +1,7 @@
-package com.proxypool.spider;
+package com.proxypool.proxyip;
 
 import com.muse.common.util.SpringBeanUtils;
+import com.proxypool.component.ProcessorTemplate;
 import com.proxypool.entry.ProxyIpInfo;
 import org.jsoup.helper.StringUtil;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class IP66Processor extends ProcessorTemplate {
     }
 
     @Override
-    public List<String> parsePageUrl(Page page) {
+    public List<String> parseUrl(Page page) {
         // 获取页码连接
         List<String> urlList = page.getHtml().links().regex("http://www\\.66ip\\.cn/\\d+\\.html").all();
 

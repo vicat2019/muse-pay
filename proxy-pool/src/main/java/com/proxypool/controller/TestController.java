@@ -1,9 +1,13 @@
 package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
+import com.muse.common.util.HttpUtils;
+import com.proxypool.component.ProxyDownloader;
+import com.proxypool.kindlebook.MeBookPipeline;
+import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.recruit.TestProcessor;
+import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RpSequenceInfoService;
-import com.proxypool.util.ProxyDownloader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,19 @@ public class TestController {
 
     @Autowired
     private TestProcessor testProcessor;
+
+    @Autowired
+    private MebookProcessor mebookProcessor;
+
+    @Autowired
+    private MeBookPipeline meBookPipeline;
+
+    @Autowired
+    private ProxyIpInfoService proxyIpInfoService;
+
+    @Autowired
+    private HttpUtils httpUtils;
+
 
     @RequestMapping("/a")
     public String test() {
@@ -66,6 +83,28 @@ public class TestController {
             e.printStackTrace();
             return ResultData.getErrResult(e.getMessage());
         }
+        return ResultData.getSuccessResult();
+    }
+
+    @RequestMapping("/mebook")
+    public ResultData mebookProcessor() {
+        try {
+            mebookProcessor.setInterval(100).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResultData.getSuccessResult();
+    }
+
+    @RequestMapping("/check")
+    public ResultData checkProxy() {
+        try {
+            return proxyIpInfoService.checkAvailability(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return ResultData.getSuccessResult();
     }
 

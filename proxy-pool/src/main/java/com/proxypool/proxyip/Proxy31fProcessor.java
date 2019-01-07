@@ -1,6 +1,7 @@
-package com.proxypool.spider;
+package com.proxypool.proxyip;
 
 import com.muse.common.util.SpringBeanUtils;
+import com.proxypool.component.ProcessorTemplate;
 import com.proxypool.entry.ProxyIpInfo;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
@@ -64,7 +65,7 @@ public class Proxy31fProcessor extends ProcessorTemplate {
     }
 
     @Override
-    public List<String> parsePageUrl(Page page) {
+    public List<String> parseUrl(Page page) {
         return new ArrayList<>();
     }
 

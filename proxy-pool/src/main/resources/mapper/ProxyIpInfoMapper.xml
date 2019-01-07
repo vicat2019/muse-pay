@@ -134,7 +134,9 @@
     </delete>
 
     <select id="getCountByIp" resultType="int">
-        select count(1) as total from <include refid="table_name"/> where ip=#{ip, jdbcType=VARCHAR}
+        select count(1) as total from
+        <include refid="table_name"/>
+        where ip=#{ip, jdbcType=VARCHAR}
     </select>
 
     <select id="getUsableProxyIp" parameterType="int" resultMap="BaseResultMap">
@@ -162,6 +164,35 @@
         version = version+1,
         modify_time = now()
         where ip = #{ip,jdbcType=VARCHAR}
+    </update>
+
+    <update id="setProxyIpStatus">
+        update
+        <include refid="table_name"/>
+        set
+        status = #{status, jdbcType=VARCHAR},
+        version = version+1,
+        modify_time = now()
+        where id = #{id, jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 查询最近的1000条记录 -->
+    <select id="getRecentlyIp" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        order by create_time desc limit ${size}
+    </select>
+
+
+    <!-- 根据IP修改状态 -->
+    <update id="setStatusByIp">
+        update
+        <include refid="table_name"/>
+        set status=#{status, jdbcType=VARCHAR}
+        where ip = #{ip, jdbcType=VARCHAR}
     </update>
 
 

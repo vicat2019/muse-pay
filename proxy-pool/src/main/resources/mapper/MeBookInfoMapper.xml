@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proxypool.dao.MeBookInfoMapper">
+    <resultMap id="BaseResultMap" type="com.proxypool.kindlebook.MeBookInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="code" jdbcType="INTEGER" property="code"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="post_url" jdbcType="VARCHAR" property="postUrl"/>
+        <result column="release_time" jdbcType="VARCHAR" property="releaseTime"/>
+        <result column="intro" jdbcType="VARCHAR" property="intro"/>
+        <result column="detail_url" jdbcType="VARCHAR" property="downloadUrl"/>
+        <result column="detail_desc" jdbcType="VARCHAR" property="detailDesc"/>
+        <result column="download_url" jdbcType="VARCHAR" property="downloadUrl"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, code, title, category, post_url, release_time, intro, detail_url, detail_desc, download_url, status,
+        version, modify_time, create_time
+      </sql>
+
+    <sql id="table_name">
+        kd_book_info
+    </sql>
+
+    <insert id="insertOrUpdate" parameterType="com.proxypool.kindlebook.MeBookInfo">
+        insert into<include refid="table_name"/>(code, title, category, post_url, release_time, intro, detail_url,
+        detail_desc, download_url)
+        values(
+        #{code, jdbcType=INTEGER},
+        #{title, jdbcType=VARCHAR},
+        #{category, jdbcType=VARCHAR},
+        #{postUrl, jdbcType=VARCHAR},
+        #{releaseTime, jdbcType=VARCHAR},
+        #{intro, jdbcType=VARCHAR},
+        #{detailUrl, jdbcType=VARCHAR},
+        #{detailDesc, jdbcType=VARCHAR},
+        #{downloadUrl, jdbcType=VARCHAR}
+        )
+        ON DUPLICATE KEY UPDATE version=version+1, modify_time=now()
+    </insert>
+
+    <update id="updateByPrimary" parameterType="com.proxypool.kindlebook.MeBookInfo">
+        update
+        <include refid="table_name"/>
+        set
+        code = #{code, jdbcType=INTEGER},
+        title = #{title, jdbcType=VARCHAR},
+        category = #{category, jdbcType=VARCHAR},
+        post_url = #{postUrl, jdbcType=VARCHAR},
+        release_time = #{releaseTime, jdbcType=VARCHAR},
+        intro = #{intro, jdbcType=VARCHAR},
+        detail_url = #{detailUrl, jdbcType=VARCHAR},
+        detail_desc = #{detailDesc, jdbcType=VARCHAR},
+        download_url = #{downloadUrl, jdbcType=VARCHAR}
+        where
+        code = #{code, jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

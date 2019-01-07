@@ -81,7 +81,7 @@ public class DruidDataSourceConfig extends DataSourceProperties {
     @Value("${spring.datasource.filters}")
     private String filters;
 
-    @Value("{spring.datasource.connectionProperties}")
+    @Value("${spring.datasource.connectionProperties}")
     private String connectionProperties;
 
     @Bean

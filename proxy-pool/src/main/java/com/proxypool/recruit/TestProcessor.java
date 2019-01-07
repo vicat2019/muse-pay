@@ -1,7 +1,7 @@
 package com.proxypool.recruit;
 
 import com.muse.common.util.SpringBeanUtils;
-import com.proxypool.spider.ProcessorTemplate;
+import com.proxypool.component.ProcessorTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class TestProcessor extends ProcessorTemplate {
     }
 
     @Override
-    public List<String> parsePageUrl(Page page) {
+    public List<String> parseUrl(Page page) {
         return null;
     }
 

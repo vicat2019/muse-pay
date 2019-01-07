@@ -1,8 +1,9 @@
-package com.proxypool.spider;
+package com.proxypool.component;
 
 
 import com.muse.common.entity.BaseEntityInfo;
 import com.muse.common.entity.ResultData;
+import com.muse.common.util.SpringBeanUtils;
 import com.proxypool.entry.ProxyIpInfo;
 import com.proxypool.service.ProxyIpInfoService;
 import org.slf4j.Logger;
@@ -85,9 +86,9 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
         }
 
         // 解析分页信息
-        List<String> pageUrlList = parsePageUrl(page);
-        if (pageUrlList != null && pageUrlList.size() > 0) {
-            page.addTargetRequests(pageUrlList);
+        List<String> urlList = parseUrl(page);
+        if (urlList != null && urlList.size() > 0) {
+            page.addTargetRequests(urlList);
         }
     }
 
@@ -103,7 +104,7 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
      *
      * @param page 下载的页面信息
      */
-    public abstract List<String> parsePageUrl(Page page);
+    public abstract List<String> parseUrl(Page page);
 
     /**
      * 获取实例
@@ -111,6 +112,26 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
      * @return ProcessorTemplate
      */
     public abstract ProcessorTemplate getInstance();
+
+    /**
+     * 从Spring中获取实例
+     *
+     * @param clazz
+     * @return
+     */
+    protected ProcessorTemplate getBeanFromContainer(Class<?> clazz) {
+        return (ProcessorTemplate) SpringBeanUtils.getBean(clazz);
+    }
+
+    /**
+     * 从Spring中获取实例
+     *
+     * @param serverName
+     * @return
+     */
+    protected ProcessorTemplate getBeanFromContainer(String serverName) {
+        return (ProcessorTemplate) SpringBeanUtils.getBean(serverName);
+    }
 
 
     /**
@@ -207,11 +228,25 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
     /**
      * 设置时间间隔
      *
-     * @param interval
+     * @param interval 时间间隔(毫秒)
+     * @return ProcessorTemplate
      */
-    public void setInterval(int interval) {
+    public ProcessorTemplate setInterval(int interval) {
         this.interval = interval;
 
         if (site != null) site.setSleepTime(this.interval);
+
+        return this;
+    }
+
+    /**
+     * 设置线程数
+     *
+     * @param threadCount 线程数
+     * @return ProcessorTemplate
+     */
+    public ProcessorTemplate setThreadCount(int threadCount) {
+        this.threadCount = threadCount;
+        return this;
     }
 }

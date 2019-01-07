@@ -8,11 +8,15 @@ import com.proxypool.dao.ProxyIpInfoMapper;
 import com.proxypool.entry.ProxyIpInfo;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.util.DateUtil;
+import com.proxypool.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -20,10 +24,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -36,11 +41,39 @@ import java.util.concurrent.Executor;
 public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, ProxyIpInfo> implements ProxyIpInfoService {
     private Logger log = LoggerFactory.getLogger("ProxyIpInfoServiceImpl");
 
+    // 线程池
+    private static ThreadPoolExecutor executorPool = new ThreadPoolExecutor(10, 50, 30,
+            TimeUnit.SECONDS, new ArrayBlockingQueue<>(3000));
+
+    // 用于检查代理地址可用性使用的地址
+    private static Map<String, String> webUrlMap = new HashMap<>();
+    private static List<String> webUrlList = new ArrayList<>();
+
+    static {
+        webUrlMap.put("http://www.baidu.com", "baidu");
+        webUrlMap.put("http://www.qq.com", "qq");
+        webUrlMap.put("http://www.163.com", "163");
+        webUrlMap.put("http://www.sina.com", "sina");
+        webUrlMap.put("http://www.hao123.com", "hao123");
+        webUrlMap.put("http://www.soho.com", "soho");
+        webUrlMap.put("http://www.douyu.com", "douyu");
+        webUrlMap.put("http://www.ganji.com", "ganji");
+        webUrlMap.put("http://www.douban.com/", "douban");
+        webUrlMap.put("http://www.mtime.com", "mtime");
+        webUrlMap.put("http://www.huanqiu.com/", "huanqiu");
+        webUrlMap.put("http://www.jjwxc.net/", "jjwxc");
+        webUrlMap.put("http://www.tuniu.com/", "tuniu");
+        webUrlMap.put("http://www.dianping.com/", "dianping");
+
+        webUrlMap.keySet().forEach(item -> webUrlList.add(item));
+    }
+
     @Autowired
     private HttpUtils httpUtils;
 
     @Autowired
     private Executor asyncServiceExecutor;
+
 
     @Override
     public ResultData add(ProxyIpInfo obj) throws Exception {
@@ -67,22 +100,19 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
         if (!DateUtil.isLegalIp(ip)) {
             return 0;
         }
-
         return mapper.getCountByIp(ip);
     }
 
     @Override
     public List<ProxyIpInfo> getUsableProxyIp(int size) throws Exception {
         // 如果没有限定获取多少个可用IP，则获取前200个
-        if (size == 0) {
+        if (size <= 0 || size >= 100000) {
             size = 200;
         }
-
         List<ProxyIpInfo> usableIpList = mapper.getUsableProxyIp(size);
         if (usableIpList != null && usableIpList.size() > 0) {
             return usableIpList;
         }
-
         return null;
     }
 
@@ -91,26 +121,122 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
         if (proxyIpInfo == null) {
             return;
         }
-
         int count = mapper.updateStatusInfo(proxyIpInfo);
         log.info("updateProxyIpStatusInfo() 更新代理IP信息结果信息=" + count);
     }
 
+    @Override
+    public int setProxyIpStatus(int id, String status) throws Exception {
+        if (id == 0 || StringUtils.isEmpty(status)) {
+            return 0;
+        }
+        return mapper.setProxyIpStatus(id, status);
+    }
+
+    /**
+     * 检查代理地址是否可用
+     *
+     * @param size 检查的数量
+     * @return ResultData
+     * @throws Exception 异常
+     */
+    @Override
+    public ResultData checkAvailability(int size) throws Exception {
+        // 如果参数异常，则默认检查1000
+        if (size <= 0 || size >= 100000) {
+            size = 1000;
+        }
+
+        // 获取要检查的代理地址列表(根据时间倒序)
+        List<ProxyIpInfo> proxyIpList = mapper.getRecentlyIp(size);
+        log.info("要检查的代理地址个数= " + (proxyIpList == null ? 0 : proxyIpList.size()) + " 个");
+        if (proxyIpList == null || proxyIpList.size() == 0) {
+            return ResultData.getErrResult("代理地址集合为空");
+        }
+
+        for (ProxyIpInfo proxyIpInfo : proxyIpList) {
+            executorPool.execute(() -> {
+                try {
+                    // 随机获取请求地址
+                    Random random = new Random();
+                    String url = webUrlList.get(random.nextInt(webUrlList.size()));
+                    // 发送请求
+                    boolean checkResult = httpGetByProxy(proxyIpInfo, url, webUrlMap.get(url));
+                    // 更新代理记录状态
+                    setProxyIpStatus(proxyIpInfo.getId(), (checkResult ? "SUCCESS" : "FAIL"));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.error("检查代理IP异常[" + e.getMessage() + "]");
+                }
+            });
+        }
+
+        return ResultData.getSuccessResult();
+    }
 
     @Override
-    public ResultData update(ProxyIpInfo obj) throws Exception {
-        if (obj == null) {
+    public int setStatusByIp(String ip, String status) throws Exception {
+        if (!StringUtils.isEmpty(ip) && !StringUtils.isEmpty(status)) {
+            return mapper.setStatusByIp(ip, status);
+        }
+
+        return 0;
+    }
+
+    /**
+     * 发送请求
+     *
+     * @param proxyIpInfo  代理地址信息
+     * @param url          请求的URL
+     * @param regexContent 匹配的关键字
+     * @return boolean
+     * @throws Exception 异常
+     */
+    private boolean httpGetByProxy(ProxyIpInfo proxyIpInfo, String url, String regexContent) {
+        try {
+            // 设置代理
+            RestTemplate restTemplateProxy = httpUtils.restTemplateProxy(proxyIpInfo.getIp(),
+                    Integer.parseInt(proxyIpInfo.getPort()),
+                    proxyIpInfo.getType());
+            // 发送请求
+            ResponseEntity<String> response = restTemplateProxy.getForEntity(url, String.class);
+            if (response.getStatusCode() != HttpStatus.OK) {
+                log.error("请求失败, 请求IP=" + proxyIpInfo.getIp() + ", 地址=" + url + ", 状态=[" + response.getStatusCode().toString() + "]");
+            }
+            // 返回内容
+            String content = response.getBody();
+            if (!StringUtils.isEmpty(content)) {
+                content = new String(content.getBytes("ISO8859-1"), "utf-8");
+            }
+            // 匹配关键字
+            if (StringUtils.isEmpty(TextUtils.getMatch("(" + regexContent + ")", content))) {
+                log.error("使用代理发送请求[失败]，代理信息=" + proxyIpInfo.getIp() + ", " + proxyIpInfo.getPort());
+                return false;
+            } else {
+                log.info("使用代理发送请求[成功]，代理信息=" + proxyIpInfo.getIp() + ", " + proxyIpInfo.getPort());
+                return true;
+            }
+        } catch (Exception e) {
+            log.error("使用代理IP发送请求异常=" + e.getMessage());
+            return false;
+        }
+    }
+
+
+    @Override
+    public ResultData update(ProxyIpInfo proxy) throws Exception {
+        if (proxy == null) {
             return ResultData.getErrResult("参数不能为空");
         }
-        if (obj.getId() == 0) {
+        if (proxy.getId() == 0) {
             return ResultData.getErrResult("ID不能为空");
         }
 
         // 获取对象
-        ProxyIpInfo target = mapper.selectByPrimaryKey(obj.getId());
+        ProxyIpInfo target = mapper.selectByPrimaryKey(proxy.getId());
         if (target != null) {
-            target.setStatus(obj.getStatus());
-
+            target.setStatus(proxy.getStatus());
             return ResultData.getSuccessResult(mapper.updateByPrimaryKey(target));
         } else {
             return ResultData.getErrResult("更新失败");

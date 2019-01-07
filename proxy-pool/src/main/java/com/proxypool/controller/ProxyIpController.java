@@ -6,7 +6,7 @@ import com.proxypool.recruit.Proxy51jobProcessor;
 import com.proxypool.recruit.RecruitInfoPipeline;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RecruitInfoService;
-import com.proxypool.spider.*;
+import com.proxypool.proxyip.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
