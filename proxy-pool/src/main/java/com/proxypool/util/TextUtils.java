@@ -1,5 +1,7 @@
 package com.proxypool.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -15,9 +17,11 @@ import java.util.regex.Pattern;
  * @create: 2018-11-26 16:30
  **/
 public class TextUtils {
+    private static Logger log = LoggerFactory.getLogger("TextUtils");
 
+    // 数字、字母混合字符串
     private static String content = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
+    // 数字字符串
     private static String numContent = "0123456789";
 
     /**
@@ -99,6 +103,58 @@ public class TextUtils {
         } else {
             return "";
         }
+    }
+
+    /**
+     * 从标题中获取图书名称
+     *
+     * @param title 标题
+     * @return String
+     */
+    public static String getNameFromTitle(String title) {
+        String name = "";
+        if (!StringUtils.isEmpty(title)) {
+            Pattern pattern = Pattern.compile("《(.+)》");
+            Matcher matcher = pattern.matcher(title);
+            if (matcher.find()) {
+                name = matcher.group(1);
+            }
+        }
+        log.info("从字符串中获取名称, title=" + title + ", name=" + name);
+        return name;
+    }
+
+    public static String getAuthorFromTitle(String title) {
+        String author = "";
+        if (!StringUtils.isEmpty(title)) {
+            // 去掉图书名称
+            author = title.replaceAll("《.+》", "");
+            // 去掉国家之类
+            author = author.replaceAll("\\[.+\\]", "");
+            // 去掉"（作者）"
+            author = author.replaceAll("（作者）", "");
+            // 去掉"作者："
+            author = author.replaceAll("作者：", "");
+            author = author.replaceAll("【.+】", "");
+            // 去掉epub+mobi+azw3
+            author = author.replaceAll("[(epub)|(mobi)|(azw3)]", "");
+            // 去掉 +
+            author = author.replaceAll("\\+", "");
+            // 去掉空格
+            author = author.replaceAll("\\s+", "");
+        }
+        log.info("从字符串中获取作者, title=" + title + ", author=" + author);
+        return author;
+    }
+
+
+    public static void main(String[] args) {
+        // String title = "《那不勒斯四部曲其一:我的天才女友》[意] 埃莱娜·费兰特（作者）epub+mobi+azw3";
+        // String title = "《苍凉与世故》李欧梵（作者）epub+mobi+azw3";
+        String title = "《悟空传(完美纪念版)》作者：今何在 mobi";
+
+        getNameFromTitle(title);
+        getAuthorFromTitle(title);
     }
 
 

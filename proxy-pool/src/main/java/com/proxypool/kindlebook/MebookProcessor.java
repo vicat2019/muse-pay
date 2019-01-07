@@ -54,6 +54,10 @@ public class MebookProcessor extends ProcessorTemplate {
                     String postImg = item.xpath("//div[@class='thumbnail']/div[@class='img']/a/img/@src").toString();
                     // 图书标题
                     String title = item.xpath("//div[@class='content']/h2/a/@title").toString();
+                    // 名称
+                    String name = TextUtils.getNameFromTitle(title);
+                    // 作者
+                    String author = TextUtils.getAuthorFromTitle(title);
                     // 更新时间
                     String releaseTime = item.xpath("//div[@class='content']/div[@class='info']/text()").toString();
                     // 内容简介
@@ -61,7 +65,7 @@ public class MebookProcessor extends ProcessorTemplate {
                     // 详情地址
                     String detailUrl = item.xpath("//div[@class='content']/p[2]/a/@href").toString();
                     // 处理结果
-                    MeBookInfo bookInfo = MeBookInfo.from(category, postImg, title, releaseTime, intro, detailUrl);
+                    MeBookInfo bookInfo = MeBookInfo.from(name, category, author, postImg, title, releaseTime, intro, detailUrl);
                     if (bookInfo.canMoreHandle()) {
                         redisUtil.hset(MeBookInfo.REDIS_KEY_BOOK_LIST, bookInfo.getDetailUrl(), bookInfo);
                     }
@@ -74,6 +78,10 @@ public class MebookProcessor extends ProcessorTemplate {
             if (cacheObj == null) {
                 // 标题
                 String title = page.getHtml().xpath("//div[@id='primary']/h1[@class='sub']/text()").toString();
+                // 名称
+                String name = TextUtils.getNameFromTitle(title);
+                // 作者
+                String author = TextUtils.getAuthorFromTitle(title);
                 // 分类
                 String category = "";
                 List<String> categoryList = page.getHtml().xpath("//div[@class='postinfo']/div[@class='left']/a/text()").all();
@@ -91,7 +99,7 @@ public class MebookProcessor extends ProcessorTemplate {
                 }
                 // 海报
                 String postUrl = page.getHtml().xpath("//div[@id='content']/p[1]/img/@src").toString();
-                bookInfo = MeBookInfo.from(category, postUrl, title, releaseTime, "", currentUrl);
+                bookInfo = MeBookInfo.from(name, category, author, postUrl, title, releaseTime, "", currentUrl);
             } else {
                 bookInfo = (MeBookInfo) cacheObj;
             }
@@ -121,14 +129,12 @@ public class MebookProcessor extends ProcessorTemplate {
 
         // 分页地址
         int pageUrlCount = 0;
-/*        List<String> pageUrlList = page.getHtml().links().regex(PAGE_URL_REGEX).all();
+        List<String> pageUrlList = page.getHtml().links().regex(PAGE_URL_REGEX).all();
         if (pageUrlList != null) {
             Set<String> pageUrlSet = new HashSet<>(pageUrlList);
             urlList.addAll(pageUrlSet);
-
-            pageUrlSet.forEach(System.out::println);
             pageUrlCount = pageUrlSet.size();
-        }*/
+        }
 
         // 详情地址
         int detailUrlCount = 0;

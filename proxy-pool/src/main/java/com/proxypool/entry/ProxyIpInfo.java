@@ -11,36 +11,41 @@ import java.time.LocalDateTime;
  * @Date: 2018/10/15
  */
 public class ProxyIpInfo extends BaseEntityInfo {
-
+    // IP地址
     private String ip;
-
+    // 编号
     private String code;
-
+    // 端口
     private String port;
-
+    // 类型HTTP, HTTPS
     private String type;
-
+    // 相应速度
     private String responseSpeed;
-
+    // 地址
     private String location;
-
+    // 上次检查时间
     private String lastCheckTime;
-
+    // 是否匿名
     private String anonymous;
-
+    // 活跃时间
     private String survivalTime;
-
+    // 国家
     private String country;
-
+    // 来源
     private String source;
-
+    // 成功次数
     private int successCount;
-
+    // 检查次数
     private int checkCount;
-
+    // 上次检查成功时间
     private LocalDateTime lastSuccessTime;
-
+    // 删除状态
     private int delStatus;
+
+
+    // 要检查是否还可用, 失败3次弃用
+    private int failCount;
+
 
 
     /**
@@ -135,6 +140,14 @@ public class ProxyIpInfo extends BaseEntityInfo {
         }
 
         return false;
+    }
+
+    /**
+     * 是否可以搁置不用
+     * @return boolean
+     */
+    public boolean available() {
+        return failCount < 3;
     }
 
     @Override
@@ -279,5 +292,13 @@ public class ProxyIpInfo extends BaseEntityInfo {
 
     public void setDelStatus(int delStatus) {
         this.delStatus = delStatus;
+    }
+
+    public int getFailCount() {
+        return failCount;
+    }
+
+    public void setFailCount(int failCount) {
+        this.failCount = failCount;
     }
 }

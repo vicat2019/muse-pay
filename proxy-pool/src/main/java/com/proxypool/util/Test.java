@@ -13,6 +13,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: muse-pay
@@ -47,7 +49,24 @@ public class Test {
 
 
 
-        genRandomInfo(50000);
+        // genRandomInfo(50000);
+
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        a.add(6);
+        a.add(7);
+        a.add(8);
+        a.add(9);
+        a.add(10);
+
+        /*a = a.stream().filter(item -> item <5).collect(Collectors.toList());
+        a.forEach(System.out::println);*/
+
+        a.subList(2,6).forEach(System.out::println);
     }
 
 

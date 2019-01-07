@@ -1,11 +1,11 @@
 package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
-import com.muse.common.util.HttpUtils;
 import com.proxypool.component.ProxyDownloader;
 import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.recruit.TestProcessor;
+import com.proxypool.service.MeBookService;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RpSequenceInfoService;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class TestController {
     private ProxyIpInfoService proxyIpInfoService;
 
     @Autowired
-    private HttpUtils httpUtils;
+    private MeBookService meBookService;
 
 
     @RequestMapping("/a")
@@ -86,10 +86,11 @@ public class TestController {
         return ResultData.getSuccessResult();
     }
 
+
     @RequestMapping("/mebook")
     public ResultData mebookProcessor() {
         try {
-            mebookProcessor.setInterval(100).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
+            mebookProcessor.setInterval(200).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,7 +101,18 @@ public class TestController {
     @RequestMapping("/check")
     public ResultData checkProxy() {
         try {
-            return proxyIpInfoService.checkAvailability(1000);
+            return proxyIpInfoService.checkAvailability(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResultData.getSuccessResult();
+    }
+
+    @RequestMapping("/handle")
+    public ResultData handleData() {
+        try {
+            meBookService.handleMeBook();
         } catch (Exception e) {
             e.printStackTrace();
         }

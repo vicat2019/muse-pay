@@ -8,4 +8,6 @@ public interface MeBookService {
     ResultData insert(MeBookInfo bookInfo) throws Exception;
 
     ResultData update(MeBookInfo bookInfo) throws Exception;
+
+    ResultData handleMeBook() throws Exception;
 }

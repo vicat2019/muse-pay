@@ -1,12 +1,15 @@
 package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
+import com.proxypool.component.ProxyDownloader;
 import com.proxypool.entry.ProxyIpInfo;
+import com.proxypool.kindlebook.MeBookPipeline;
+import com.proxypool.kindlebook.MebookProcessor;
+import com.proxypool.proxyip.*;
 import com.proxypool.recruit.Proxy51jobProcessor;
 import com.proxypool.recruit.RecruitInfoPipeline;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RecruitInfoService;
-import com.proxypool.proxyip.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +58,15 @@ public class ProxyIpController {
     @Autowired
     private RecruitInfoService recruitInfoService;
 
+    @Autowired
+    private ProxyDownloader proxyDownloader;
+
+    @Autowired
+    private MebookProcessor mebookProcessor;
+
+    @Autowired
+    private MeBookPipeline meBookPipeline;
+
 
     @RequestMapping("/delRepeat")
     public ResultData delRepeatProxy() {
@@ -84,11 +96,11 @@ public class ProxyIpController {
      *
      * @return ResultData
      */
-    @Scheduled(cron = "0 0 22 * * ?")
+    @Scheduled(cron = "${RECRUIT_CRON}")
     public ResultData recruit() {
         try {
             // 处理页面的时间间隔
-            proxy51jobProcessor.setInterval(2000);
+            proxy51jobProcessor.setInterval(1000).setThreadCount(3);
             proxy51jobProcessor.execute(recruitInfoPipeline, false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +130,7 @@ public class ProxyIpController {
      *
      * @return ResultData
      */
-    @Scheduled(cron = "0 0 01 * * ?")
+    @Scheduled(cron = "${DEL_REPEAT_RECRUIT_CRON}")
     public ResultData delRepeatRecruit() {
         ResultData result;
         try {
@@ -156,7 +168,7 @@ public class ProxyIpController {
      *
      * @return ResultData
      */
-    @Scheduled(cron = "0 0 02 * * ?")
+    @Scheduled(cron = "${PROXY_IP_EXECUTE_CRON}")
     private ResultData execute() {
         try {
             proxyProcessor.execute();
@@ -189,10 +201,11 @@ public class ProxyIpController {
     /**
      * 验证代理是否可用
      */
-    @Scheduled(cron = "0 0 03 * * ?")
+    @Scheduled(cron = "${CHECK_PROXY_IP_CRON}")
     public void checkScheduled() {
         try {
-            proxyIpInfoService.checkProxyIp();
+            // proxyIpInfoService.checkProxyIp();
+            proxyIpInfoService.checkAvailability(2000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,6 +228,19 @@ public class ProxyIpController {
 
         return ResultData.getSuccessResult();
     }
+
+    @Scheduled(cron = "${CRAWL_BOOK_CRON}")
+    @RequestMapping("/mebook")
+    public ResultData mebookProcessor() {
+        try {
+            mebookProcessor.setInterval(200).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResultData.getSuccessResult();
+    }
+
 
 
 }

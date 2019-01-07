@@ -65,6 +65,12 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
         webUrlMap.put("http://www.tuniu.com/", "tuniu");
         webUrlMap.put("http://www.dianping.com/", "dianping");
 
+        webUrlMap.put("https://sz.meituan.com/", "meituan");
+        webUrlMap.put("https://sz.58.com/", "58");
+        webUrlMap.put("http://www.eastmoney.com/", "eastmoney");
+        webUrlMap.put("http://www.vip.com/", "vip");
+        webUrlMap.put("http://finance.ifeng.com/", "ifeng");
+
         webUrlMap.keySet().forEach(item -> webUrlList.add(item));
     }
 
@@ -154,6 +160,8 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
             return ResultData.getErrResult("代理地址集合为空");
         }
 
+        List<Integer> delIdList = new ArrayList<>();
+
         for (ProxyIpInfo proxyIpInfo : proxyIpList) {
             executorPool.execute(() -> {
                 try {
@@ -161,9 +169,23 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
                     Random random = new Random();
                     String url = webUrlList.get(random.nextInt(webUrlList.size()));
                     // 发送请求
+                    long startTime = System.currentTimeMillis();
                     boolean checkResult = httpGetByProxy(proxyIpInfo, url, webUrlMap.get(url));
+                    long duration = System.currentTimeMillis() - startTime;
+
                     // 更新代理记录状态
-                    setProxyIpStatus(proxyIpInfo.getId(), (checkResult ? "SUCCESS" : "FAIL"));
+                    proxyIpInfo.setResponseSpeed(String.valueOf(duration / 1000d));
+                    proxyIpInfo.setSuccessCount(proxyIpInfo.getSuccessCount()+(checkResult?1:0));
+                    proxyIpInfo.setCheckCount(proxyIpInfo.getCheckCount()+1);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    proxyIpInfo.setLastCheckTime(sdf.format(new Date()));
+                    proxyIpInfo.setLastSuccessTime(DateUtil.getToday());
+                    proxyIpInfo.setStatus((checkResult ? "SUCCESS" : "FAIL"));
+
+                    mapper.updateByPrimaryKey(proxyIpInfo);
+
+                    // 处理失败超过条件的记录
+                    handleMaxErrIp(proxyIpInfo, delIdList);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -171,6 +193,9 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
                 }
             });
         }
+
+        // 处理失败超过条件的记录
+        handleErrIpById(delIdList);
 
         return ResultData.getSuccessResult();
     }
@@ -374,8 +399,24 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
      * @param delIdList 软删除代理信息IP集合
      */
     private void handleErrIpById(List<Integer> delIdList) {
+        int count = 0;
+
         if (delIdList != null && delIdList.size() > 0) {
-            int count = mapper.delProxyIpSoft(delIdList);
+            if (delIdList.size() > 1000) {
+                // 分页更新
+                int page = (delIdList.size()%1000==0?delIdList.size()/1000:delIdList.size()/1000+1);
+                for (int i=1; i<=page; i++) {
+                    if (i == 1) {
+                        count += mapper.delProxyIpSoft(delIdList.subList(0, 1000*i));
+                    } else if (i == page) {
+                        count += mapper.delProxyIpSoft(delIdList.subList(i*1000, delIdList.size()));
+                    } else {
+                        count += mapper.delProxyIpSoft(delIdList.subList(i*1000, (i+1)*1000));
+                    }
+                }
+            } else {
+                count = mapper.delProxyIpSoft(delIdList);
+            }
             log.info("软删除代理信息，个数=" + count);
         }
     }

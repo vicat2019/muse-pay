@@ -32,6 +32,10 @@ public class MeBookInfo extends BaseEntityInfo {
 
     private int code;
 
+    private String name;
+
+    private String author;
+
     /**
      * 默认构造方法
      */
@@ -42,6 +46,8 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 构造方法
      *
+     * @param name
+     * @param author
      * @param category
      * @param postUrl
      * @param title
@@ -49,8 +55,10 @@ public class MeBookInfo extends BaseEntityInfo {
      * @param intro
      * @param detailUrl
      */
-    private MeBookInfo(String category, String postUrl, String title, String releaseTime,
+    private MeBookInfo(String name, String author, String category, String postUrl, String title, String releaseTime,
                        String intro, String detailUrl) {
+        this.name = name;
+        this.author = author;
         this.category = category;
         this.postUrl = postUrl;
         this.title = title;
@@ -62,6 +70,8 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 获取实例
      *
+     * @param name
+     * @param author
      * @param category
      * @param postUrl
      * @param title
@@ -70,9 +80,9 @@ public class MeBookInfo extends BaseEntityInfo {
      * @param detailUrl
      * @return
      */
-    public static MeBookInfo from(String category, String postUrl, String title, String releaseTime,
+    public static MeBookInfo from(String name, String author, String category, String postUrl, String title, String releaseTime,
                                   String intro, String detailUrl) {
-        return new MeBookInfo(category, postUrl, title, releaseTime, intro, detailUrl);
+        return new MeBookInfo(name, author, category, postUrl, title, releaseTime, intro, detailUrl);
     }
 
     /**
@@ -97,12 +107,12 @@ public class MeBookInfo extends BaseEntityInfo {
 
     /**
      * 是否可以进一步处理
+     *
      * @return
      */
     public boolean canMoreHandle() {
         return !StringUtils.isEmpty(title) && !StringUtils.isEmpty(detailUrl);
     }
-
 
     @Override
     public String toString() {
@@ -115,6 +125,9 @@ public class MeBookInfo extends BaseEntityInfo {
                 ", detailUrl='" + detailUrl + '\'' +
                 ", detailDesc='" + detailDesc + '\'' +
                 ", downloadUrl='" + downloadUrl + '\'' +
+                ", code=" + code +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
                 ", id=" + id +
                 ", status='" + status + '\'' +
                 ", version=" + version +
@@ -203,5 +216,21 @@ public class MeBookInfo extends BaseEntityInfo {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

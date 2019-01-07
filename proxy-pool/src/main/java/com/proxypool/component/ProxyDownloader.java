@@ -3,7 +3,6 @@ package com.proxypool.component;
 import com.proxypool.entry.ProxyIpInfo;
 import com.proxypool.service.ProxyIpInfoService;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -28,16 +27,16 @@ import us.codecraft.webmagic.selector.PlainText;
 import us.codecraft.webmagic.utils.CharsetUtils;
 import us.codecraft.webmagic.utils.HttpClientUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 /**
  * @program: muse-pay
@@ -52,20 +51,22 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
     @Autowired
     private ProxyIpInfoService proxyIpInfoService;
 
+    // HttpClient集合
     private final Map<String, CloseableHttpClient> httpClients = new HashMap<>();
 
+    // 负责生成HttpClient
     private static HttpClientGenerator httpClientGenerator = new HttpClientGenerator();
+
     static {
-        httpClientGenerator.setPoolSize(100);
+        httpClientGenerator.setPoolSize(200);
     }
 
-    private boolean responseHeader = true;
-
     // 当前index
-    static int currIndex = 0;
-
+    private static int currIndex = 0;
     // 可用的代理IP集合
-    static List<ProxyIpInfo> availableProxyIpList = new ArrayList<>();
+    private static List<ProxyIpInfo> availableProxyIpList = new ArrayList<>();
+    // 初始化可用IP集合长度
+    protected int AVAILABLE_PROXY_IP_COUNT = 500;
 
     // 互斥锁 参数默认false，不公平锁
     private static Lock lock = new ReentrantLock(true);
@@ -77,43 +78,55 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
     // 重试次数
     private int retryCount = 3;
 
-    // 初始化可用IP集合长度
-    protected int AVAILABLE_PROXY_IP_COUNT = 500;
-
 
     /**
-     * 初始化可用代理IP集合(查询可用的代理IP列表)
+     * 获取可用代理IP集合
      */
-    private void initAvailableProxyIpList() {
+    private void getProxyIp() {
         // 查询可用的IP
         try {
+            availableProxyIpList.clear();
             availableProxyIpList = proxyIpInfoService.getUsableProxyIp(AVAILABLE_PROXY_IP_COUNT);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        log.info("getProxyIp() 查询可用的代理信息, 个数=" + availableProxyIpList.size());
     }
 
 
+    /**
+     * 下载内容
+     *
+     * @param request 请求
+     * @param task    任务
+     * @return Page
+     */
     @Override
     public Page download(Request request, Task task) {
         if (task == null || task.getSite() == null) {
-            throw new NullPointerException("task or site can not be null");
+            throw new NullPointerException("参数，任务或者页面为空");
         }
 
         // 创建httpGet实例
         HttpGet httpGet = new HttpGet(request.getUrl());
         httpGet.setHeader("User-Agent", USER_AGENT);
 
-        // 发送请求
+        // 获取/生成HttpClient对象
         CloseableHttpClient httpClient = getHttpClient(task.getSite());
+        // 发送请求
         CloseableHttpResponse httpResponse = getCloseableHttpResponse(httpClient, httpGet);
         int statusCode = getResponseStatus(httpResponse);
 
         // 请求的状态
         int tryCount = 0;
         while (statusCode != HttpStatus.OK.value() && tryCount < retryCount) {
-            // 更新表中代理IP状态
-            updateProxyIpStatus(httpGet, "FAIL");
+            // 休眠100毫秒
+            try {
+                TimeUnit.SECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             // 使用代理IP发送请求
             httpResponse = getCloseableHttpResponse(httpClient, httpGet);
             // 获取请求返回状态
@@ -121,67 +134,28 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
             tryCount++;
         }
         // 如果成功，则更改成功信息
-        if (statusCode == HttpStatus.OK.value()) updateProxyIpStatus(httpGet, "SUCCESS");
+        if (statusCode != HttpStatus.OK.value()) {
+            // 更新表中代理IP状态
+            updateProxyIpStatus(httpGet, "FAIL");
+        }
 
         Page page = Page.fail();
         try {
-            page = handleResponse(request, (request.getCharset() != null ? request.getCharset() : task.getSite().getCharset()), httpResponse);
+            page = handleResponse(request, (request.getCharset() != null ? request.getCharset() : task.getSite()
+                    .getCharset()), httpResponse);
             onSuccess(request);
             log.info("下载页面成功，地址=" + request.getUrl());
             return page;
 
         } catch (IOException e) {
-            log.error("下载页面失败，地址=" + request.getUrl() + "，异常信息=" + e.getMessage());
             onError(request);
+            log.error("下载页面失败，地址=" + request.getUrl() + "，异常信息=" + e.getMessage());
             return page;
 
         } finally {
             if (httpResponse != null) {
                 EntityUtils.consumeQuietly(httpResponse.getEntity());
-            }
-        }
-    }
-
-    public String readNet(CloseableHttpClient httpClient, HttpGet httpGet) {
-        StringBuffer stringBuffer = new StringBuffer();
-        BufferedReader streamReader = null;
-
-        try {
-            // 设置代理信息
-            setProxyIpForGet(httpGet);
-
-            // 发送请求
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-
-            // 处理结果
-            if (response.getStatusLine().getStatusCode() != 200) {
                 httpGet.abort();
-                return null;
-            }
-
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                streamReader = new BufferedReader(new InputStreamReader(entity.getContent()));
-
-                String line;
-                while ((line = streamReader.readLine()) != null) {
-                    stringBuffer.append(line);
-                }
-            }
-            return stringBuffer.toString();
-
-        } catch (Exception e) {
-            httpGet.abort();
-            e.printStackTrace();
-            return null;
-
-        } finally {
-            if (streamReader != null) {
-                try {
-                    streamReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
@@ -193,11 +167,15 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
      * @param status  状态
      */
     private void updateProxyIpStatus(HttpGet httpGet, String status) {
+        String ip = "";
         try {
-            String ip = httpGet.getConfig().getProxy().getHostName();
-            proxyIpInfoService.setStatusByIp(ip, status);
+            ip = httpGet.getConfig().getProxy().getHostName();
+            int result = proxyIpInfoService.setStatusByIp(ip, status);
+            log.info("更新代理信息状态，参数IP=" + ip + ", status=" + status + ", 结果=" + result);
+
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("更新代理信息状态异常，参数IP=" + ip + ", status=" + status + ", 异常=" + e.getMessage());
         }
     }
 
@@ -211,23 +189,30 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
     private CloseableHttpResponse getCloseableHttpResponse(CloseableHttpClient httpClient, HttpGet httpGet) {
         CloseableHttpResponse httpResponse = null;
 
-        // 获取代理IP
-        Map<String, Object> proxyIpInfo = getProxyInfo();
-        String proxyIp = (String) proxyIpInfo.get("proxyIp");
-        int proxyPort = (int) proxyIpInfo.get("proxyPort");
+        // 获取代理
+        Map<String, Object> proxyIpInfo = getCurrentProxy();
 
-        // 是否有代理
-        if (!StringUtils.isEmpty(proxyIp) && proxyPort != 0) {
-            // 设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
-            HttpHost proxy = new HttpHost(proxyIp, proxyPort);
-            RequestConfig requestConfig = RequestConfig.custom()
-                    .setProxy(proxy)
-                    .setConnectTimeout(10000)
-                    .setSocketTimeout(10000)
-                    .setConnectionRequestTimeout(3000)
-                    .build();
-            httpGet.setConfig(requestConfig);
+        String ip;
+        int port;
+        // 设置代理
+        if (proxyIpInfo != null) {
+            ip = (String) proxyIpInfo.get("proxyIp");
+            port = (int) proxyIpInfo.get("proxyPort");
+
+            // 是否有代理
+            if (!StringUtils.isEmpty(ip) && port != 0) {
+                // 设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
+                HttpHost proxy = new HttpHost(ip, port);
+                RequestConfig requestConfig = RequestConfig.custom()
+                        .setProxy(proxy)
+                        .setConnectTimeout(10000)
+                        .setSocketTimeout(10000)
+                        .setConnectionRequestTimeout(3000)
+                        .build();
+                httpGet.setConfig(requestConfig);
+            }
         }
+
         try {
             // 发送请求
             httpResponse = httpClient.execute(httpGet);
@@ -235,26 +220,6 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
             log.error("使用代理发送请求异常=" + e.getMessage());
         }
         return httpResponse;
-    }
-
-    private void setProxyIpForGet(HttpGet httpGet) {
-        // 获取代理IP
-        Map<String, Object> proxyIpInfo = getProxyInfo();
-        String proxyIp = (String) proxyIpInfo.get("proxyIp");
-        int proxyPort = (int) proxyIpInfo.get("proxyPort");
-
-        // 是否有代理
-        if (!StringUtils.isEmpty(proxyIp) && proxyPort != 0) {
-            // 设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
-            HttpHost proxy = new HttpHost(proxyIp, proxyPort);
-            RequestConfig requestConfig = RequestConfig.custom()
-                    .setProxy(proxy)
-                    .setConnectTimeout(10000)
-                    .setSocketTimeout(10000)
-                    .setConnectionRequestTimeout(3000)
-                    .build();
-            httpGet.setConfig(requestConfig);
-        }
     }
 
     /**
@@ -275,25 +240,41 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
      *
      * @return Map
      */
-    private Map<String, Object> getProxyInfo() {
-        String proxyIp = "";
-        int proxyPort = 0;
+    private Map<String, Object> getCurrentProxy() {
+        String ip = "";
+        int port = 0;
+
         lock.lock();
         try {
-            if (availableProxyIpList == null || availableProxyIpList.size() == 0) {
-                initAvailableProxyIpList();
+            // 检查是否有满足移除的代理信息
+            if (availableProxyIpList != null && availableProxyIpList.size() > 0) {
+                availableProxyIpList = availableProxyIpList.stream().filter(ProxyIpInfo::available).collect(Collectors.toList());
             }
+
+            // 集合中代理为空, 则重新查询代理
+            if (availableProxyIpList == null || availableProxyIpList.size() == 0) {
+                getProxyIp();
+            }
+
+            // 获取代理
             if (availableProxyIpList != null && availableProxyIpList.size() > 0) {
                 ProxyIpInfo tempProxy = availableProxyIpList.get(currIndex % availableProxyIpList.size());
-                proxyIp = tempProxy.getIp();
+                if (tempProxy == null) {
+                    log.error("获取即将要使用的代理为空");
+                    return null;
+                }
+                ip = tempProxy.getIp();
                 String portStr = tempProxy.getPort();
                 if (!StringUtils.isEmpty(portStr)) {
-                    proxyPort = Integer.parseInt(portStr);
+                    port = Integer.parseInt(portStr);
                 }
+
+                if (currIndex >= Integer.MAX_VALUE) currIndex = 0;
                 currIndex++;
             }
-            log.info("当前可用代理IP集合元素个数=" + availableProxyIpList.size() + "，当前使用IP=" + proxyIp + ", 端口=" + proxyPort
+            log.info("当前可用代理IP集合元素个数=" + availableProxyIpList.size() + "，当前使用IP=" + ip + ", 端口=" + port
                     + ", 对应索引=" + (currIndex % availableProxyIpList.size()));
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -301,15 +282,22 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
         }
 
         Map<String, Object> result = new HashMap<>();
-        result.put("proxyIp", proxyIp);
-        result.put("proxyPort", proxyPort);
+        result.put("proxyIp", ip);
+        result.put("proxyPort", port);
         return result;
     }
 
+    /**
+     * 获取HttpClient客户端对象
+     *
+     * @param site 页面对象
+     * @return CloseableHttpClient
+     */
     private CloseableHttpClient getHttpClient(Site site) {
         if (site == null) {
             return httpClientGenerator.getClient(null);
         }
+        // 根据域从HttpClient集合中获取对应的HttpClient对象
         String domain = site.getDomain();
         CloseableHttpClient httpClient = httpClients.get(domain);
         if (httpClient == null) {
@@ -339,7 +327,7 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
      * @throws IOException 异常
      */
     protected Page handleResponse(Request request, String charset, HttpResponse httpResponse) throws IOException {
-        if (httpResponse == null || httpResponse.getEntity()==null || httpResponse.getEntity().getContent()==null) {
+        if (httpResponse == null || httpResponse.getEntity() == null || httpResponse.getEntity().getContent() == null) {
             return new Page();
         }
 
@@ -358,6 +346,7 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
         page.setRequest(request);
         page.setStatusCode(httpResponse.getStatusLine().getStatusCode());
         page.setDownloadSuccess(true);
+        boolean responseHeader = true;
         if (responseHeader) {
             page.setHeaders(HttpClientUtils.convertHeaders(httpResponse.getAllHeaders()));
         }
