@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +25,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -246,14 +248,16 @@ public class HttpUtils {
 
 
     public RestTemplate restTemplateProxy(String host, int port, String type) {
-        return new RestTemplate(simpleClientHttpRequestFactoryProxy(host, port, type));
+        RestTemplate template = new RestTemplate(simpleClientHttpRequestFactoryProxy(host, port, type));
+        template.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
+        return restTemplate;
     }
 
 
     public ClientHttpRequestFactory simpleClientHttpRequestFactoryProxy(String host, int port, String type) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setReadTimeout(30000);       //单位为ms
-        factory.setConnectTimeout(30000);    //单位为ms
+        factory.setConnectTimeout(10000);    //单位为ms
 
         SocketAddress address = new InetSocketAddress(host, port);
         Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
