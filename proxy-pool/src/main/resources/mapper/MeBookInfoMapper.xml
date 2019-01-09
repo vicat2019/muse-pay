@@ -73,10 +73,34 @@
         code = #{code, jdbcType=INTEGER}
     </update>
 
+    <!-- 查询所有记录code值 -->
+    <select id="getAllCode" resultType="java.lang.Integer">
+        select code from kd_book_info_2
+    </select>
+
+    <!--检查是否已存在-->
+    <select id="getCountByCode" resultType="java.lang.Integer">
+        select count(1) as total from
+        <include refid="table_name"/>
+        where code=#{code, jdbcType=INTEGER}
+    </select>
+
 
     <!-- 查询所有 -->
     <select id="getAllMeBook" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/> from <include refid="table_name"/> order by id
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where id >= 8169
+    </select>
+
+    <select id="handleMeBook" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        order by name, title
     </select>
 
 

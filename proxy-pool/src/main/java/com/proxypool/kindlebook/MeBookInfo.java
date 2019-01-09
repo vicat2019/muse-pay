@@ -1,6 +1,7 @@
 package com.proxypool.kindlebook;
 
 import com.muse.common.entity.BaseEntityInfo;
+import com.proxypool.util.TextUtils;
 import org.thymeleaf.util.StringUtils;
 
 /**
@@ -47,32 +48,32 @@ public class MeBookInfo extends BaseEntityInfo {
      * 构造方法
      *
      * @param name
-     * @param author
      * @param category
+     * @param author
      * @param postUrl
      * @param title
      * @param releaseTime
      * @param intro
      * @param detailUrl
      */
-    private MeBookInfo(String name, String author, String category, String postUrl, String title, String releaseTime,
+    private MeBookInfo(String name, String category, String author, String postUrl, String title, String releaseTime,
                        String intro, String detailUrl) {
-        this.name = name;
-        this.author = author;
-        this.category = category;
-        this.postUrl = postUrl;
-        this.title = title;
-        this.releaseTime = releaseTime;
-        this.intro = intro;
-        this.detailUrl = detailUrl;
+        this.name = TextUtils.trim(name);
+        this.author = TextUtils.trim(author);
+        this.category = TextUtils.trim(category);
+        this.postUrl = TextUtils.trim(postUrl);
+        this.title = TextUtils.trim(title);
+        this.releaseTime = TextUtils.trim(releaseTime);
+        this.intro = TextUtils.trim(intro);
+        this.detailUrl = TextUtils.trim(detailUrl);
     }
 
     /**
      * 获取实例
      *
      * @param name
-     * @param author
      * @param category
+     * @param author
      * @param postUrl
      * @param title
      * @param releaseTime
@@ -80,9 +81,9 @@ public class MeBookInfo extends BaseEntityInfo {
      * @param detailUrl
      * @return
      */
-    public static MeBookInfo from(String name, String author, String category, String postUrl, String title, String releaseTime,
+    public static MeBookInfo from(String name, String category, String author, String postUrl, String title, String releaseTime,
                                   String intro, String detailUrl) {
-        return new MeBookInfo(name, author, category, postUrl, title, releaseTime, intro, detailUrl);
+        return new MeBookInfo(name, category, author, postUrl, title, releaseTime, intro, detailUrl);
     }
 
     /**

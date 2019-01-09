@@ -139,12 +139,26 @@ public class TextUtils {
             // 去掉epub+mobi+azw3
             author = author.replaceAll("[(epub)|(mobi)|(azw3)]", "");
             // 去掉 +
-            author = author.replaceAll("\\+", "");
+            author = author.replaceAll("\\+|_", "");
             // 去掉空格
             author = author.replaceAll("\\s+", "");
         }
         log.info("从字符串中获取作者, title=" + title + ", author=" + author);
         return author;
+    }
+
+    /**
+     * trim字符串
+     *
+     * @param content 字符串
+     * @return String
+     */
+    public static String trim(String content) {
+        if (StringUtils.isEmpty(content)) {
+            return "";
+        }
+
+        return content.trim();
     }
 
 

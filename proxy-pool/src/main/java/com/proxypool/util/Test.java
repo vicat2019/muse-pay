@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,7 +67,14 @@ public class Test {
         /*a = a.stream().filter(item -> item <5).collect(Collectors.toList());
         a.forEach(System.out::println);*/
 
-        a.subList(2,6).forEach(System.out::println);
+        List<String> list = Arrays.asList("123", "1234", "12345", "abch", "sdfhrthj", "mvkd");
+        list.stream().forEach(e ->{
+            if(e.length() >= 5){
+                return;
+            }
+            System.out.println(e);
+        });
+
     }
 
 

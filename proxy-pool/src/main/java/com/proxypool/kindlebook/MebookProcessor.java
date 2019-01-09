@@ -1,9 +1,11 @@
 package com.proxypool.kindlebook;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Predicate;
 import com.proxypool.component.ProcessorTemplate;
 import com.proxypool.util.RedisUtil;
 import com.proxypool.util.TextUtils;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @program: muse-pay
@@ -38,8 +41,12 @@ public class MebookProcessor extends ProcessorTemplate {
 
     @Override
     public List parseContent(Page page) {
-        String currentUrl = page.getUrl().toString();
         List<MeBookInfo> currentList = new ArrayList<>();
+
+        if (page == null || page.getUrl() == null) {
+            return currentList;
+        }
+        String currentUrl = page.getUrl().toString();
 
         // 获取页面内容
         if (TextUtils.isMatch(PAGE_URL_REGEX, currentUrl) || ROOT_URL.equals(currentUrl)) {
@@ -51,7 +58,7 @@ public class MebookProcessor extends ProcessorTemplate {
                     // 分类信息
                     String category = item.xpath("//div[@class='thumbnail']/div[@class='cat']/a/text()").all().toString();
                     // 海报地址
-                    String postImg = item.xpath("//div[@class='thumbnail']/div[@class='img']/a/img/@src").toString();
+                    String postUrl = item.xpath("//div[@class='thumbnail']/div[@class='img']/a/img/@src").toString();
                     // 图书标题
                     String title = item.xpath("//div[@class='content']/h2/a/@title").toString();
                     // 名称
@@ -65,7 +72,7 @@ public class MebookProcessor extends ProcessorTemplate {
                     // 详情地址
                     String detailUrl = item.xpath("//div[@class='content']/p[2]/a/@href").toString();
                     // 处理结果
-                    MeBookInfo bookInfo = MeBookInfo.from(name, category, author, postImg, title, releaseTime, intro, detailUrl);
+                    MeBookInfo bookInfo = MeBookInfo.from(name, category, author, postUrl, title, releaseTime, intro, detailUrl);
                     if (bookInfo.canMoreHandle()) {
                         redisUtil.hset(MeBookInfo.REDIS_KEY_BOOK_LIST, bookInfo.getDetailUrl(), bookInfo);
                     }
@@ -131,6 +138,18 @@ public class MebookProcessor extends ProcessorTemplate {
         int pageUrlCount = 0;
         List<String> pageUrlList = page.getHtml().links().regex(PAGE_URL_REGEX).all();
         if (pageUrlList != null) {
+            // 只抓前面3页
+            pageUrlList = pageUrlList.stream().filter((Predicate<String>) s -> {
+                if (s.lastIndexOf("/") <= 0) {
+                    return true;
+                }
+                String pageNumStr = s.substring(s.lastIndexOf("/") + 1);
+                if (!StringUtil.isNumeric(pageNumStr)) {
+                    return true;
+                }
+                return Integer.parseInt(pageNumStr) <= 3;
+            }).collect(Collectors.toList());
+            // 去重
             Set<String> pageUrlSet = new HashSet<>(pageUrlList);
             urlList.addAll(pageUrlSet);
             pageUrlCount = pageUrlSet.size();
@@ -156,8 +175,8 @@ public class MebookProcessor extends ProcessorTemplate {
 
     @Override
     public String getUrl() {
-        //return "http://mebook.cc/26403.html";
-        return ROOT_URL;
+        return "http://mebook.cc/page/2";
+        //return ROOT_URL;
     }
 
 

@@ -233,7 +233,7 @@ public class ProxyIpController {
     @RequestMapping("/mebook")
     public ResultData mebookProcessor() {
         try {
-            mebookProcessor.setInterval(200).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
+            mebookProcessor.setInterval(1000).setThreadCount(3).execute(meBookPipeline, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

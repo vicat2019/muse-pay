@@ -2,6 +2,7 @@ package com.proxypool.component;
 
 import com.proxypool.entry.ProxyIpInfo;
 import com.proxypool.service.ProxyIpInfoService;
+import com.proxypool.util.TextUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -111,40 +112,61 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
         HttpGet httpGet = new HttpGet(request.getUrl());
         httpGet.setHeader("User-Agent", USER_AGENT);
 
-        // 获取/生成HttpClient对象
-        CloseableHttpClient httpClient = getHttpClient(task.getSite());
-        // 发送请求
-        CloseableHttpResponse httpResponse = getCloseableHttpResponse(httpClient, httpGet);
-        int statusCode = getResponseStatus(httpResponse);
 
-        // 请求的状态
         int tryCount = 0;
-        while (statusCode != HttpStatus.OK.value() && tryCount < retryCount) {
-            // 休眠100毫秒
-            try {
-                TimeUnit.SECONDS.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            // 使用代理IP发送请求
-            httpResponse = getCloseableHttpResponse(httpClient, httpGet);
-            // 获取请求返回状态
-            statusCode = getResponseStatus(httpResponse);
-            tryCount++;
-        }
-        // 如果成功，则更改成功信息
-        if (statusCode != HttpStatus.OK.value()) {
-            // 更新表中代理IP状态
-            updateProxyIpStatus(httpGet, "FAIL");
-        }
+        boolean isCorrect = false;
 
         Page page = Page.fail();
+        CloseableHttpResponse httpResponse = null;
+
+        // 获取/生成HttpClient对象
+        CloseableHttpClient httpClient = getHttpClient(task.getSite());
+
         try {
-            page = handleResponse(request, (request.getCharset() != null ? request.getCharset() : task.getSite()
+            // 设置代理，发送请求
+            httpResponse = getCloseableHttpResponse(httpClient, httpGet, false);
+            // 获取请求状态
+            int statusCode = getResponseStatus(httpResponse);
+            // 请求返回内容
+            page = convertResponseToPage(request, (request.getCharset() != null ? request.getCharset() : task.getSite()
                     .getCharset()), httpResponse);
+            // 检查是否正确
+            if (page != null && page.getHtml() != null) {
+                isCorrect = TextUtils.isMatch("(我的小书屋)", page.getHtml().toString());
+            }
+
+            // 请求的状态
+            while (tryCount < retryCount && !isCorrect) {
+                // 休眠100毫秒
+                try {
+                    TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // 使用代理IP发送请求
+                httpResponse = getCloseableHttpResponse(httpClient, httpGet, false);
+                // 获取请求返回状态
+                statusCode = getResponseStatus(httpResponse);
+                // 获取请求返回内容
+                page = convertResponseToPage(request, (request.getCharset() != null ? request.getCharset() : task.getSite()
+                        .getCharset()), httpResponse);
+                // 检查是否正确
+                if (page != null && page.getHtml() != null) {
+                    isCorrect = TextUtils.isMatch("(我的小书屋)", page.getHtml().toString());
+                }
+
+                tryCount++;
+            }
+            // 如果成功，则更改成功信息
+            if (statusCode != HttpStatus.OK.value()) {
+                // 更新表中代理IP状态
+                updateProxyIpStatus(httpGet, "FAIL");
+            }
+
             onSuccess(request);
             log.info("下载页面成功，地址=" + request.getUrl());
+            //log.info("下载内容=" + ((page!=null&&page.getHtml()!=null)?page.getHtml().toString():"null"));
             return page;
 
         } catch (IOException e) {
@@ -186,30 +208,33 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
      * @param httpGet    HTTP GET对象
      * @return CloseableHttpResponse
      */
-    private CloseableHttpResponse getCloseableHttpResponse(CloseableHttpClient httpClient, HttpGet httpGet) {
+    private CloseableHttpResponse getCloseableHttpResponse(CloseableHttpClient httpClient, HttpGet httpGet, boolean useProxy) {
         CloseableHttpResponse httpResponse = null;
 
-        // 获取代理
-        Map<String, Object> proxyIpInfo = getCurrentProxy();
+        // 使用代理
+        if (useProxy) {
+            String ip;
+            int port;
 
-        String ip;
-        int port;
-        // 设置代理
-        if (proxyIpInfo != null) {
-            ip = (String) proxyIpInfo.get("proxyIp");
-            port = (int) proxyIpInfo.get("proxyPort");
+            // 获取代理
+            Map<String, Object> proxyIpInfo = getCurrentProxy();
 
-            // 是否有代理
-            if (!StringUtils.isEmpty(ip) && port != 0) {
-                // 设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
-                HttpHost proxy = new HttpHost(ip, port);
-                RequestConfig requestConfig = RequestConfig.custom()
-                        .setProxy(proxy)
-                        .setConnectTimeout(10000)
-                        .setSocketTimeout(10000)
-                        .setConnectionRequestTimeout(3000)
-                        .build();
-                httpGet.setConfig(requestConfig);
+            // 设置代理
+            if (proxyIpInfo != null) {
+                ip = (String) proxyIpInfo.get("proxyIp");
+                port = (int) proxyIpInfo.get("proxyPort");
+                // 是否有代理
+                if (!StringUtils.isEmpty(ip) && port != 0) {
+                    // 设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
+                    HttpHost proxy = new HttpHost(ip, port);
+                    RequestConfig requestConfig = RequestConfig.custom()
+                            .setProxy(proxy)
+                            .setConnectTimeout(10000)
+                            .setSocketTimeout(10000)
+                            .setConnectionRequestTimeout(3000)
+                            .build();
+                    httpGet.setConfig(requestConfig);
+                }
             }
         }
 
@@ -318,7 +343,7 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
     }
 
     /**
-     * 处理返回的结果
+     * 将返回内容转换成Page对象
      *
      * @param request      请求对象
      * @param charset      字符编码
@@ -326,14 +351,17 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
      * @return Page
      * @throws IOException 异常
      */
-    protected Page handleResponse(Request request, String charset, HttpResponse httpResponse) throws IOException {
+    protected Page convertResponseToPage(Request request, String charset, HttpResponse httpResponse) throws IOException {
+        Page page = new Page();
+
+        // 参数为空
         if (httpResponse == null || httpResponse.getEntity() == null || httpResponse.getEntity().getContent() == null) {
-            return new Page();
+            return page;
         }
 
+        // 读取内容
         byte[] bytes = IOUtils.toByteArray(httpResponse.getEntity().getContent());
         String contentType = httpResponse.getEntity().getContentType() == null ? "" : httpResponse.getEntity().getContentType().getValue();
-        Page page = new Page();
         page.setBytes(bytes);
         if (!request.isBinaryContent()) {
             if (charset == null) {
@@ -346,10 +374,7 @@ public class ProxyDownloader extends AbstractDownloader implements Downloader {
         page.setRequest(request);
         page.setStatusCode(httpResponse.getStatusLine().getStatusCode());
         page.setDownloadSuccess(true);
-        boolean responseHeader = true;
-        if (responseHeader) {
-            page.setHeaders(HttpClientUtils.convertHeaders(httpResponse.getAllHeaders()));
-        }
+        page.setHeaders(HttpClientUtils.convertHeaders(httpResponse.getAllHeaders()));
         return page;
     }
 

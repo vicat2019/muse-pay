@@ -2,6 +2,7 @@ package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
 import com.proxypool.component.ProxyDownloader;
+import com.proxypool.config.GuavaCacheUtil;
 import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.recruit.TestProcessor;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @program: muse-pay
@@ -90,7 +93,7 @@ public class TestController {
     @RequestMapping("/mebook")
     public ResultData mebookProcessor() {
         try {
-            mebookProcessor.setInterval(200).setThreadCount(10).execute(meBookPipeline, proxyDownloader);
+            mebookProcessor.setInterval(1000).setThreadCount(1).execute(meBookPipeline, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,10 +114,15 @@ public class TestController {
 
     @RequestMapping("/handle")
     public ResultData handleData() {
-        try {
-            meBookService.handleMeBook();
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Integer> codeList = GuavaCacheUtil.cache.getUnchecked("code");
+        if (codeList!= null) {
+            if (codeList.size() > 100) {
+                codeList.subList(0, 100).forEach(System.out::println);
+            } else {
+                codeList.forEach(System.out::println);
+            }
+        } else {
+            System.out.println("codeList is empty");
         }
 
         return ResultData.getSuccessResult();
