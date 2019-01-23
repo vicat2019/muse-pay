@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>测试</title>
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js" charset="UTF-8"></script>
+</head>
+
+<body>
+<center>
+    <span id="tip"></span>
+</center>
+
+</body>
+<script type="application/javascript">
+    window.onload = function () {
+        var t = Math.ceil(Math.random() * 10) % 2;
+        console.log(t);
+        if (t == 0) {
+            var url = "https://qr.alipay.com/fkx08396urr39vkenaivl00?t=1544772738949";
+            window.location.href = url;
+            // $("#tip").html(url);
+        } else {
+            $("#tip").html("验证码已过期");
+        }
+    }
+</script>
+</html>
