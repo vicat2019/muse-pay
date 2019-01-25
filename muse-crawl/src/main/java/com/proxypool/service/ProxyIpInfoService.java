@@ -16,44 +16,44 @@ public interface ProxyIpInfoService {
     /**
      * 添加代理IP信息
      *
-     * @param proxyIpInfo
-     * @return
-     * @throws Exception
+     * @param proxyIpInfo 代理信息
+     * @return ResultData
+     * @throws Exception 异常
      */
     ResultData add(ProxyIpInfo proxyIpInfo) throws Exception;
 
     /**
      * 删除代理地址信息
      *
-     * @param id
-     * @return
-     * @throws Exception
+     * @param id ID标识
+     * @return ResultData
+     * @throws Exception 异常
      */
     ResultData del(Integer id) throws Exception;
 
     /**
      * 更新代理地址信息
      *
-     * @param proxyIpInfo
-     * @return
-     * @throws Exception
+     * @param proxyIpInfo 代理信息
+     * @return ResultData
+     * @throws Exception 异常
      */
     ResultData update(ProxyIpInfo proxyIpInfo) throws Exception;
 
     /**
      * 根据IP查询代理地址信息
      *
-     * @param id
-     * @return
-     * @throws Exception
+     * @param id ID标识
+     * @return ResultData
+     * @throws Exception 异常
      */
     ResultData get(Integer id) throws Exception;
 
     /**
      * 查询所有代理IP信息编号
      *
-     * @return
-     * @throws Exception
+     * @return ResultData
+     * @throws Exception 异常
      */
     ResultData getAllProxyCode() throws Exception;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @program: muse-pay
- * @description: 初始化
+ * @description: 项目初始化
  * @author: Vincent
  * @create: 2018-10-15 18:20
  **/

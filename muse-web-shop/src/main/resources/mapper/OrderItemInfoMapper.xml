@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muse.pay.dao.OrderItemInfoMapper">
+    <resultMap id="BaseResultMap" type="com.muse.pay.entity.OrderItemInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="book_id" jdbcType="INTEGER" property="bookId"/>
+        <result column="isbn" jdbcType="VARCHAR" property="isbn"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="title_desc" jdbcType="VARCHAR" property="titleDesc"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="book_concern" jdbcType="VARCHAR" property="bookConcern"/>
+        <result column="publishing_time" jdbcType="VARCHAR" property="publishingTime"/>
+        <result column="score" jdbcType="VARCHAR" property="score"/>
+        <result column="price" jdbcType="VARCHAR" property="price"/>
+        <result column="fixed_price" jdbcType="VARCHAR" property="fixedPrice"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="page_count" jdbcType="VARCHAR" property="pageCount"/>
+        <result column="printing_time" jdbcType="VARCHAR" property="printingTime"/>
+        <result column="book_size" jdbcType="VARCHAR" property="bookSize"/>
+        <result column="paper" jdbcType="VARCHAR" property="paper"/>
+        <result column="suit" jdbcType="VARCHAR" property="suit"/>
+        <result column="packing" jdbcType="VARCHAR" property="packing"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="detail_url" jdbcType="VARCHAR" property="detailUrl"/>
+        <result column="data_sources" jdbcType="VARCHAR" property="dataSources"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="content_desc" jdbcType="VARCHAR" property="contentDesc"/>
+        <result column="recommendation" jdbcType="VARCHAR" property="recommendation"/>
+        <result column="author_desc" jdbcType="VARCHAR" property="authorDesc"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapSmall" type="com.muse.pay.entity.OrderItemInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="isbn" jdbcType="VARCHAR" property="isbn"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="title_desc" jdbcType="VARCHAR" property="titleDesc"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="book_concern" jdbcType="VARCHAR" property="bookConcern"/>
+        <result column="publishing_time" jdbcType="VARCHAR" property="publishingTime"/>
+        <result column="score" jdbcType="VARCHAR" property="score"/>
+        <result column="price" jdbcType="VARCHAR" property="price"/>
+        <result column="fixed_price" jdbcType="VARCHAR" property="fixedPrice"/>
+        <result column="detail_url" jdbcType="VARCHAR" property="detailUrl"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, book_id, isbn, order_no, count, title, title_desc, pic_url, author, book_concern, publishing_time,
+        score, price, fixed_price, edition, page_count, printing_time, book_size, paper,
+        suit, packing, category, detail_url, data_sources, create_time, content_desc, recommendation, author_desc
+    </sql>
+
+    <sql id="Base_Column_List_Small">
+        id, book_id, isbn, order_no, count, title, title_desc, pic_url, author, book_concern, publishing_time,
+        score, price, fixed_price, detail_url, create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSmallByOrderNo" resultMap="BaseResultMapSmall">
+        select <include refid="Base_Column_List_Small" />
+        from t_order_item
+        where order_no=#{orderNo, jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete from t_order_item
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.muse.pay.entity.OrderItemInfo">
+        insert into t_order_item (book_id, isbn, order_no,
+          count, title, title_desc,
+          pic_url, author, book_concern,
+          publishing_time, score, price,
+          fixed_price, edition, page_count,
+          printing_time, book_size, paper,
+          suit, packing, category,
+          detail_url, data_sources, create_time,
+          content_desc, recommendation, author_desc
+          )
+        values (#{bookId,jdbcType=INTEGER}, #{isbn,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR},
+          #{count,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{titleDesc,jdbcType=VARCHAR},
+          #{picUrl,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{bookConcern,jdbcType=VARCHAR},
+          #{publishingTime,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR},
+          #{fixedPrice,jdbcType=VARCHAR}, #{edition,jdbcType=VARCHAR}, #{pageCount,jdbcType=VARCHAR},
+          #{printingTime,jdbcType=VARCHAR}, #{bookSize,jdbcType=VARCHAR}, #{paper,jdbcType=VARCHAR},
+          #{suit,jdbcType=VARCHAR}, #{packing,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+          #{detailUrl,jdbcType=VARCHAR}, #{dataSources,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+          #{contentDesc,jdbcType=LONGVARCHAR}, #{recommendation,jdbcType=LONGVARCHAR}, #{authorDesc,jdbcType=LONGVARCHAR}
+          )
+      </insert>
+
+    <insert id="insertSelective" parameterType="com.muse.pay.entity.OrderItemInfo">
+        insert into t_order_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">
+                book_id,
+            </if>
+            <if test="isbn != null">
+                isbn,
+            </if>
+            <if test="orderNo != null">
+                order_no,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="titleDesc != null">
+                title_desc,
+            </if>
+            <if test="picUrl != null">
+                pic_url,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="bookConcern != null">
+                book_concern,
+            </if>
+            <if test="publishingTime != null">
+                publishing_time,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="fixedPrice != null">
+                fixed_price,
+            </if>
+            <if test="edition != null">
+                edition,
+            </if>
+            <if test="pageCount != null">
+                page_count,
+            </if>
+            <if test="printingTime != null">
+                printing_time,
+            </if>
+            <if test="bookSize != null">
+                book_size,
+            </if>
+            <if test="paper != null">
+                paper,
+            </if>
+            <if test="suit != null">
+                suit,
+            </if>
+            <if test="packing != null">
+                packing,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="detailUrl != null">
+                detail_url,
+            </if>
+            <if test="dataSources != null">
+                data_sources,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="contentDesc != null">
+                content_desc,
+            </if>
+            <if test="recommendation != null">
+                recommendation,
+            </if>
+            <if test="authorDesc != null">
+                author_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">
+                #{bookId,jdbcType=INTEGER},
+            </if>
+            <if test="isbn != null">
+                #{isbn,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="titleDesc != null">
+                #{titleDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="picUrl != null">
+                #{picUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="bookConcern != null">
+                #{bookConcern,jdbcType=VARCHAR},
+            </if>
+            <if test="publishingTime != null">
+                #{publishingTime,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="fixedPrice != null">
+                #{fixedPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="edition != null">
+                #{edition,jdbcType=VARCHAR},
+            </if>
+            <if test="pageCount != null">
+                #{pageCount,jdbcType=VARCHAR},
+            </if>
+            <if test="printingTime != null">
+                #{printingTime,jdbcType=VARCHAR},
+            </if>
+            <if test="bookSize != null">
+                #{bookSize,jdbcType=VARCHAR},
+            </if>
+            <if test="paper != null">
+                #{paper,jdbcType=VARCHAR},
+            </if>
+            <if test="suit != null">
+                #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="packing != null">
+                #{packing,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="detailUrl != null">
+                #{detailUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="dataSources != null">
+                #{dataSources,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contentDesc != null">
+                #{contentDesc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="recommendation != null">
+                #{recommendation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="authorDesc != null">
+                #{authorDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.muse.pay.entity.OrderItemInfo">
+        update t_order_item
+        <set>
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                count = #{count,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="titleDesc != null">
+                title_desc = #{titleDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="picUrl != null">
+                pic_url = #{picUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="bookConcern != null">
+                book_concern = #{bookConcern,jdbcType=VARCHAR},
+            </if>
+            <if test="publishingTime != null">
+                publishing_time = #{publishingTime,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="fixedPrice != null">
+                fixed_price = #{fixedPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="edition != null">
+                edition = #{edition,jdbcType=VARCHAR},
+            </if>
+            <if test="pageCount != null">
+                page_count = #{pageCount,jdbcType=VARCHAR},
+            </if>
+            <if test="printingTime != null">
+                printing_time = #{printingTime,jdbcType=VARCHAR},
+            </if>
+            <if test="bookSize != null">
+                book_size = #{bookSize,jdbcType=VARCHAR},
+            </if>
+            <if test="paper != null">
+                paper = #{paper,jdbcType=VARCHAR},
+            </if>
+            <if test="suit != null">
+                suit = #{suit,jdbcType=VARCHAR},
+            </if>
+            <if test="packing != null">
+                packing = #{packing,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="detailUrl != null">
+                detail_url = #{detailUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="dataSources != null">
+                data_sources = #{dataSources,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contentDesc != null">
+                content_desc = #{contentDesc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="recommendation != null">
+                recommendation = #{recommendation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="authorDesc != null">
+                author_desc = #{authorDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.muse.pay.entity.OrderItemInfo">
+        update t_order_item
+        set order_no = #{orderNo,jdbcType=VARCHAR},
+          count = #{count,jdbcType=INTEGER},
+          title = #{title,jdbcType=VARCHAR},
+          title_desc = #{titleDesc,jdbcType=VARCHAR},
+          pic_url = #{picUrl,jdbcType=VARCHAR},
+          author = #{author,jdbcType=VARCHAR},
+          book_concern = #{bookConcern,jdbcType=VARCHAR},
+          publishing_time = #{publishingTime,jdbcType=VARCHAR},
+          score = #{score,jdbcType=VARCHAR},
+          price = #{price,jdbcType=VARCHAR},
+          fixed_price = #{fixedPrice,jdbcType=VARCHAR},
+          edition = #{edition,jdbcType=VARCHAR},
+          page_count = #{pageCount,jdbcType=VARCHAR},
+          printing_time = #{printingTime,jdbcType=VARCHAR},
+          book_size = #{bookSize,jdbcType=VARCHAR},
+          paper = #{paper,jdbcType=VARCHAR},
+          suit = #{suit,jdbcType=VARCHAR},
+          packing = #{packing,jdbcType=VARCHAR},
+          category = #{category,jdbcType=VARCHAR},
+          detail_url = #{detailUrl,jdbcType=VARCHAR},
+          data_sources = #{dataSources,jdbcType=VARCHAR},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          content_desc = #{contentDesc,jdbcType=LONGVARCHAR},
+          recommendation = #{recommendation,jdbcType=LONGVARCHAR},
+          author_desc = #{authorDesc,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.muse.pay.entity.OrderItemInfo">
+        update t_order_item
+        set order_no = #{orderNo,jdbcType=VARCHAR},
+          count = #{count,jdbcType=INTEGER},
+          title = #{title,jdbcType=VARCHAR},
+          title_desc = #{titleDesc,jdbcType=VARCHAR},
+          pic_url = #{picUrl,jdbcType=VARCHAR},
+          author = #{author,jdbcType=VARCHAR},
+          book_concern = #{bookConcern,jdbcType=VARCHAR},
+          publishing_time = #{publishingTime,jdbcType=VARCHAR},
+          score = #{score,jdbcType=VARCHAR},
+          price = #{price,jdbcType=VARCHAR},
+          fixed_price = #{fixedPrice,jdbcType=VARCHAR},
+          edition = #{edition,jdbcType=VARCHAR},
+          page_count = #{pageCount,jdbcType=VARCHAR},
+          printing_time = #{printingTime,jdbcType=VARCHAR},
+          book_size = #{bookSize,jdbcType=VARCHAR},
+          paper = #{paper,jdbcType=VARCHAR},
+          suit = #{suit,jdbcType=VARCHAR},
+          packing = #{packing,jdbcType=VARCHAR},
+          category = #{category,jdbcType=VARCHAR},
+          detail_url = #{detailUrl,jdbcType=VARCHAR},
+          data_sources = #{dataSources,jdbcType=VARCHAR},
+          create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 批量添加 -->
+    <insert id="insertByBatch" parameterType="java.util.List">
+        insert into t_order_item (book_id, isbn, order_no,
+            count, title, title_desc,
+            pic_url, author, book_concern,
+            publishing_time, score, price,
+            fixed_price, edition, page_count,
+            printing_time, book_size, paper,
+            suit, packing, category,
+            detail_url, data_sources,
+            content_desc, recommendation, author_desc)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.bookId,jdbcType=INTEGER}, #{item.isbn,jdbcType=VARCHAR}, #{item.orderNo,jdbcType=VARCHAR},
+            #{item.count,jdbcType=INTEGER}, #{item.title,jdbcType=VARCHAR}, #{item.titleDesc,jdbcType=VARCHAR},
+            #{item.picUrl,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.bookConcern,jdbcType=VARCHAR},
+            #{item.publishingTime,jdbcType=VARCHAR}, #{item.score,jdbcType=VARCHAR}, #{item.price,jdbcType=VARCHAR},
+            #{item.fixedPrice,jdbcType=VARCHAR}, #{item.edition,jdbcType=VARCHAR}, #{item.pageCount,jdbcType=VARCHAR},
+            #{item.printingTime,jdbcType=VARCHAR}, #{item.bookSize,jdbcType=VARCHAR}, #{item.paper,jdbcType=VARCHAR},
+            #{item.suit,jdbcType=VARCHAR}, #{item.packing,jdbcType=VARCHAR}, #{item.category,jdbcType=VARCHAR},
+            #{item.detailUrl,jdbcType=VARCHAR}, #{item.dataSources,jdbcType=VARCHAR},
+            #{item.contentDesc,jdbcType=LONGVARCHAR}, #{item.recommendation,jdbcType=LONGVARCHAR}, #{item.authorDesc,jdbcType=LONGVARCHAR})
+        </foreach>
+    </insert>
+
+
+
+
+
+
+
+</mapper>

@@ -1,10 +1,12 @@
 package com.proxypool.util;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -356,6 +358,37 @@ public class RedisUtil {
     }
 
     /**
+     * 获取set中所有元素
+     *
+     * @param key 键
+     * @return 成功个数
+     */
+    public Set sMember(String key) {
+        try {
+            return redisTemplate.opsForSet().members(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Sets.newHashSet();
+        }
+    }
+
+    /**
+     * 获取set和给定集合的交集
+     *
+     * @param key 键
+     * @return 成功个数
+     */
+    public Set sIntersect(String key, Collection collection) {
+        try {
+            return redisTemplate.opsForSet().intersect(key, collection);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Sets.newHashSet();
+        }
+    }
+
+
+    /**
      * 将set数据放入缓存
      *
      * @param key    键
@@ -427,6 +460,7 @@ public class RedisUtil {
 
     /**
      * 弹出最左边的元素，弹出之后该值在列表中将不复存在
+     *
      * @param key
      * @return
      */

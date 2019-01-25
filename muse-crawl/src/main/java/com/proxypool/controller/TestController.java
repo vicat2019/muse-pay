@@ -1,17 +1,17 @@
 package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
-import com.proxypool.component.ProxyDownloader;
 import com.proxypool.config.GuavaCacheUtil;
 import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
-import com.proxypool.recruit.TestProcessor;
-import com.proxypool.service.MeBookService;
+import com.proxypool.picture.PictureInfoPipeline;
+import com.proxypool.picture.WallhavenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RpSequenceInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,12 +33,6 @@ public class TestController {
     private RpSequenceInfoService sequenceInfoService;
 
     @Autowired
-    private ProxyDownloader proxyDownloader;
-
-    @Autowired
-    private TestProcessor testProcessor;
-
-    @Autowired
     private MebookProcessor mebookProcessor;
 
     @Autowired
@@ -48,7 +42,10 @@ public class TestController {
     private ProxyIpInfoService proxyIpInfoService;
 
     @Autowired
-    private MeBookService meBookService;
+    private WallhavenProcessor wallhavenProcessor;
+
+    @Autowired
+    private PictureInfoPipeline pictureInfoPipeline;
 
 
     @RequestMapping("/{count}")
@@ -91,7 +88,7 @@ public class TestController {
     @RequestMapping("/handle")
     public ResultData handleData() {
         List<Integer> codeList = GuavaCacheUtil.cache.getUnchecked("code");
-        if (codeList!= null) {
+        if (codeList != null) {
             if (codeList.size() > 100) {
                 codeList.subList(0, 100).forEach(System.out::println);
             } else {
@@ -102,6 +99,23 @@ public class TestController {
         }
 
         return ResultData.getSuccessResult();
+    }
+
+
+    @RequestMapping("/pic")
+    public ResultData test() {
+        crawlPicture();
+
+        return ResultData.getSuccessResult();
+    }
+
+    @Async("executor")
+    public void crawlPicture() {
+        try {
+            wallhavenProcessor.setInterval(800).setThreadCount(3).execute(pictureInfoPipeline, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

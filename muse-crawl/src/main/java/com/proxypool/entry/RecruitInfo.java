@@ -3,7 +3,7 @@ package com.proxypool.entry;
 import com.muse.common.entity.BaseEntityInfo;
 
 /**
- * @Description: 招聘信息类
+ * @Description: JL信息类
  * @Author: Vincent
  * @Date: 2018/11/4
  */

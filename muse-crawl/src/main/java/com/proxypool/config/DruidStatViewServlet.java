@@ -4,9 +4,10 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * @Author: Administrator
- * @Date: 2018 2018/7/22 19 37
- **/
+* @Description: Druid数据库连接池监控Servlet配置
+* @Author: Vincent
+* @Date:   2019/1/25
+*/ 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/druid/*",
         initParams = {

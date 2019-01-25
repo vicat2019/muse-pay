@@ -161,7 +161,6 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
         }
 
         List<Integer> delIdList = new ArrayList<>();
-
         for (ProxyIpInfo proxyIpInfo : proxyIpList) {
             executorPool.execute(() -> {
                 try {
@@ -216,7 +215,6 @@ public class ProxyIpInfoServiceImpl extends BaseService<ProxyIpInfoMapper, Proxy
      * @param url          请求的URL
      * @param regexContent 匹配的关键字
      * @return boolean
-     * @throws Exception 异常
      */
     private boolean httpGetByProxy(ProxyIpInfo proxyIpInfo, String url, String regexContent) {
         try {

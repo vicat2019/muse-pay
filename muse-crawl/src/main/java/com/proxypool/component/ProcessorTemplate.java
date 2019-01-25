@@ -32,18 +32,17 @@ import java.util.stream.Collectors;
 public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements PageProcessor {
     protected static Logger log = LoggerFactory.getLogger("ProcessorTemplate");
 
-    // start with more than one threads
+    // 并发线程数
     public int threadCount = 1;
 
-    // Set the interval between the processing of two pages
-    // Time unit is micro seconds
+    // 爬取时间间隔
     private int interval = 1000;
-
-    @Autowired
-    private ProxyIpInfoService proxyIpInfoService;
 
     // 抓取网站的相关配置，包括编码、抓取间隔、重试次数等
     private Site site;
+
+    @Autowired
+    private ProxyIpInfoService proxyIpInfoService;
 
     /**
      * 默认构造方法
@@ -72,6 +71,11 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
         site = Site.me().setRetryTimes(3).setSleepTime(interval);
     }
 
+    /**
+     * 处理下载的页面美容
+     *
+     * @param page 页面信息
+     */
     @Override
     public void process(Page page) {
         // 解析内容

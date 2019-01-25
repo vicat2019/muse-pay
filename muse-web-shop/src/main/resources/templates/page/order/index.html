@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/js/jquery.json-2.4.mini.js"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+
+    <style type="text/css">
+        .order tr td span {
+            padding: 10px 15px 10px 5px;
+        }
+
+        .order {
+            border-collapse: collapse;
+            margin-top: 8px;
+            text-align: center;
+            border: 1px solid #d9d6c3;
+            font-family: 微软雅黑;
+            font-size: 16px;
+            width: 1080px;
+        }
+
+        .order_empty {
+            border-collapse: collapse;
+            text-align: center;
+            border: 1px solid #d9d6c3;
+            font-family: 微软雅黑;
+            font-size: 16px;
+            background: #fffef9;
+            width: 1080px;
+            height: 100px;
+        }
+
+        .order a {
+            font-family: 微软雅黑;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .order a:link {
+            color: black;
+        }
+
+        .order a:visited {
+            color: black;
+        }
+
+        .order a:hover {
+            color: crimson;
+        }
+
+        .order a:active {
+            color: gray;
+        }
+
+        .bg1 td {
+            background: #f6f5ec;
+            height: 30px;
+            width: 200px;
+            color: black;
+            font-size: 14px;
+        }
+
+        .bg2 {
+            background: white;
+        }
+
+        .bg2 td {
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .select_query {
+            height: 60px;
+            margin-top: 10px;
+            width: 1080px;
+        }
+
+        .select_query input {
+            height: 22px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+<center>
+    <div style="height: 140px;padding-top: 8px;position: relative;">
+        <table>
+            <tr style="text-align: center">
+                <td style="width: 100%;"><img src="/img/logo2.png" style="width: 90px;height: 90px;"></td>
+            </tr>
+        </table>
+        <table class="shopping_cart_tip">
+            <tr>
+                <td style="text-align: left;">
+                    <a href="/book/list">首页</a>&nbsp;>&nbsp;订单列表
+                </td>
+                <td>
+                    <a th:href="@{'/user/index/' + ${session.user.id}}"><span th:text="${session.user.userName}"/></a>，您好！</span>
+                    我的订单[<span id="orderCount" th:text="${orderSize}"/>]
+                    <a th:href="@{'/shoppingCart/detail/' + ${session.user.id}}">购物车[<span id="shopCarCount"
+                                                                                           th:text="${shopCarCount}"/>]</a>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="userId" th:value="${session.user.id}"/>
+        <hr>
+    </div>
+
+    <form id="queryForm" th:action="@{'/order/list/' + ${session.user.id}}" method="post">
+        <input type="hidden" id="pageNum" name="pageNum">
+        <table class="select_query">
+            <tr>
+                <td>开始时间：</td>
+                <td><input type="text" id="startTime" name="startTime" size="28" th:value="${startTime}" style="border: 1px solid #d9d6c3;"></td>
+                <td>结束时间：</td>
+                <td><input type="text" id="endTime" name="endTime" size="28" th:value="${endTime}" style="border: 1px solid #d9d6c3;"></td>
+                <td>状态：</td>
+                <td><select id="status" name="status" style="border: 1px solid #d9d6c3;height: 24px;">
+                    <option value="-1">全部</option>
+                    <option value="0" th:selected="${status == 0}">等待支付</option>
+                    <option value="1" th:selected="${status == 1}">支付成功</option>
+                </select></td>
+                <td style="text-align: right;"><input type="button" value="清空" onclick="clearQuery()" style="height: 26px;"></td>
+                <td style="text-align: right;"><input type="submit" value="查询" class="b_button" style="height: 26px;width: 70px;"></td>
+            </tr>
+        </table>
+    </form>
+
+    <table th:if="${data} not eq null" th:each="item,userStat:${data.list}" class="order">
+        <tr class="bg1">
+            <td style="margin-left: 0px;padding-left: 0px;text-align: left;color: #a1a3a6;"><span
+                    th:text="${#dates.format(item.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
+            <td style="width:50px;" colspan="2"><span th:text="${item.orderNo}"></span></td>
+            <td></td>
+            <td>金额：<span th:text="${item.amount}"/>元</td>
+            <td><span th:if="${item.status} eq 0"><a th:href="'/orderPay/settlement?orderNo=' + ${item.orderNo}">去结算</a> </span>
+                <span th:if="${item.status} eq 1">已支付</span>
+                <span th:if="${item.status} eq 2">已取消</span>
+                <span th:if="${item.status} eq 3">已过期</span>
+                <span th:if="${item.status} eq 4">已失效</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" style="margin: 0;padding: 0;">
+                <table width="100%">
+                    <tr th:each="subItem,subStat:${item.itemList}" class="bg2">
+                        <td style="width:70px;height: 70px;"><img style="width:65px;height: 65px;"
+                                                                  th:src="${subItem.picUrl}"/></td>
+                        <td><span th:text="${subItem.title}"/></td>
+                        <td><span th:text="@{${subItem.price} + ' 元'}"/></td>
+                        <td><span th:text="@{'x' + ${subItem.count}}" style="color: #a1a3a6;"/></td>
+                        <td><span th:text="${#dates.format(subItem.createTime, 'yyyy-MM-dd HH:mm:ss')}"
+                                  style="color: #a1a3a6;"></span></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table class="order_empty" th:if="${data} eq null or ${#lists.size(data.list)} eq 0">
+        <tr>
+            <td style="font-size: 16px; height: 50px;">无数据</td>
+        </tr>
+    </table>
+    <table style="margin-top: 30px;">
+        <tr>
+            <span th:each="index:${data.navigatepageNums}">
+                <td height="25"><span th:if="${data.pageNum ne index}">
+                    <input type="button" th:value="${index}" th:onclick="'javascript:onPage('+ ${index} +')'"
+                           class="page_button">
+                    </span>
+                    <span th:if="${data.pageNum eq index}">
+                    <input type="button" th:value="${index}" class="page_button_disable" disabled="disabled">
+                    </span>
+                </td>
+            </span>
+            <td height="25"><span class="page_tip"><span th:text="${data.pageNum}"/> / <span th:text="${data.pages}"/> 页</span>
+            </td>
+        </tr>
+    </table>
+</center>
+<script type="text/javascript">
+
+    $(function () {
+        var userId = $("#userId").val();
+        get_shopping_cart_item_count(userId);
+
+    });
+
+    function get_shopping_cart_item_count(userId) {
+        if (userId == '') {
+            $("#shopCarCount").html(0);
+        } else {
+            $.get("/shoppingCart/count/" + userId, function (data) {
+                console.log(data);
+                if (data.code != 0) {
+                    $("#shopCarCount").html(0);
+                } else {
+                    $("#shopCarCount").html(data.data);
+                }
+            });
+        }
+    }
+
+    function onPage(pageNum) {
+        $("#pageNum").val(pageNum);
+        $("#queryForm").submit();
+    }
+    
+    function clearQuery() {
+        $("#startTime").val("");
+        $("#endTime").val("");
+        $("select option[value='-1']").attr("selected", "selected");
+    }
+
+</script>
+
+</body>
+</html>

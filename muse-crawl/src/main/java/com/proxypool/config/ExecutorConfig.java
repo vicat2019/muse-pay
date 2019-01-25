@@ -9,15 +9,16 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @Author: Administrator
- * @Date: 2018 2018/8/8 19 08
- **/
+ * @Description: 线程池配置类
+ * @Author: Vincent
+ * @Date: 2019/1/25
+ */
 @Configuration
 @EnableAsync
 public class ExecutorConfig {
 
     @Bean
-    public Executor asyncServiceExecutor() {
+    public Executor executor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 配置核心线程数
         executor.setCorePoolSize(10);

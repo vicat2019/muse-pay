@@ -11,7 +11,6 @@ import org.thymeleaf.util.StringUtils;
  * @create: 2019-01-04 12:26
  **/
 public class MeBookInfo extends BaseEntityInfo {
-
     public static final String REDIS_KEY_BOOK_LIST = "KINDLE_BOOK_LIST";
 
     // 分类
@@ -30,12 +29,13 @@ public class MeBookInfo extends BaseEntityInfo {
     private String detailDesc;
     // 下载地址
     private String downloadUrl;
-
+    // 编码
     private int code;
-
+    // 名称
     private String name;
-
+    // 作者
     private String author;
+
 
     /**
      * 默认构造方法
@@ -47,14 +47,14 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 构造方法
      *
-     * @param name
-     * @param category
-     * @param author
-     * @param postUrl
-     * @param title
-     * @param releaseTime
-     * @param intro
-     * @param detailUrl
+     * @param name        名称
+     * @param category    分类
+     * @param author      作者
+     * @param postUrl     海报
+     * @param title       标题
+     * @param releaseTime 发布时间
+     * @param intro       简介
+     * @param detailUrl   详情URL
      */
     private MeBookInfo(String name, String category, String author, String postUrl, String title, String releaseTime,
                        String intro, String detailUrl) {
@@ -71,15 +71,15 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 获取实例
      *
-     * @param name
-     * @param category
-     * @param author
-     * @param postUrl
-     * @param title
-     * @param releaseTime
-     * @param intro
-     * @param detailUrl
-     * @return
+     * @param name        名称
+     * @param category    分类
+     * @param author      作者
+     * @param postUrl     海报
+     * @param title       标题
+     * @param releaseTime 发布时间
+     * @param intro       简介
+     * @param detailUrl   详情URL
+     * @return MeBookInfo
      */
     public static MeBookInfo from(String name, String category, String author, String postUrl, String title, String releaseTime,
                                   String intro, String detailUrl) {
@@ -89,8 +89,8 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 补充详情页的信息
      *
-     * @param detailDesc
-     * @param downloadUrl
+     * @param detailDesc  详情
+     * @param downloadUrl 下载地址
      */
     public void supplement(String detailDesc, String downloadUrl) {
         this.detailDesc = detailDesc;
@@ -100,7 +100,7 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 是否可以保存
      *
-     * @return
+     * @return boolean
      */
     public boolean canSave() {
         return !StringUtils.isEmpty(title) && !StringUtils.isEmpty(downloadUrl);
@@ -109,7 +109,7 @@ public class MeBookInfo extends BaseEntityInfo {
     /**
      * 是否可以进一步处理
      *
-     * @return
+     * @return boolean
      */
     public boolean canMoreHandle() {
         return !StringUtils.isEmpty(title) && !StringUtils.isEmpty(detailUrl);

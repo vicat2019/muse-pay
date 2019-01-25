@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nucc.dao.alipay.TradeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.nucc.entity.alipay.TradeInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="trade_no" jdbcType="VARCHAR" property="trade_no"/>
+        <result column="out_trade_no" jdbcType="VARCHAR" property="out_trade_no"/>
+        <result column="buyer_logon_id" jdbcType="VARCHAR" property="buyer_logon_id"/>
+        <result column="trade_status" jdbcType="VARCHAR" property="trade_status"/>
+        <result column="total_amount" jdbcType="DECIMAL" property="total_amount"/>
+        <result column="receipt_amount" jdbcType="DECIMAL" property="receipt_amount"/>
+        <result column="buyer_user_id" jdbcType="VARCHAR" property="buyer_user_id"/>
+
+        <result column="settle_amount" jdbcType="DECIMAL" property="settle_amount"/>
+        <result column="pay_currency" jdbcType="VARCHAR" property="pay_currency"/>
+        <result column="pay_amount" jdbcType="DECIMAL" property="pay_amount"/>
+        <result column="trans_pay_rate" jdbcType="VARCHAR" property="trans_pay_rate"/>
+        <result column="trans_currency" jdbcType="VARCHAR" property="trans_currency"/>
+        <result column="settle_currency" jdbcType="VARCHAR" property="settle_currency"/>
+        <result column="buyer_pay_amount" jdbcType="DECIMAL" property="buyer_pay_amount"/>
+        <result column="point_amount" jdbcType="DECIMAL" property="point_amount"/>
+        <result column="invoice_amount" jdbcType="DECIMAL" property="invoice_amount"/>
+        <result column="store_name" jdbcType="VARCHAR" property="store_name"/>
+        <result column="buyer_user_type" jdbcType="VARCHAR" property="buyer_user_type"/>
+        <result column="mdiscount_amount" jdbcType="VARCHAR" property="mdiscount_amount"/>
+        <result column="discount_amount" jdbcType="VARCHAR" property="discount_amount"/>
+        <result column="trade_type" jdbcType="VARCHAR" property="trade_type"/>
+
+        <result column="gmt_payment" jdbcType="TIMESTAMP" property="gmt_payment"/>
+
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="out_biz_no" jdbcType="VARCHAR" property="out_biz_no"/>
+        <result column="gmt_close" jdbcType="TIMESTAMP" property="gmt_close"/>
+        <result column="seller_id" jdbcType="VARCHAR" property="seller_id"/>
+        <result column="seller_email" jdbcType="VARCHAR" property="seller_email"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="body" jdbcType="VARCHAR" property="body"/>
+        <result column="notify_url" jdbcType="VARCHAR" property="notify_url"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="table_name">
+        nucc_trade_info
+    </sql>
+
+    <sql id="Base_Column_List">
+         id, trade_no, out_trade_no, buyer_logon_id, trade_status, total_amount, receipt_amount, buyer_user_id, gmt_payment,
+         settle_amount,pay_currency,pay_amount,trans_pay_rate,trans_currency,settle_currency,buyer_pay_amount,point_amount,
+         invoice_amount,store_name,buyer_user_type,mdiscount_amount,discount_amount, trade_type,
+         pid, out_biz_no, gmt_close, seller_id, seller_email, subject, body, notify_url,
+         version, modify_time, create_time
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where
+        id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from
+        <include refid="table_name"/>
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.nucc.entity.alipay.TradeInfo">
+        insert into<include refid="table_name"/>(trade_no, out_trade_no, buyer_logon_id, trade_status, total_amount,
+        receipt_amount, buyer_user_id, settle_amount,pay_currency,pay_amount,trans_pay_rate,trans_currency,
+        settle_currency,buyer_pay_amount,point_amount, invoice_amount,store_name,buyer_user_type,mdiscount_amount,
+        discount_amount, trade_type, pid, out_biz_no, gmt_close, seller_id, seller_email, subject, body, gmt_payment
+        )
+        values
+        (
+        #{trade_no,jdbcType=VARCHAR},
+        #{out_trade_no,jdbcType=VARCHAR},
+        #{buyer_logon_id,jdbcType=VARCHAR},
+        #{trade_status,jdbcType=VARCHAR},
+        #{total_amount,jdbcType=DECIMAL},
+        #{receipt_amount,jdbcType=DECIMAL},
+        #{buyer_user_id,jdbcType=VARCHAR},
+        #{settle_amount, jdbcType=DECIMAL},
+        #{pay_currency, jdbcType=VARCHAR},
+        #{pay_amount, jdbcType=DECIMAL},
+        #{trans_pay_rate, jdbcType=VARCHAR},
+        #{trans_currency, jdbcType=VARCHAR},
+        #{settle_currency, jdbcType=VARCHAR},
+        #{buyer_pay_amount, jdbcType=DECIMAL},
+        #{point_amount, jdbcType=DECIMAL},
+        #{invoice_amount, jdbcType=DECIMAL},
+        #{store_name, jdbcType=VARCHAR},
+        #{buyer_user_type, jdbcType=VARCHAR},
+        #{mdiscount_amount, jdbcType=VARCHAR},
+        #{discount_amount, jdbcType=VARCHAR},
+        #{trade_type, jdbcType=VARCHAR},
+
+        #{pid, jdbcType=VARCHAR},
+        #{out_biz_no, jdbcType=VARCHAR},
+        #{gmt_close, jdbcType=TIMESTAMP},
+        #{seller_id, jdbcType=VARCHAR},
+        #{seller_email, jdbcType=VARCHAR},
+        #{subject, jdbcType=VARCHAR},
+        #{body, jdbcType=VARCHAR},
+        #{gmt_payment, jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.nucc.entity.alipay.TradeInfo">
+        update
+        <include refid="table_name"/>
+        set
+        buyer_logon_id=#{buyer_logon_id,jdbcType=VARCHAR},
+        trade_status=#{trade_status,jdbcType=VARCHAR},
+        total_amount=#{total_amount,jdbcType=DECIMAL},
+        receipt_amount=#{receipt_amount,jdbcType=DECIMAL},
+        buyer_user_id=#{buyer_user_id,jdbcType=VARCHAR},
+        settle_amount=#{settle_amount, jdbcType=DECIMAL},
+        pay_currency=#{pay_currency, jdbcType=VARCHAR},
+        pay_amount=#{pay_amount, jdbcType=DECIMAL},
+        trans_pay_rate=#{trans_pay_rate, jdbcType=VARCHAR},
+        trans_currency=#{trans_currency, jdbcType=VARCHAR},
+        settle_currency=#{settle_currency, jdbcType=VARCHAR},
+        buyer_pay_amount=#{buyer_pay_amount, jdbcType=DECIMAL},
+        point_amount=#{point_amount, jdbcType=DECIMAL},
+        invoice_amount=#{invoice_amount, jdbcType=DECIMAL},
+        store_name=#{store_name, jdbcType=VARCHAR},
+        buyer_user_type=#{buyer_user_type, jdbcType=VARCHAR},
+        mdiscount_amount=#{mdiscount_amount, jdbcType=VARCHAR},
+        discount_amount=#{discount_amount, jdbcType=VARCHAR},
+
+        gmt_close = #{gmt_close, jdbcType=TIMESTAMP},
+        seller_id = #{seller_id, jdbcType=VARCHAR},
+        seller_email = #{seller_email, jdbcType=VARCHAR},
+        subject = #{subject, jdbcType=VARCHAR},
+        body = #{body, jdbcType=VARCHAR},
+
+        version = version+1,
+        modify_time = now()
+        where trade_no = #{trade_no,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateTradeSucc">
+        update
+        <include refid="table_name"/>
+        set
+        trade_status='TRADE_SUCCESS',
+        gmt_payment = now(),
+        gmt_close = now(),
+        version = version+1,
+        modify_time = now()
+        where
+        trade_no=#{tradeNo, jdbcType=VARCHAR}
+    </update>
+
+    <select id="getTradeByOutTradeNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where
+        out_trade_no = #{outTradeNo, jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="getTradeByTradeNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where
+        trade_no = #{tradeNo, jdbcType=VARCHAR}
+    </select>
+
+    <update id="closeTrade">
+        update
+        <include refid="table_name"/>
+        set
+        trade_status='TRADE_CLOSED',
+        gmt_close = now(),
+        version = version+1,
+        modify_time = now()
+        where out_trade_no=#{outTradeNo,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户充值</title>
+    <link rel="icon" type="image/x-icon" href="/img/pay.ico">
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/js/jquery.qrcode.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+</head>
+
+<style type="text/css">
+
+    .wrap_header {
+        width: 800px;
+        font-size: 20px;
+        font-family: 微软雅黑;
+        font-weight: bold;
+    }
+
+    .content {
+        width: 800px;
+        margin-top: 50px;
+        font-size: 18px;
+        font-family: 微软雅黑;
+        color: #008792;
+    }
+
+    .title {
+        text-align: left;
+        width: 100px;
+    }
+
+    .qrcode {
+        width: 250px;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+</style>
+
+<body>
+<center>
+    <div style="height: 140px;padding-top: 8px;position: relative;">
+        <table>
+            <tr style="text-align: center">
+                <td style="width: 100%;"><img src="/img/logo2.png" style="width: 90px;height: 90px;"></td>
+            </tr>
+        </table>
+        <table class="shopping_cart_tip">
+            <tr>
+                <td style="text-align: left;">
+                    <a href="/book/list">首页</a>&nbsp;>&nbsp;用户充值
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <!--<input type="hidden" id="userId" th:value="${session.user.id}"/>-->
+        <hr>
+    </div>
+    <table class="wrap_header">
+        <tr>
+            <td>| MUSE收银台</td>
+        </tr>
+    </table>
+
+    <table class="content">
+        <tr>
+            <td class="title">产品名称：</td>
+            <td><span th:text="充值"/></td>
+        </tr>
+        <tr>
+            <td class="title">价格：</td>
+            <td style="color: crimson;font-size: 20px;"><span th:text="${amount}"/> 元</td>
+        </tr>
+    </table>
+
+    <table class="qrcode">
+        <tr>
+            <td style="text-align: left;padding-bottom: 10px;font-weight: bold;font-size: 16px;">
+                扫描下面二维码进行支付
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;font-size: 18px;color: crimson;">
+                <span th:text="${url}" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="orderNo" style="text-align: center;"></div>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="payMessage" th:value="${url}">
+    <button type="button" th:onclick="@{'doPay(\'' + ${url} + '\')'}" class="b_button" style="margin-top: 10px;display: none">直接支付</button>
+
+</center>
+<script type="text/javascript">
+    $(function () {
+        var str = $("#payMessage").val();
+        $("#orderNo").qrcode({
+            render: "table",
+            width: 210,
+            height: 210,
+            text: str,
+        });
+    })
+
+    function doPay(url) {
+        console.log(url);
+        location.href = "/orderPay/directPay?url=" + encodeURI(url);
+    }
+
+</script>
+</body>
+</html>

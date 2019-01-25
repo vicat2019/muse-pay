@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nucc.dao.alipay.BankCardInfoMapper">
+    <resultMap id="BaseResultMap" type="com.nucc.entity.alipay.BankCardInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="sub_mch_id" jdbcType="VARCHAR" property="sub_mch_id"/>
+        <result column="card_no" jdbcType="VARCHAR" property="card_no"/>
+        <result column="card_name" jdbcType="VARCHAR" property="card_name"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="table_name">
+        nucc_bankcard_info
+    </sql>
+
+    <sql id="Base_Column_List">
+         id, sub_mch_id, card_no, card_name, version, modify_time, create_time
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where
+        id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete from
+        <include refid="table_name"/>
+        where sub_mch_id = #{merchantId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.nucc.entity.alipay.BankCardInfo">
+        insert into<include refid="table_name"/>(sub_mch_id, card_no, card_name)
+        values
+        (
+        #{sub_mch_id,jdbcType=VARCHAR},
+        #{card_no,jdbcType=VARCHAR},
+        #{card_name,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.nucc.entity.alipay.BankCardInfo">
+        update
+        <include refid="table_name"/>
+        set
+        sub_mch_id=#{sub_mch_id,jdbcType=VARCHAR},
+        card_no=#{card_no,jdbcType=VARCHAR},
+        card_name=#{card_name,jdbcType=VARCHAR},
+        version = version+1,
+        modify_time = now()
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <sql id="condition_sql">
+        <if test="name!=null and name!=''">
+            and merchant_name like CONCAT('%' ,CONCAT(#{name},'%'))
+        </if>
+        <if test="payKey!=null and payKey!=''">
+            and pay_key like CONCAT('%' ,CONCAT(#{payKey},'%'))
+        </if>
+        <if test="paySecret!=null and paySecret!=''">
+            and pay_secret like CONCAT('%' ,CONCAT(#{paySecret},'%'))
+        </if>
+        <if test="status!=null and status!=''">
+            and status = #{status}
+        </if>
+    </sql>
+
+    <select id="queryByKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        where
+        sub_mch_id = #{merchantId, jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

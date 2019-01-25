@@ -22,12 +22,12 @@ import java.util.List;
 public class MeBookPipeline implements Pipeline {
     private static Logger log = LoggerFactory.getLogger("MeBookPipeline");
 
-
     @Autowired
     private MeBookService meBookService;
 
     @Autowired
     private RedisUtil redisUtil;
+
 
     @Override
     public void process(ResultItems resultItems, Task task) {
@@ -51,7 +51,6 @@ public class MeBookPipeline implements Pipeline {
                     log.info("图书《" + item.getName() + "》已经存在");
                     return;
                 }
-
                 // 保存数据
                 meBookService.insert(item);
                 redisUtil.hdel(MeBookInfo.REDIS_KEY_BOOK_LIST, item.getDetailUrl());

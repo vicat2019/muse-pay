@@ -38,7 +38,7 @@ public class ProxyPipeline implements Pipeline {
 
         // 获取结果
         List<ProxyIpInfo> result = resultItems.get("result");
-        if (result == null) return ;
+        if (result == null) return;
 
         // 遍历结果集
         result.forEach(item -> {
@@ -61,13 +61,13 @@ public class ProxyPipeline implements Pipeline {
                     // 设置到缓存中
                     itemCodeSet = new HashSet<>();
                     itemCodeSet.add(item.getCode());
-                    redisUtil.set("url_code", itemCodeSet, 20*60);
+                    redisUtil.set("url_code", itemCodeSet, 20 * 60);
                 } else {
                     // 没有存在库中
                     if (!itemCodeSet.contains(item.getCode())) {
                         proxyIpInfoService.add(item);
                         itemCodeSet.add(item.getCode());
-                        redisUtil.set("url_code", itemCodeSet, 20*60);
+                        redisUtil.set("url_code", itemCodeSet, 20 * 60);
                     } else {
                         log.debug(item.getIp() + ":" + item.getPort() + " 已存在");
                     }

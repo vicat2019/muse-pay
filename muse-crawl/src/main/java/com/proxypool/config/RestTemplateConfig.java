@@ -7,18 +7,20 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Http连接池
+ * @Description: Http连接池
+ * @Author: Vincent
+ * @Date: 2019/1/25
  */
 @Configuration
 public class RestTemplateConfig {
 
     @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory simpleClientHttpRequestFactory){
+    public RestTemplate restTemplate(ClientHttpRequestFactory simpleClientHttpRequestFactory) {
         return new RestTemplate(simpleClientHttpRequestFactory);
     }
 
     @Bean
-    public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
+    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setReadTimeout(30000);       //单位为ms
         factory.setConnectTimeout(30000);    //单位为ms

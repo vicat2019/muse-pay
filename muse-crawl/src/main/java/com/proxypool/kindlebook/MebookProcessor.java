@@ -31,7 +31,6 @@ public class MebookProcessor extends ProcessorTemplate {
     private static final String PAGE_URL_REGEX = "http://mebook\\.cc/page/\\d+";
     // 详情页地址正则表达式
     private static final String DETAIL_URL_REGEX = "http://mebook\\.cc/\\d+\\.html";
-
     // URL
     private static final String ROOT_URL = "http://mebook.cc";
 
@@ -126,7 +125,6 @@ public class MebookProcessor extends ProcessorTemplate {
             bookInfo.supplement(detailDesc, downloadUrl);
             currentList.add(bookInfo);
         }
-
         return currentList;
     }
 
@@ -175,8 +173,7 @@ public class MebookProcessor extends ProcessorTemplate {
 
     @Override
     public String getUrl() {
-        return "http://mebook.cc/page/2";
-        //return ROOT_URL;
+        return ROOT_URL;
     }
 
 

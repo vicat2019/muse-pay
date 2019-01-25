@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>测试</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<center>
+    <table id="demo" lay-filter="test"></table>
+</center>
+<script src="/layui/layui.js"></script>
+<script th:inline="none">
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , url: '/recruit/list' //数据接口
+            , page: false //开启分页
+            , size: 'sm'
+            , even: true //开启隔行背景
+            , toolbar: true
+            , width: 1740
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 40, fixed: 'left'}
+                , {field: 'companyName', title: '公司名称', width: 225, sort: true}
+                , {field: 'postName', title: '名称', width: 225}
+                , {field: 'experience', title: '经验', width: 100, sort: true}
+                , {field: 'number', title: '人数', width: 80, sort: true}
+                , {field: 'salary', title: 'XINZI', width: 100}
+                , {field: 'education', title: '学历', width: 75, sort: true}
+                , {field: 'welfare', title: '福利', width: 200, sort: true}
+                , {field: 'jobInformation', title: '简介', width: 250}
+                , {field: 'companyType', title: '类型', width: 80, sort: true}
+                , {field: 'companySize', title: '规模', width: 100, sort: true}
+                , {field: 'releaseDate', title: '发布日期', width: 90, sort: true}
+                , {field: 'createTime', title: '创建日期', width: 150, sort: true}
+            ]]
+        });
+
+    });
+</script>
+</body>
+</html>

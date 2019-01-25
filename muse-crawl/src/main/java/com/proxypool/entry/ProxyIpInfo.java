@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
  * @Date: 2018/10/15
  */
 public class ProxyIpInfo extends BaseEntityInfo {
+
     // IP地址
     private String ip;
     // 编号
@@ -47,7 +48,6 @@ public class ProxyIpInfo extends BaseEntityInfo {
     private int failCount;
 
 
-
     /**
      * 默认构造方法
      */
@@ -58,16 +58,16 @@ public class ProxyIpInfo extends BaseEntityInfo {
     /**
      * 构造方法
      *
-     * @param ip
-     * @param port
-     * @param type
-     * @param responseSpeed
-     * @param location
-     * @param lastCheckTime
-     * @param anonymous
-     * @param survivalTime
-     * @param country
-     * @param source
+     * @param ip            IP地址
+     * @param port          端口号
+     * @param type          类型
+     * @param responseSpeed 响应速度
+     * @param location      位置
+     * @param lastCheckTime 上一次检查时间
+     * @param anonymous     是否匿名
+     * @param survivalTime  存活时间
+     * @param country       国家
+     * @param source        来源
      */
     public ProxyIpInfo(String ip, String port, String type, String responseSpeed, String location, String lastCheckTime,
                        String anonymous, String survivalTime, String country, String source) {
@@ -87,16 +87,16 @@ public class ProxyIpInfo extends BaseEntityInfo {
     /**
      * 获取实例
      *
-     * @param ip
-     * @param port
-     * @param type
-     * @param responseSpeed
-     * @param location
-     * @param lastCheckTime
-     * @param anonymous
-     * @param survivalTime
-     * @param country
-     * @return
+     * @param ip            IP地址
+     * @param port          端口号
+     * @param type          类型
+     * @param responseSpeed 响应速度
+     * @param location      位置
+     * @param lastCheckTime 上一次检查时间
+     * @param anonymous     是否匿名
+     * @param survivalTime  存活时间
+     * @param country       国家
+     * @return ProxyIpInfo
      */
     public static ProxyIpInfo getInstance(String ip, String port, String type, String responseSpeed, String location, String lastCheckTime,
                                           String anonymous, String survivalTime, String country, String source) {
@@ -106,8 +106,8 @@ public class ProxyIpInfo extends BaseEntityInfo {
     /**
      * 构造方法
      *
-     * @param ip
-     * @param status
+     * @param ip     IP地址
+     * @param status 状态值
      */
     public ProxyIpInfo(String ip, String status) {
         this.ip = ip;
@@ -144,6 +144,7 @@ public class ProxyIpInfo extends BaseEntityInfo {
 
     /**
      * 是否可以搁置不用
+     *
      * @return boolean
      */
     public boolean available() {

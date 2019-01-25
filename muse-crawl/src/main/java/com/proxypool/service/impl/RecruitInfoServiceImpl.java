@@ -1,5 +1,7 @@
 package com.proxypool.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.muse.common.entity.ResultData;
 import com.muse.common.service.BaseService;
 import com.proxypool.dao.RecruitInfoMapper;
@@ -12,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,7 +39,7 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
             // 记录当前发布日期
             if (StringUtils.isEmpty(recruitInfo.getReleaseDates())) {
                 recruitInfo.setReleaseDates(obj.getReleaseDate());
-            } else if (!recruitInfo.getReleaseDates().contains(recruitInfo.getReleaseDate().trim())){
+            } else if (!recruitInfo.getReleaseDates().contains(recruitInfo.getReleaseDate().trim())) {
                 recruitInfo.setReleaseDates(recruitInfo.getReleaseDates() + "," + obj.getReleaseDate());
             }
             // 更新
@@ -93,6 +97,30 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
 
         log.info("删除重复的职位记录数=" + count);
         return ResultData.getSuccessResult("成功删除重复记录[" + count + "]");
+    }
+
+    /**
+     * 分页查询JL记录
+     *
+     * @param page 页码
+     * @param size 每页记录数
+     * @return ResultData
+     * @throws Exception 异常
+     */
+    @Override
+    public Map<String, Object> queryRecruit(int page, int size) throws Exception {
+        PageHelper.startPage(page, size);
+
+        List<RecruitInfo> recruitInfoList = mapper.queryRecruit();
+        PageInfo pageInfo = new PageInfo(recruitInfoList);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("code", "0");
+        resultMap.put("message", "查询成功");
+        resultMap.put("total", pageInfo.getTotal());
+        resultMap.put("data", recruitInfoList);
+
+        return resultMap;
     }
 
     @Override

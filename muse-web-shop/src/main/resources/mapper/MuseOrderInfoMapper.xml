@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muse.pay.dao.MuseOrderInfoMapper">
+    <resultMap id="BaseResultMap" type="com.muse.pay.entity.MuseOrderInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo"/>
+        <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="serial_no" jdbcType="VARCHAR" property="serialNo"/>
+        <result column="qrcode_url" jdbcType="VARCHAR" property="qrCodeUrl"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+            id, order_no,merchant_no, merchant_order_no, amount, notify_url, subject, serial_no, qrcode_url, status,
+        version, modify_time, create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_muse_order_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByOrderNo" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/> from t_muse_order_info where order_no = #{orderNo} limit 1
+    </select>
+
+    <select id="selectByMerchantAndTradeNo" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from t_muse_order_info
+        where
+          merchant_no = #{merchantNo}
+        and
+          order_no = #{orderNo}
+        limit 1
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_muse_order_info
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.muse.pay.entity.MuseOrderInfo">
+        insert into t_muse_order_info (order_no, merchant_no, merchant_order_no,
+          amount, notify_url, subject,
+          serial_no, status, version,
+          modify_time, qrcode_url)
+        values (#{orderNo,jdbcType=VARCHAR}, #{merchantNo,jdbcType=VARCHAR}, #{merchantOrderNo,jdbcType=VARCHAR},
+          #{amount,jdbcType=DECIMAL}, #{notifyUrl,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR},
+          #{serialNo,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 1,
+          now(), #{qrCodeUrl, jdbcType=VARCHAR})
+      </insert>
+
+    <insert id="insertSelective" parameterType="com.muse.pay.entity.MuseOrderInfo">
+        insert into t_muse_order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+                order_no,
+            </if>
+            <if test="merchantNo != null">
+                merchant_no,
+            </if>
+            <if test="merchantOrderNo != null">
+                merchant_order_no,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="notifyUrl != null">
+                notify_url,
+            </if>
+            <if test="subject != null">
+                subject,
+            </if>
+            <if test="serialNo != null">
+                serial_no,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="qrCodeUrl != null">
+                qrcode_url
+            </if>
+            version
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantNo != null">
+                #{merchantNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantOrderNo != null">
+                #{merchantOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="notifyUrl != null">
+                #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNo != null">
+                #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCodeUrl != null">
+                #{qrCodeUrl,jdbcType=VARCHAR}
+            </if>
+            1
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.muse.pay.entity.MuseOrderInfo">
+        update t_muse_order_info
+        <set>
+            <if test="merchantNo != null">
+                merchant_no = #{merchantNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantOrderNo != null">
+                merchant_order_no = #{merchantOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="notifyUrl != null">
+                notify_url = #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNo != null">
+                serial_no = #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCodeUrl != null">
+                qrcode_url = #{qrCodeUrl,jdbcType=VARCHAR},
+            </if>
+            version=version+1,
+            modify_time=now()
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.muse.pay.entity.MuseOrderInfo">
+        update t_muse_order_info
+        set merchant_no = #{merchantNo,jdbcType=VARCHAR},
+          merchant_order_no = #{merchantOrderNo,jdbcType=VARCHAR},
+          amount = #{amount,jdbcType=DECIMAL},
+          notify_url = #{notifyUrl,jdbcType=VARCHAR},
+          subject = #{subject,jdbcType=VARCHAR},
+          serial_no = #{serialNo,jdbcType=VARCHAR},
+          status = #{status,jdbcType=VARCHAR},
+          version = version+1,
+          modify_time = now(),
+          qrcode_url = #{qrCodeUrl, jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+
+</mapper>

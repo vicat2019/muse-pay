@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PICTURE</title>
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="/js/layer.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="/layui/layui.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<style type="text/css">
+
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        /*margin: 0;*/
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: left;
+        padding: 6px 12px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    table.content {
+        margin-top: 5px;
+    }
+
+    table.content tr {
+        padding-top: 1px;
+        background-color: #fffffb;
+        height: 201px;
+    }
+
+    table.content tr td img {
+        padding: 0;
+        height: 200px;
+        width: 300px;
+        border-width: 0px;
+    }
+
+
+</style>
+
+<body>
+
+<center>
+    <table class="content">
+        <tr th:each="p, index : ${data.list}" th:id="@{'tr_' + ${index.index + 1}}" class="tr_">
+            <td th:each="pp : ${p}">
+                <img th:id="@{'img_' + ${pp.id}}" th:lay-src="${pp.thumbUrl}"
+                     th:onclick="@{'big(' + ${pp.id} + ',\'' + ${pp.bigUrl} + '\')'}"
+                />
+                <input type="hidden" th:id="@{'img_' + ${pp.id} + '_width'}" th:value="${pp.width}"/>
+                <input type="hidden" th:id="@{'img_' + ${pp.id} + '_height'}" th:value="${pp.height}"/>
+            </td>
+        </tr>
+    </table>
+
+    <ul class="pagination">
+        <li><a href="#" th:onclick="@{'prePage(' + ${data.pageNum - 1} + ')'}">«</a></li>
+        <li th:each="pn : ${data.navigatepageNums}">
+            <span th:if="${data.pageNum == pn}">
+                <a th:id="${pn}" href="#" th:text="${pn}" class="active"></a>
+            </span>
+            <span th:if="${data.pageNum != pn}">
+                <a th:id="${pn}" href="#" th:onclick="@{'onPage(' + ${pn} + ')'}" th:text="${pn}"></a>
+            </span>
+        </li>
+        <li><a href="#" th:onclick="@{'nextPage(' + ${data.pageNum + 1} + ')'}">»</a></li>
+    </ul>
+</center>
+
+</body>
+<script type="application/javascript">
+
+    function onPage(pn) {
+        console.log(pn);
+
+        $("#" + pn).addClass("active");
+
+        location.href = "/page/index?p=" + pn;
+    }
+
+    function prePage(pn) {
+        console.log(pn)
+        location.href = "/page/index?p=" + pn;
+    }
+
+    function nextPage(pn) {
+        console.log(pn)
+        location.href = "/page/index?p=" + pn;
+    }
+
+    function big(id, bigUrl) {
+        var width = $("#img_" + id + "_width").val();
+        var height = $("#img_" + id + "_height").val();
+
+        // 重新结算组件宽高
+        if (width > 1500 || height > 800) {
+            if (width > height) {
+                height = Math.round((height * 1500) / width);
+                width = 1500;
+                if (height > 800) {
+                    width = Math.round((width * 800) / height);
+                    height = 800;
+                }
+            } else {
+                width = Math.round((width * 800) / height);
+                height = 800;
+            }
+        }
+
+        var img = new Image();
+        img.src = bigUrl;
+        img.width = width + 30;
+        img.height = height + 20;
+        var imgHtml = "<img src='" + bigUrl + "' style='width: " + width + "px; height: " + height + "px;'/>";
+        console.log(imgHtml);
+
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shade: 0.8,
+            anim: 5,
+            area: width + 'px',
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: imgHtml
+        });
+    }
+
+    $(function () {
+        layui.use('flow', function(){
+            var flow = layui.flow;
+            //当你执行这样一个方法时，即对页面中的全部带有lay-src的img元素开启了懒加载（当然你也可以指定相关img）
+            flow.lazyimg();
+        });
+    });
+
+
+
+</script>
+
+</html>

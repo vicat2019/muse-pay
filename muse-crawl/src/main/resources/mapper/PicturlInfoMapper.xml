@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proxypool.dao.PictureInfoMapper">
+    <resultMap id="BaseResultMap" type="com.proxypool.picture.PictureInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="big_url" jdbcType="VARCHAR" property="bigUrl"/>
+        <result column="thumb_url" jdbcType="VARCHAR" property="thumbUrl"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+
+        <result column="width" jdbcType="INTEGER" property="width"/>
+        <result column="height" jdbcType="INTEGER" property="height"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, title, category, big_url, thumb_url, remark, width, height, status, version, modify_time, create_time
+      </sql>
+
+    <sql id="table_name">
+        t_picture_info
+    </sql>
+
+    <insert id="insertOrUpdate" parameterType="com.proxypool.kindlebook.MeBookInfo">
+        insert into<include refid="table_name"/>(title, category, big_url, thumb_url, remark, width, height)
+        values(
+        #{title, jdbcType=INTEGER},
+        #{category, jdbcType=VARCHAR},
+        #{bigUrl, jdbcType=VARCHAR},
+        #{thumbUrl, jdbcType=VARCHAR},
+        #{remark, jdbcType=VARCHAR},
+        #{width, jdbcType=INTEGER},
+        #{height, jdbcType=INTEGER}
+        )
+        ON DUPLICATE KEY UPDATE version=version+1, modify_time=now()
+    </insert>
+
+    <update id="updateByPrimary" parameterType="com.proxypool.picture.PictureInfo">
+        update
+        <include refid="table_name"/>
+        set
+        title = #{title, jdbcType=INTEGER},
+        category = #{category, jdbcType=VARCHAR},
+        big_url = #{bigUrl, jdbcType=VARCHAR},
+        thumb_url = #{thumbUrl, jdbcType=VARCHAR},
+        remark = #{remark, jdbcType=VARCHAR},
+        width = #{width, jdbcType=INTEGER},
+        height = #{height, jdbcType=INTEGER},
+        status = #{status, jdbcType=VARCHAR},
+        version = version+1,
+        modify_time = now()
+        where
+        id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <!-- 查询 -->
+    <select id="queryPicture" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from <include refid="table_name"/>
+    </select>
+
+
+</mapper>

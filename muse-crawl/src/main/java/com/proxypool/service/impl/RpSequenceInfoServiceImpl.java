@@ -28,12 +28,12 @@ import java.util.List;
 public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper, RpSequenceInfo> implements RpSequenceInfoService {
     private Logger log = LoggerFactory.getLogger("RpSequenceInfoServiceImpl");
 
-
     @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
     private RedisTemplate redisTemplate;
+
 
     @Override
     public String test() throws Exception {
@@ -41,8 +41,6 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
         for (int i = 0; i < 10; i++) {
             test.add(TextUtils.getRandomStr(10) + "-" + (i + 1));
         }
-
-        //redisTemplate.opsForList().rightPushAll("list3", test);
         redisUtil.lSetAll("list3", test);
 
         return (String) redisTemplate.opsForList().leftPop("list3");
@@ -52,7 +50,7 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
     /**
      * 获取序列
      *
-     * @return
+     * @return String
      * @throws Exception
      */
     @Override
@@ -93,9 +91,9 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
     /**
      * 缓存序列到Redis
      *
-     * @param cacheKey
-     * @param genCount
-     * @return
+     * @param cacheKey 缓存KEY
+     * @param genCount 生成个数
+     * @return boolean
      */
     private boolean cacheSequenceData(String cacheKey, int genCount) {
         isUpdate = true;
@@ -133,9 +131,9 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
     /**
      * 生成序列集合并保存到数据库中
      *
-     * @param currentNum
-     * @param count
-     * @return
+     * @param currentNum 当前个数
+     * @param count      个数
+     * @return List
      */
     private List<Object> genAndSaveSequence(int currentNum, int count) {
         // 存储集合

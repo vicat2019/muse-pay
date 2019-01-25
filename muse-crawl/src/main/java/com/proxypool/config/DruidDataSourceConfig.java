@@ -87,7 +87,6 @@ public class DruidDataSourceConfig extends DataSourceProperties {
     @Bean
     public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
-
         datasource.setUrl(this.dbUrl);
         datasource.setUsername(username);
         datasource.setPassword(password);
@@ -113,8 +112,6 @@ public class DruidDataSourceConfig extends DataSourceProperties {
         }
         datasource.setConnectionProperties(connectionProperties);
 
-
-
         List<Filter> list = new ArrayList<>();
         list.add(statFilter());
         list.add(log4jFilter());
@@ -137,7 +134,6 @@ public class DruidDataSourceConfig extends DataSourceProperties {
         return log4jFilter;
     }
 
-
     @Bean("stat-filter")
     public StatFilter statFilter() {
         StatFilter statFilter = new StatFilter();
@@ -146,9 +142,6 @@ public class DruidDataSourceConfig extends DataSourceProperties {
         statFilter.setLogSlowSql(true);
         return statFilter;
     }
-
-
-
 
     @Bean(name = "wallFilter")
     @DependsOn("wallConfig")
@@ -165,33 +158,6 @@ public class DruidDataSourceConfig extends DataSourceProperties {
         wallConfig.setNoneBaseStatementAllow(true);//允许一次执行多条语句
         return wallConfig;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
