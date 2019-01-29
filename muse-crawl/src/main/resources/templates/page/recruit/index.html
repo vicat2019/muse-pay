@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>测试</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
-    <script type="application/javascript" src="/js/layer.js" charset="UTF-8"></script>
     <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
     <script type="application/javascript" src="/layui/layui.js" charset="UTF-8"></script>
     <style type="text/css">
@@ -29,15 +28,22 @@
             border: 1px solid #e6e6e6;
             font-weight: lighter;
             color: #b7ba6b;
-            font-size: 17px;
+            font-size: 16px;
         }
 
         td {
             position: relative;
             font-size: 14px;
+            font-family: "等线 Light";
+            font-weight: normal;
             padding: 3px 5px;
             border: 1px solid #e6e6e6;
         }
+
+        a:link {color:#666;}		/* 未被访问的链接 */
+        a:visited {color:#666;}	/* 已被访问的链接 */
+        a:hover {color:#666;}	/* 鼠标指针移动到链接上 */
+        a:active {color:#666;}	/* 正在被点击的链接 */
 
         .index {
             text-align: center;
@@ -64,15 +70,12 @@
         ul.pagination {
             display: inline-block;
             padding: 0;
-            /*margin: 0;*/
             margin-top: 20px;
             margin-bottom: 20px;
         }
-
         ul.pagination li {
             display: inline;
         }
-
         ul.pagination li a {
             color: black;
             float: left;
@@ -80,12 +83,10 @@
             text-decoration: none;
             transition: background-color .3s;
         }
-
         ul.pagination li a.active {
-            background-color: #4CAF50;
+            background-color: #33a3dc;
             color: white;
         }
-
         ul.pagination li a:hover:not(.active) {
             background-color: #ddd;
         }
@@ -121,12 +122,14 @@
             <th style='width: 30px;'>序号</th>
             <th style='width: 120px;'>公司名称</th>
             <th style='width: 120px;'>职位</th>
-            <th style='width: 80px;'>薪资</th>
-            <th style='width: 80px;'>人数</th>
-            <th style='width: 100px;'>经验</th>
+            <th style='width: 60px;'>薪资</th>
+            <th style='width: 60px;'>人数</th>
+            <th style='width: 55px;'>经验</th>
+            <th style='width: 70px;'>性质</th>
+            <th style='width: 65px;'>规模</th>
             <th style='width: 300px;'>描述</th>
-            <th style='width: 100px;'>发布日期</th>
-            <th style='width: 100px;'>创建日期</th>
+            <th style='width: 60px;'>发布日期</th>
+            <th style='width: 90px;'>创建日期</th>
         </tr>
         </thead>
         <tbody id="table_content">
@@ -151,23 +154,29 @@
 
     function parseResult(data) {
         var content = "";
-        for (var i = 0; i < data['data']['list'].length; i++) {
-            var item = data['data']['list'][i];
 
-            var detailId = "detail_" + i;
+        if (data.data != null) {
+            for (var i = 0; i < data['data']['list'].length; i++) {
+                var item = data['data']['list'][i];
+                var detailId = "detail_" + i;
 
-            content += "<tr id='tr_" + (i + 1) + "' onmouseover='ms(" + (i + 1) + ");' onmouseout='mo(" + (i + 1) + ")'>";
-            content += "<td class='index'>" + (i + 1) + "</td>";
-            content += "<td>" + item.companyName + "</td>";
-            content += "<td><a target='_blank' href='" + item.detailUrl + "'>" + item.postName + "</td>";
-            content += "<td>" + item.salary + "</td>";
-            content += "<td>" + item.number + "</td>";
-            content += "<td>" + item.experience + "</a></td>";
-            content += "<td><a href='#' onclick='showInformation(" + detailId + ")'>" + item.welfare + "</a></td>";
-            content += "<td>" + item.releaseDate + "</td>";
-            content += "<td>" + item.createTime + "</td>";
-            content += "</tr>";
-            content += "<input type='hidden' id='" + detailId + "' value='" + item.jobInformation + "'/>";
+                content += "<tr id='tr_" + (i + 1) + "' onmouseover='ms(" + (i + 1) + ");' onmouseout='mo(" + (i + 1) + ")'>";
+                content += "<td class='index'>" + (i + 1) + "</td>";
+                content += "<td>" + item.companyName + "</td>";
+                content += "<td><a target='_blank' href='" + item.detailUrl + "'>" + item.postName + "</td>";
+                content += "<td>" + item.salary + "</td>";
+                content += "<td>" + item.number + "</td>";
+                content += "<td>" + item.experience + "</td>";
+                content += "<td>" + item.companyType + "</td>";
+                content += "<td>" + item.companySize + "</td>";
+                content += "<td>" + item.welfare + "</td>";
+                content += "<td>" + item.releaseDate + "</td>";
+                content += "<td>" + item.createTime + "</td>";
+                content += "</tr>";
+                content += "<input type='hidden' id='" + detailId + "' value='" + item.jobInformation + "'/>";
+            }
+        } else {
+            content = "<tr><td colspan='11' style='text-align: center;font-size: 15px;'>" + data.message + "</td></tr>";
         }
 
         $("#table_content").html(content);
@@ -215,8 +224,6 @@
             $("#p").val("1");
             p = "1";
         }
-
-        console.log(companyName + ", " + postName + ", " + releaseTime + ", " + createTime)
 
         $.post("/recruit/list", {
             companyName: companyName,

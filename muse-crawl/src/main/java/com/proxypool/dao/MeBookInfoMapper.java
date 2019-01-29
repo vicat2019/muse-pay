@@ -5,6 +5,7 @@ import com.proxypool.kindlebook.MeBookInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 电子书信息DAO类
@@ -57,4 +58,13 @@ public interface MeBookInfoMapper {
      * @return int
      */
     int getCountByCode(@Param("code") int code);
+
+
+    /**
+     * 分页查询电子书列表
+     *
+     * @param params 查询参数
+     * @return List
+     */
+    List<MeBookInfo> queryMeBook(Map<String, Object> params);
 }

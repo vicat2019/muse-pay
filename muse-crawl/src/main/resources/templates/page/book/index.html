@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>电子书</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/layui/layui.js"></script>
+
+    <style type="text/css">
+
+        table {
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 0px solid #e6e6e6;
+            border-collapse: collapse;
+
+            table-layout: fixed;
+            background: #fffef9;
+        }
+
+        .tr-line {
+            border-top: 1px solid #e6e6e6;
+        }
+
+        th {
+            height: 40px;
+            border: 1px solid #e6e6e6;
+            font-weight: lighter;
+            color: #b7ba6b;
+            font-size: 17px;
+        }
+
+        td {
+            position: relative;
+            font-size: 14px;
+            padding: 3px 5px;
+            border: 0px solid #e6e6e6;
+        }
+
+        table thead tr td {
+            font-family: "等线 Light";
+            text-align: center;
+        }
+
+        .post {
+            padding: 2px 3px;
+        }
+
+        .book-name {
+            width: 800px;
+            font-size: 15px;
+            color: #33a3dc;
+            font-weight: bold;
+        }
+
+        a:link {color:#33a3dc;}		/* 未被访问的链接 */
+        a:visited {color:#00FF00;}	/* 已被访问的链接 */
+        a:hover {color:#7bbfea;}	/* 鼠标指针移动到链接上 */
+        a:active {color:#33a3dc;}	/* 正在被点击的链接 */
+
+        .query-input {
+            height: 23px;
+            width: 160px;
+            border: 1px solid #e6e6e6;
+            padding-left: 3px;
+            background-color: #fffef9;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<center>
+    <table>
+        <tr>
+            <td>
+                标题：<input class="query-input" type="text" id="title"/>&nbsp;&nbsp;
+                作者：<input class="query-input" type="text" id="author"/>&nbsp;&nbsp;
+                类别：<input class="query-input" type="text" id="category"/>&nbsp;&nbsp;
+                描述：<input class="query-input" type="text" id="desc"/>&nbsp;&nbsp;
+                <button class="layui-btn layui-btn-xs" style="height:24px;" onclick="query()">查询</button>
+            </td>
+        </tr>
+        <tr>
+            <td id="query_result" style="text-align: left;padding-left: 3px;width:100%;color: #e0861a;"></td>
+        </tr>
+    </table>
+
+    <table id="content_table" style="padding: 1px 3px">
+        <tbody id="content"></tbody>
+    </table>
+
+</center>
+<input type="hidden" id="pn" value="1"/>
+<input type="hidden" id="maxPn" value="1"/>
+
+</body>
+<script type="text/javascript">
+
+    var loadingPage = 1;
+    var isLoading = false;
+
+    function query() {
+        queryBook(1, "query");
+    }
+
+    function queryBook(pn, type) {
+        console.log("-加载第 " + pn + " 页-");
+        isLoading = true;
+        loadingPage = pn;
+
+        var title = $("#title").val();
+        var author = $("#author").val();
+        var category = $("#category").val();
+        var desc = $("#desc").val();
+
+        $.post("/mb/list",
+            {title: title, author: author, category: category, desc: desc, p: pn},
+            function (data) {
+                if (data.code == 0) {
+                    parseData(data, type);
+                }
+
+                isLoading = false;
+            })
+    }
+
+    function parseData(data, type) {
+        var content = "";
+        if (data.data == null) {
+            content += "<tr><td style='font-size: 16px;color: #87843b;width: 100%;padding-top: 20px;'>" + data.message + "</td></tr>";
+            $("#content").empty();
+            $("#content").html(content);
+
+            parseQueryResultTip(data);
+
+            console.log("===" + data.message);
+            $("#pn").val(1);
+            $("#maxPn").val(1);
+
+        } else {
+            $("#pn").val(data.data.pageNum);
+            $("#maxPn").val(data.data.pages);
+            for (var index in data.data.list) {
+                var item = data.data.list[index];
+                content += "<tr class='tr-line'>";
+                content += "<td style='width:100px;'><a target='_blank' href='" + item.downloadUrl + "'><img class='post' src='"
+                    + item.postUrl + "' style='width:85px;height:120px;'/></a></td>";
+
+                content += "<td><table><tr><td class='book-name'><a target='_blank' href='" + item['detailUrl'] + "'>"
+                    + item['name'] + "</a></td></tr>";
+                content += "<tr><td>作者：" + item.author + "</td></tr>";
+                content += "<tr><td>类型：" + item.category + "</td></tr>";
+                content += "<tr><td>简介：" + item.intro + "</td></tr>";
+                content += "<tr><td>日期：" + item.createTime + "</td>";
+                content += "</tr></table></td>";
+                content += "</tr>";
+            }
+
+            parseQueryResultTip(data);
+
+            if (type == 'query') {
+                $("#content").empty();
+                $("#content").html(content);
+            } else {
+                $("#content").append(content);
+            }
+        }
+    }
+
+    function parseQueryResultTip(data) {
+        var tip = "查询结果：共0条，共0页";
+        if (data.data != null) {
+            tip = "查询结果：共" + data.data.total + "条，共" + data.data.pages + "页";
+        }
+        $("#query_result").html(tip);
+    }
+
+    function clearQuery() {
+        $("#title").val("");
+        $("#author").val("");
+        $("#category").val("");
+        $("#desc").val("");
+
+        $("#pn").val("1");
+        $("#maxPn").val("1");
+    }
+
+    $(function () {
+        clearQuery();
+        queryBook(1, "init");
+
+        $(window).scroll(function () {
+            var contentH = $(document).height();
+            //内容高度
+            var scrollH = $(this).scrollTop();
+            //滚动高度
+            var viewH = $(this).height();
+            //可视高度
+            if (contentH - viewH - scrollH < 10 && !isLoading) {
+                var nextPage = parseInt($("#pn").val()) + 1;
+                if (nextPage < parseInt($("#maxPn").val())) {
+                    queryBook(nextPage, "scroll");
+                }
+            }
+        });
+    });
+
+
+</script>
+</html>

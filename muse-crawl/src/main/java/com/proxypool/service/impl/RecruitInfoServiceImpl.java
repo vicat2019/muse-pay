@@ -118,15 +118,17 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("code", "0");
-        resultMap.put("message", "查询成功");
-        resultMap.put("total", pageInfo.getTotal());
-        resultMap.put("data", recruitInfoList);
-        resultMap.put("count", pageInfo.getTotal());
+
+        if (recruitInfoList != null && recruitInfoList.size() > 0) {
+            resultMap.put("message", "查询成功");
+            resultMap.put("data", pageInfo);
+        } else {
+            resultMap.put("message", "没有匹配的数据");
+            resultMap.put("data", null);
+        }
+
         resultMap.put("p", page);
         resultMap.put("s", size);
-
-        resultMap.put("data", pageInfo);
-
         return resultMap;
     }
 

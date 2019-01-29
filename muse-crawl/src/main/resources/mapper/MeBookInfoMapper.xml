@@ -10,7 +10,7 @@
         <result column="post_url" jdbcType="VARCHAR" property="postUrl"/>
         <result column="release_time" jdbcType="VARCHAR" property="releaseTime"/>
         <result column="intro" jdbcType="VARCHAR" property="intro"/>
-        <result column="detail_url" jdbcType="VARCHAR" property="downloadUrl"/>
+        <result column="detail_url" jdbcType="VARCHAR" property="detailUrl"/>
         <result column="detail_desc" jdbcType="VARCHAR" property="detailDesc"/>
         <result column="download_url" jdbcType="VARCHAR" property="downloadUrl"/>
 
@@ -101,6 +101,29 @@
         from
         <include refid="table_name"/>
         order by name, title
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryMeBook" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="table_name"/>
+        <where>
+            <if test="title!=null and title != ''">
+                title like CONCAT('%' ,CONCAT(#{title},'%'))
+            </if>
+            <if test="author!=null and author != ''">
+                and author like CONCAT('%' ,CONCAT(#{author},'%'))
+            </if>
+            <if test="category!=null and category != ''">
+                and category like CONCAT('%' ,CONCAT(#{category},'%'))
+            </if>
+            <if test="detailDesc!=null and detailDesc != ''">
+                and detail_desc like CONCAT('%' ,CONCAT(#{detailDesc},'%'))
+            </if>
+        </where>
+        order by id desc
     </select>
 
 
