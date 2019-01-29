@@ -137,7 +137,23 @@
     </select>
 
     <select id="queryRecruit" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/> from <include refid="Table_Name"/>
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        <where>
+            <if test="companyName != null or companyName!=''">
+                and company_name like CONCAT('%' ,CONCAT(#{companyName},'%'))
+            </if>
+            <if test="postName != null or postName!=''">
+                and post_name like CONCAT('%' ,CONCAT(#{postName},'%'))
+            </if>
+            <if test="releaseTime != null or releaseTime!=''">
+                and release_date like CONCAT('%' ,CONCAT(#{releaseTime},'%'))
+            </if>
+        </where>
+
+        order by create_time desc
     </select>
 
 

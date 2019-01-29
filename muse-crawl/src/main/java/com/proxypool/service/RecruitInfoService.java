@@ -21,5 +21,6 @@ public interface RecruitInfoService {
 
     ResultData delRepeatRecruit() throws Exception;
 
-    Map<String, Object> queryRecruit(int page, int size) throws Exception;
+    Map<String, Object> queryRecruit(int page, int size, String companyName, String postName, String minSalary,
+                                     String maxSalary, String releaseTime, String createTime) throws Exception;
 }

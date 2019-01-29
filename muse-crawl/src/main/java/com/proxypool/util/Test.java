@@ -1,5 +1,7 @@
 package com.proxypool.util;
 
+import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnels;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -8,14 +10,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @program: muse-pay
@@ -25,8 +28,36 @@ import java.util.List;
  **/
 public class Test {
 
+    private static final int capacity = 1000000;
+    private static final int key = 999998;
+
+    private static BloomFilter<Integer> bloomFilter = BloomFilter.create(Funnels.integerFunnel(), capacity);
+
+    static {
+        for (int i = 0; i < capacity; i++) {
+            bloomFilter.put(i);
+        }
+    }
+
     public static void main(String[] args) {
 
+        /*返回计算机最精确的时间，单位微妙*/
+/*
+        long start = System.nanoTime();
+
+        if (bloomFilter.mightContain(key)) {
+            System.out.println("成功过滤到" + key);
+        }
+        long end = System.nanoTime();
+        System.out.println("布隆过滤器消耗时间:" + ((end - start)/1000000d));
+        int sum = 0;
+        for (int i = capacity + 20000; i < capacity + 30000; i++) {
+            if (bloomFilter.mightContain(i)) {
+                sum = sum + 1;
+            }
+        }
+        System.out.println("错判率为:" + sum/1000000d);
+*/
 
 
         /*String ip = "36.48.73.16";
@@ -49,31 +80,16 @@ public class Test {
         System.out.println(interval);*/
 
 
-
         // genRandomInfo(50000);
 
-        List<Integer> a = new ArrayList<>();
-        a.add(1);
-        a.add(2);
-        a.add(3);
-        a.add(4);
-        a.add(5);
-        a.add(6);
-        a.add(7);
-        a.add(8);
-        a.add(9);
-        a.add(10);
 
-        /*a = a.stream().filter(item -> item <5).collect(Collectors.toList());
-        a.forEach(System.out::println);*/
+        System.getProperties().setProperty("webdriver.chrome.driver", "D:/chromedriver/chromedriver.exe");
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("https://weibo.com/");
+        WebElement webElement = webDriver.findElement(By.xpath("/html"));
+        System.out.println(webElement.getAttribute("outerHTML"));
+        webDriver.close();
 
-        List<String> list = Arrays.asList("123", "1234", "12345", "abch", "sdfhrthj", "mvkd");
-        list.stream().forEach(e ->{
-            if(e.length() >= 5){
-                return;
-            }
-            System.out.println(e);
-        });
 
     }
 
@@ -89,7 +105,7 @@ public class Test {
             while (size > 0) {
                 writer.write(1000 + "," + userId + "\n");
                 size--;
-                userId ++;
+                userId++;
             }
             writer.flush();
             writer.close();
@@ -132,52 +148,6 @@ public class Test {
             httpClient.close();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

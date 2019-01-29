@@ -21,6 +21,7 @@ import us.codecraft.webmagic.proxy.SimpleProxyProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -48,7 +49,7 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
      * 默认构造方法
      */
     public ProcessorTemplate() {
-        initSize();
+        initSite();
     }
 
     /**
@@ -61,13 +62,13 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
         this.threadCount = threadCount;
         this.interval = interval;
 
-        initSize();
+        initSite();
     }
 
     /**
      * 初始化抓取网站的相关配置
      */
-    private void initSize() {
+    private void initSite() {
         site = Site.me().setRetryTimes(3).setSleepTime(interval);
     }
 
@@ -163,6 +164,49 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
         if (useProxy) setHttpProxyPool(spider);
         // 开始抓取
         spider.run();
+    }
+
+    /**
+     * 开始执行任务
+     *
+     * @param pipeline   结果处理对象
+     * @param useProxy   是否使用代理，默认不使用
+     * @param cookiesMap Cookies，默认不使用
+     * @param downloader 下载器
+     * @throws Exception 异常
+     */
+    public void execute(Pipeline pipeline, boolean useProxy, Map<String, String> cookiesMap, Downloader downloader) throws Exception {
+        Spider spider = Spider.create(getInstance())
+                .addUrl(getUrl())
+                .thread(threadCount);
+
+        // 设置结果数据处理对象
+        if (pipeline != null) spider.addPipeline(pipeline);
+        // 设置代理池
+        if (useProxy) setHttpProxyPool(spider);
+        // 设置Cookies
+        if (cookiesMap != null && cookiesMap.size() > 0) {
+            setCookies(cookiesMap);
+        }
+        if (downloader != null) {
+            spider.setDownloader(downloader);
+        }
+        // 开始抓取
+        spider.run();
+    }
+
+    /**
+     * 设置Cookies值
+     *
+     * @param cookiesMap Cookies值MAP
+     */
+    private void setCookies(Map<String, String> cookiesMap) {
+        if (this.site == null) {
+            initSite();
+        }
+        cookiesMap.forEach((k, v) -> {
+            site.addCookie(k, v);
+        });
     }
 
     /**

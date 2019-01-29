@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -46,63 +47,81 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
         return (String) redisTemplate.opsForList().leftPop("list3");
     }
 
+    private ReentrantLock lock = new ReentrantLock(true);
+
+    private static int count = 0;
 
     /**
      * 获取序列
      *
      * @return String
-     * @throws Exception
+     * @throws Exception 异常
      */
     @Override
     public String obtainSequence() throws Exception {
 
         // 随机获取缓存序列的key
         String cacheKey = RpSequenceInfo.obtainRedisKey();
-        // 先从一个Redis缓存中获取
         Object obj = redisUtil.lLeftPop(cacheKey);
-        if (isUpdate) {
-            Thread.sleep(1000);
-            obj = redisUtil.lLeftPop(cacheKey);
-        }
+
 
         if (obj == null) {
-            // 生成数据，并保存到数据库中，缓存到Redis中
-            boolean cacheResult = cacheSequenceData(cacheKey, 50000);
-            log.info("生成数据，并缓存到Redis中，结果=" + cacheResult);
+            lock.lock();
+            try {
+                obj = redisUtil.lLeftPop(cacheKey);
+                if (obj == null) {
+                    count += 1;
+                    boolean cacheResult = genAndCacheSequences(cacheKey, 50000);
+                    log.info("obtainSequence() 生成数据并缓存到Redis中，结果=" + cacheResult);
+                    // 再取一次数据
+                    obj = redisUtil.lLeftPop(cacheKey);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
         }
 
-        // 再取一次数据
-        obj = redisUtil.lLeftPop(cacheKey);
-        if (obj == null) {
-            throw new Exception("获取序列号异常, CacheKey=" + cacheKey);
+
+        log.info("需要批量生成序列号次数[count] = " + count);
+        if (obj instanceof String) {
+            String sequence = (String) obj;
+            updateSequenceStatus(sequence);
+            return sequence;
+        } else {
+            log.error("obtainSequence() 获取序列号失败");
+            return "";
         }
-
-        String sequence = (String) obj;
-        // int count = mapper.deleteBySequence(sequence);
-        int count = mapper.updateBySequence("1", sequence);
-        log.debug("从数据库中删除序列=" + sequence + "， 结果=" + count);
-
-        log.info("获取的序列值=" + sequence + ", redis_key=" + cacheKey);
-        return sequence;
     }
 
-    private static boolean isUpdate = false;
+    /**
+     * 更新已经获取的序列的状态
+     *
+     * @param sequence 序列号
+     * @return int
+     */
+    private int updateSequenceStatus(String sequence) {
+        int count = mapper.updateBySequence("1", sequence);
+        log.info("obtainSequence() 从数据库中删除序列=" + sequence + "， 结果=" + count);
+
+        return count;
+    }
 
     /**
-     * 缓存序列到Redis
+     * 生成并缓存序列号
      *
      * @param cacheKey 缓存KEY
      * @param genCount 生成个数
      * @return boolean
      */
-    private boolean cacheSequenceData(String cacheKey, int genCount) {
-        isUpdate = true;
+    private boolean genAndCacheSequences(String cacheKey, int genCount) {
 
         // 查询序列数据
         List<Object> sequenceList = mapper.selectSequenceBatch(genCount);
-        log.debug("从数据库中查询序列数据，个数=" + (sequenceList != null ? sequenceList.size() : 0));
+        log.info("genAndCacheSequences() 从数据库中查询序列数据，个数=" + (sequenceList != null ? sequenceList.size() : 0));
 
-        // 为空，生成序列
+        // 生成序列
         if (sequenceList == null || sequenceList.size() == 0) {
             String currentIndexStr = mapper.getCurrentSequenceNum("current_sequence_num");
             if (StringUtils.isEmpty(currentIndexStr)) {
@@ -113,17 +132,18 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
             // 生成记录，并添加到数据库中
             long start = System.currentTimeMillis();
             sequenceList = genAndSaveSequence(currentIndex, genCount);
-            log.debug("生成" + genCount + "个序列号并保存，耗时=" + ((System.currentTimeMillis() - start) / 1000d));
+            log.info("genAndCacheSequences() 生成" + genCount + "个序列号并保存，耗时=" + ((System.currentTimeMillis() - start)
+                    / 1000d));
         }
 
         // 缓存到Redis中
         if (sequenceList != null && sequenceList.size() > 0) {
             redisUtil.del(cacheKey);
             boolean cacheResult = redisUtil.lSetAll(cacheKey, sequenceList);
-            log.info("设置序列集合到缓存中，key=" + cacheKey + ", 个数=" + sequenceList.size() + ", 结果=" + cacheResult + Thread.currentThread().getName());
+            log.info("genAndCacheSequences() 设置序列集合到缓存中，key=" + cacheKey + ", 个数=" + sequenceList.size()
+                    + ", 结果=" + cacheResult + Thread.currentThread().getName());
             sequenceList.clear();
         }
-        isUpdate = false;
 
         return true;
     }
@@ -152,7 +172,7 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
             if (i % 1000 == 0) {
                 sequenceList.addAll(tempList);
                 int result = mapper.insertSequenceBatch(tempList);
-                log.debug("添加序列到数据库，结果=" + result + ", 个数=" + tempList.size());
+                log.info("genAndSaveSequence() 添加序列到数据库，结果=" + result + ", 个数=" + tempList.size());
                 tempList.clear();
             }
         }
@@ -160,14 +180,14 @@ public class RpSequenceInfoServiceImpl extends BaseService<RpSequenceInfoMapper,
         if (tempList.size() > 0) {
             int result = mapper.insertSequenceBatch(tempList);
             sequenceList.addAll(tempList);
-            log.debug("添加序列到数据库，结果=" + result + ", 个数=" + tempList.size());
+            log.info("genAndSaveSequence() 添加序列到数据库，结果=" + result + ", 个数=" + tempList.size());
         }
 
         // 更新
         int updateResult = mapper.updateCurrentSequenceNum(String.valueOf(sequenceNum), "current_sequence_num");
-        log.info("更新当前数据标识=" + sequenceNum + ", 结果=" + updateResult);
+        log.info("genAndSaveSequence() 更新当前数据标识=" + sequenceNum + ", 结果=" + updateResult);
 
-        log.info("添加序列到数据库, 生成序列号个数=" + count + ", 当前currentIndex=" + sequenceNum);
+        log.info("genAndSaveSequence() 添加序列到数据库, 生成序列号个数=" + count + ", 当前currentIndex=" + sequenceNum);
         // 返回结果
         return sequenceList;
     }

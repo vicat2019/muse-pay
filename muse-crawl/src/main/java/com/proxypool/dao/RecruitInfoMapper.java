@@ -1,6 +1,7 @@
 package com.proxypool.dao;
 
 import com.proxypool.entry.RecruitInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -87,6 +88,8 @@ public interface RecruitInfoMapper {
      *
      * @return List
      */
-    List<RecruitInfo> queryRecruit();
+    List<RecruitInfo> queryRecruit(@Param("companyName") String companyName, @Param("postName") String postName,
+                                   @Param("minSalary") String minSalary, @Param("maxSalary") String maxSalary,
+                                   @Param("releaseTime") String releaseTime, @Param("createTime") String createTime);
 
 }

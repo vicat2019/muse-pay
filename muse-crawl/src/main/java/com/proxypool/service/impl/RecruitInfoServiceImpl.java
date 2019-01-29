@@ -108,10 +108,12 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
      * @throws Exception 异常
      */
     @Override
-    public Map<String, Object> queryRecruit(int page, int size) throws Exception {
+    public Map<String, Object> queryRecruit(int page, int size, String companyName, String postName, String minSalary,
+                                            String maxSalary, String releaseTime, String createTime) throws Exception {
         PageHelper.startPage(page, size);
 
-        List<RecruitInfo> recruitInfoList = mapper.queryRecruit();
+        List<RecruitInfo> recruitInfoList = mapper.queryRecruit(companyName, postName, minSalary,
+                maxSalary, releaseTime, createTime);
         PageInfo pageInfo = new PageInfo(recruitInfoList);
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -119,6 +121,11 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
         resultMap.put("message", "查询成功");
         resultMap.put("total", pageInfo.getTotal());
         resultMap.put("data", recruitInfoList);
+        resultMap.put("count", pageInfo.getTotal());
+        resultMap.put("p", page);
+        resultMap.put("s", size);
+
+        resultMap.put("data", pageInfo);
 
         return resultMap;
     }

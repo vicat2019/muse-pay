@@ -4,43 +4,270 @@
     <meta charset="utf-8">
     <title>测试</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script type="application/javascript" src="/js/layer.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/layui/layui.js" charset="UTF-8"></script>
+    <style type="text/css">
+        table {
+            width: 1800px;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #e6e6e6;
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+        tr {
+            height: 40px;
+            border: 1px solid #e6e6e6;
+        }
+
+        th {
+            height: 40px;
+            border: 1px solid #e6e6e6;
+            font-weight: lighter;
+            color: #b7ba6b;
+            font-size: 17px;
+        }
+
+        td {
+            position: relative;
+            font-size: 14px;
+            padding: 3px 5px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .index {
+            text-align: center;
+        }
+
+        .even {
+            background-color: #cde6c7;
+            color: #6d8346;
+        }
+
+        .input {
+            margin-left: 3px;
+            border: 1px solid #e6e6e6;
+            height: 24px;
+            padding-left: 3px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .query_table {
+            height: 60px;
+        }
+
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            /*margin: 0;*/
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 6px 12px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        ul.pagination li a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+    </style>
 </head>
 <body>
 <center>
-    <table id="demo" lay-filter="test"></table>
+    <form action="/recruit/list">
+        <table id="query_table" class="query_table">
+            <tr>
+                <td>公司名称:<input class="input" type="text" id="companyName" name="companyName" style="width:200px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;职位:<input class="input" type="text" id="postName" name="postName"
+                                                      style="width:200px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;薪资:<input class="input" type="text" id="minSalary" name="minSalary"
+                                                      style="width:80px"> -
+                    <input class="input" type="text" id="maxSalary" name="maxSalary" style="width:80px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;发布日期:<input class="input" type="text" id="releaseTime" name="releaseTime"
+                                                        style="width:200px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;创建日期:<input class="input" type="text" id="createTime" name="createTime"
+                                                        style="width:200px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="layui-btn layui-btn-sm" value="查询"
+                                                   onclick="query('f')">
+                    &nbsp;&nbsp;<input type="button" class="layui-btn layui-btn-sm" value="清空" onclick="clearQuery()">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table class="content">
+        <thead>
+        <tr>
+            <th style='width: 30px;'>序号</th>
+            <th style='width: 120px;'>公司名称</th>
+            <th style='width: 120px;'>职位</th>
+            <th style='width: 80px;'>薪资</th>
+            <th style='width: 80px;'>人数</th>
+            <th style='width: 100px;'>经验</th>
+            <th style='width: 300px;'>描述</th>
+            <th style='width: 100px;'>发布日期</th>
+            <th style='width: 100px;'>创建日期</th>
+        </tr>
+        </thead>
+        <tbody id="table_content">
+        </tbody>
+    </table>
+
+    <input type="hidden" id="p" name="p">
+    <input type="hidden" id="s" name="s">
+
+    <div id="pageContent"></div>
 </center>
 <script src="/layui/layui.js"></script>
 <script th:inline="none">
-    layui.use('table', function () {
-        var table = layui.table;
 
-        //第一个实例
-        table.render({
-            elem: '#demo'
-            , url: '/recruit/list' //数据接口
-            , page: false //开启分页
-            , size: 'sm'
-            , even: true //开启隔行背景
-            , toolbar: true
-            , width: 1740
-            , cols: [[ //表头
-                {field: 'id', title: 'ID', width: 40, fixed: 'left'}
-                , {field: 'companyName', title: '公司名称', width: 225, sort: true}
-                , {field: 'postName', title: '名称', width: 225}
-                , {field: 'experience', title: '经验', width: 100, sort: true}
-                , {field: 'number', title: '人数', width: 80, sort: true}
-                , {field: 'salary', title: 'XINZI', width: 100}
-                , {field: 'education', title: '学历', width: 75, sort: true}
-                , {field: 'welfare', title: '福利', width: 200, sort: true}
-                , {field: 'jobInformation', title: '简介', width: 250}
-                , {field: 'companyType', title: '类型', width: 80, sort: true}
-                , {field: 'companySize', title: '规模', width: 100, sort: true}
-                , {field: 'releaseDate', title: '发布日期', width: 90, sort: true}
-                , {field: 'createTime', title: '创建日期', width: 150, sort: true}
-            ]]
+    function loadData(pn) {
+        $.get('/recruit/list?p=' + pn, function (data) {
+            parseResult(data);
+
+            parsePage(data['data']);
         });
+    }
 
+    function parseResult(data) {
+        var content = "";
+        for (var i = 0; i < data['data']['list'].length; i++) {
+            var item = data['data']['list'][i];
+
+            var detailId = "detail_" + i;
+
+            content += "<tr id='tr_" + (i + 1) + "' onmouseover='ms(" + (i + 1) + ");' onmouseout='mo(" + (i + 1) + ")'>";
+            content += "<td class='index'>" + (i + 1) + "</td>";
+            content += "<td>" + item.companyName + "</td>";
+            content += "<td><a target='_blank' href='" + item.detailUrl + "'>" + item.postName + "</td>";
+            content += "<td>" + item.salary + "</td>";
+            content += "<td>" + item.number + "</td>";
+            content += "<td>" + item.experience + "</a></td>";
+            content += "<td><a href='#' onclick='showInformation(" + detailId + ")'>" + item.welfare + "</a></td>";
+            content += "<td>" + item.releaseDate + "</td>";
+            content += "<td>" + item.createTime + "</td>";
+            content += "</tr>";
+            content += "<input type='hidden' id='" + detailId + "' value='" + item.jobInformation + "'/>";
+        }
+
+        $("#table_content").html(content);
+    }
+
+    function parsePage(data) {
+        $("#pageContent").empty();
+
+        var pages = data['navigatepageNums'];
+        var pageContent = "<ul class='pagination'><li><a href='#' onclick='prePage(" + (data['pageNum'] - 1) + ")'}>«</a></li>";
+        for (var item in pages) {
+            if (pages[item] == data['pageNum']) {
+                pageContent += "<li><span><a href='#' id='" + pages[item] + "' class='active'>" + pages[item] + "</a></span>";
+            } else {
+                pageContent += "<li><span><a href='#' id='" + pages[item] + "' onclick='onPage(" + pages[item] + ")'>" + pages[item] + "</a></span>";
+            }
+        }
+        pageContent += "<li><a href='#' onclick='nextPage(" + (data['pageNum'] + 1) + ")'>»</a></li></ul>";
+        $("#pageContent").html(pageContent);
+    }
+
+
+    function ms(index) {
+        $("#tr_" + index).addClass("even");
+    }
+
+    function mo(index) {
+        $("#tr_" + index).removeClass("even");
+    }
+
+    $(function () {
+        clearQuery();
+
+        loadData(1);
     });
+
+    function query(type) {
+        var companyName = $("#companyName").val();
+        var postName = $("#postName").val();
+        var releaseTime = $("#releaseTime").val();
+        var createTime = $("#createTime").val();
+
+        var p = $("#p").val();
+        if (type == 'f') {
+            $("#p").val("1");
+            p = "1";
+        }
+
+        console.log(companyName + ", " + postName + ", " + releaseTime + ", " + createTime)
+
+        $.post("/recruit/list", {
+            companyName: companyName,
+            postName: postName,
+            releaseTime: releaseTime,
+            createTime: createTime,
+            p: p
+        }, function (data) {
+            parseResult(data);
+            parsePage(data['data']);
+        });
+    }
+
+    function clearQuery() {
+        $("#companyName").val("");
+        $("#postName").val("");
+        $("#releaseTime").val("");
+        $("#createTime").val("");
+        $("#p").val("");
+    }
+
+    function onPage(pn) {
+        $("#p").val(pn);
+        $("#" + pn).addClass("active");
+        query();
+    }
+
+    function prePage(pn) {
+        console.log(pn);
+        $("#p").val(pn);
+        query();
+    }
+
+    function nextPage(pn) {
+        console.log(pn);
+        $("#p").val(pn);
+        query();
+    }
+    
+    function showInformation(id) {
+        console.log($(id).val());
+
+        //页面层
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['420px', '240px'], //宽高
+            content: "<img src='/default.jpg'/>"
+        });
+    }
+
 </script>
 </body>
 </html>
