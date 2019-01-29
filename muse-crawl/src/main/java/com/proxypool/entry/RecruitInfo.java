@@ -2,6 +2,8 @@ package com.proxypool.entry;
 
 import com.muse.common.entity.BaseEntityInfo;
 
+import java.math.BigDecimal;
+
 /**
  * @Description: JL信息类
  * @Author: Vincent
@@ -18,6 +20,10 @@ public class RecruitInfo extends BaseEntityInfo {
     private String contact;
 
     private String salary;
+
+    private BigDecimal minSalary;
+
+    private BigDecimal maxSalary;
 
     private String area;
 
@@ -254,5 +260,21 @@ public class RecruitInfo extends BaseEntityInfo {
 
     public void setReleaseCount(int releaseCount) {
         this.releaseCount = releaseCount;
+    }
+
+    public BigDecimal getMinSalary() {
+        return minSalary;
+    }
+
+    public void setMinSalary(BigDecimal minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public BigDecimal getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(BigDecimal maxSalary) {
+        this.maxSalary = maxSalary;
     }
 }

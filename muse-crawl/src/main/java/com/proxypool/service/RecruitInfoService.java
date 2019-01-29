@@ -23,4 +23,14 @@ public interface RecruitInfoService {
 
     Map<String, Object> queryRecruit(int page, int size, String companyName, String postName, String minSalary,
                                      String maxSalary, String releaseTime, String createTime) throws Exception;
+
+    /**
+     * 清洗数据
+     *
+     * @param page     页码
+     * @param pageSize 每页记录数
+     * @return ResultData
+     * @throws Exception 异常
+     */
+    ResultData rinseRecruit(int page, int pageSize) throws Exception;
 }

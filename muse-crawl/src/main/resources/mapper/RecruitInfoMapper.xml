@@ -28,6 +28,10 @@
         <result column="release_dates" jdbcType="VARCHAR" property="releaseDates"/>
         <result column="release_count" jdbcType="INTEGER" property="releaseCount"/>
 
+        <result column="min_salary" jdbcType="DECIMAL" property="minSalary"/>
+        <result column="max_salary" jdbcType="DECIMAL" property="maxSalary"/>
+
+
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -38,7 +42,7 @@
     </sql>
 
     <sql id="Base_Column_List">
-        id, post_name, experience, number, contact, salary, area, education, welfare, job_information, company_name,
+        id, post_name, experience, number, contact, salary, min_salary, max_salary, area, education, welfare, job_information, company_name,
         company_type, company_size, company_industry, company_desc, release_date, source, detail_url, identification_code,
         release_dates, release_count
         version, modify_time, create_time
@@ -49,17 +53,18 @@
         insert into t_recruit_info (id, post_name, experience,
           number, contact, company_name,
           company_type, company_size, company_industry,
-          release_date, salary, area,
+          release_date, salary, min_salary, max_salary, area,
           education, welfare, job_information, company_desc, source, identification_code, detail_url,
           release_dates, release_count
           )
         values (#{id,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR},
           #{number,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
           #{companyType,jdbcType=VARCHAR}, #{companySize,jdbcType=VARCHAR}, #{companyIndustry,jdbcType=VARCHAR},
-          #{releaseDate,jdbcType=VARCHAR}, #{salary,jdbcType=VARBINARY}, #{area,jdbcType=VARBINARY},
-          #{education,jdbcType=VARBINARY}, #{welfare,jdbcType=VARBINARY}, #{jobInformation,jdbcType=LONGVARCHAR},
-          #{companyDesc,jdbcType=LONGVARCHAR}, #{source,jdbcType=LONGVARCHAR}, #{identificationCode,jdbcType=LONGVARCHAR},
-          #{detailUrl,jdbcType=LONGVARCHAR}, #{releaseDates,jdbcType=LONGVARCHAR}, #{releaseCount,jdbcType=INTEGER}
+          #{releaseDate,jdbcType=VARCHAR}, #{salary,jdbcType=VARBINARY}, #{min_salary,jdbcType=DECIMAL}, #{max_salary,jdbcType=DECIMAL},
+          #{area,jdbcType=VARBINARY}, #{education,jdbcType=VARBINARY}, #{welfare,jdbcType=VARBINARY},
+          #{jobInformation,jdbcType=LONGVARCHAR}, #{companyDesc,jdbcType=LONGVARCHAR}, #{source,jdbcType=LONGVARCHAR},
+          #{identificationCode,jdbcType=LONGVARCHAR}, #{detailUrl,jdbcType=LONGVARCHAR}, #{releaseDates,jdbcType=LONGVARCHAR},
+          #{releaseCount,jdbcType=INTEGER}
           )
       </insert>
 
@@ -100,6 +105,8 @@
           company_desc = #{companyDesc,jdbcType=VARCHAR},
           release_date = #{releaseDate,jdbcType=VARCHAR},
           salary = #{salary,jdbcType=VARCHAR},
+          min_salary = #{minSalary,jdbcType=DECIMAL},
+          max_salary = #{maxSalary,jdbcType=DECIMAL},
           area = #{area,jdbcType=VARCHAR},
           education = #{education,jdbcType=VARCHAR},
           welfare = #{welfare,jdbcType=VARCHAR},
@@ -120,7 +127,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="getCountByCode" resultType="int">
+    <select id="getCountByCode" resultType="java.lang.Integer">
         select count(1) as total from t_recruit_info where identification_code = #{code}
     </select>
 
@@ -130,12 +137,13 @@
         from t_recruit_info where identification_code = #{code}
     </select>
 
-    <select id="getRepeatRecruitIds" resultType="int">
+    <select id="getRepeatRecruitIds" resultType="java.lang.Integer">
         SELECT id FROM t_recruit_info WHERE identification_code IN (
         SELECT identification_code FROM t_recruit_info GROUP BY identification_code HAVING COUNT(1)>1)
         ORDER BY post_name
     </select>
 
+    <!-- 多条件分页查询 -->
     <select id="queryRecruit" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -152,9 +160,52 @@
                 and release_date like CONCAT('%' ,CONCAT(#{releaseTime},'%'))
             </if>
         </where>
-
         order by create_time desc
     </select>
+
+    <!-- 整理数据库中的数据 -->
+    <select id="selectRecruit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        order by id desc
+    </select>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        update <include refid="Table_Name"/>
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="min_salary =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.minSalary}
+                </foreach>
+            </trim>
+            <trim prefix="max_salary =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.maxSalary}
+                </foreach>
+            </trim>
+            <trim prefix="release_date =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.releaseDate}
+                </foreach>
+            </trim>
+            <trim prefix="release_dates =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.releaseDates}
+                </foreach>
+            </trim>
+            <trim prefix="number =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.number}
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id,jdbcType=INTEGER}
+        </foreach>
+    </update>
 
 
 </mapper>

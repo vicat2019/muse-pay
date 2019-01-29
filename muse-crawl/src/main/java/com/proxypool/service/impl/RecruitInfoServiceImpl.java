@@ -7,16 +7,15 @@ import com.muse.common.service.BaseService;
 import com.proxypool.dao.RecruitInfoMapper;
 import com.proxypool.entry.RecruitInfo;
 import com.proxypool.service.RecruitInfoService;
+import com.proxypool.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 
 /**
@@ -130,6 +129,60 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
         resultMap.put("p", page);
         resultMap.put("s", size);
         return resultMap;
+    }
+
+    @Override
+    public ResultData rinseRecruit(int page, int pageSize) throws Exception {
+
+        // 分页查询数据
+        PageHelper.startPage(page, pageSize);
+        List<RecruitInfo> dataList = mapper.selectRecruit();
+        if (dataList == null || dataList.size() == 0) {
+            return ResultData.getSuccessResult("没有未处理的数据");
+        }
+        PageInfo<RecruitInfo> pageInfo = new PageInfo<>(dataList);
+
+        // 清洗
+        for (RecruitInfo item : dataList) {
+            // XZ
+            BigDecimal[] salaryAr = TextUtils.splitSalary(item);
+            if (salaryAr != null) {
+                item.setMinSalary(salaryAr[0]);
+                item.setMaxSalary(salaryAr[1]);
+            }
+
+            // 发布日期
+            if (item.getNumber().contains("发布")) {
+                item.setReleaseDate(item.getNumber());
+                item.setNumber("");
+            }
+
+            // 去掉"发布"
+            if (item.getReleaseDate().contains("发布")) {
+                item.setReleaseDate(item.getReleaseDate().replaceAll("发布", ""));
+            }
+            if (item.getReleaseDates().contains("发布")) {
+                item.setReleaseDates(item.getReleaseDates().replaceAll("发布", ""));
+            }
+        }
+
+        // 更新
+        if (dataList.size() > 1000) {
+            int count = (dataList.size() % 1000 == 0) ? (dataList.size() / 1000) : (dataList.size() / 1000 + 1);
+            for (int i=0; i<count; i++) {
+                mapper.updateBatch(dataList.subList((i * 1000), (i+1)*1000));
+            }
+        } else {
+            mapper.updateBatch(dataList);
+        }
+
+        // 如果还有下一页
+/*        int maxPage = pageInfo.getPages();
+        if (page < maxPage) {
+            rinseRecruit(page + 1, pageSize);
+        }*/
+
+        return ResultData.getSuccessResult("完成数据处理");
     }
 
     @Override

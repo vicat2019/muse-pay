@@ -92,4 +92,20 @@ public interface RecruitInfoMapper {
                                    @Param("minSalary") String minSalary, @Param("maxSalary") String maxSalary,
                                    @Param("releaseTime") String releaseTime, @Param("createTime") String createTime);
 
+
+    /**
+     * 查询JL列表(用于清洗数据)
+     *
+     * @return List
+     */
+    List<RecruitInfo> selectRecruit();
+
+    /**
+     * 更新薪资属性值
+     *
+     * @param recruitInfos JL信息
+     * @return int
+     */
+    int updateBatch(List<RecruitInfo> recruitInfos);
+
 }

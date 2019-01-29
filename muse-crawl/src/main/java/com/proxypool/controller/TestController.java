@@ -8,6 +8,7 @@ import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.picture.PictureInfoPipeline;
 import com.proxypool.picture.WallhavenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
+import com.proxypool.service.RecruitInfoService;
 import com.proxypool.service.RpSequenceInfoService;
 import com.proxypool.weibo.SeleniumDownloader;
 import com.proxypool.weibo.WeiboProcessor;
@@ -54,6 +55,9 @@ public class TestController {
 
     @Autowired
     private WeiboProcessor weiboProcessor;
+
+    @Autowired
+    private RecruitInfoService recruitInfoService;
 
 
     @RequestMapping("/sequence/{count}")
@@ -154,6 +158,17 @@ public class TestController {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @RequestMapping("/rinse")
+    public ResultData rinse() {
+        try {
+            return recruitInfoService.rinseRecruit(1, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultData.getErrResult(e.getMessage());
         }
     }
 

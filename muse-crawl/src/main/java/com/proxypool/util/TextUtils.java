@@ -1,9 +1,11 @@
 package com.proxypool.util;
 
+import com.proxypool.entry.RecruitInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -161,9 +163,60 @@ public class TextUtils {
         return content.trim();
     }
 
+    /**
+     * 解析记录中的Salary值
+     *
+     * @param recruitInfo JL信息
+     * @return BigDecimal[]
+     */
+    public static BigDecimal[] splitSalary(RecruitInfo recruitInfo) {
+        // 检查参数是否为空
+        if (recruitInfo == null || StringUtils.isEmpty(recruitInfo.getSalary())) {
+            return null;
+        }
+        BigDecimal[] result = new BigDecimal[2];
+        String salary = recruitInfo.getSalary().trim();
+        salary = salary.replaceAll("以下", "");
+
+        // 千/月 万/月 万/年
+        String temp = salary.replaceAll("[\u4e00-\u9fa5]/[\u4e00-\u9fa5]", "");
+        String[] numStr = temp.split("-");
+        if (numStr.length == 1) {
+            String tempStr = numStr[0];
+            numStr = new String[2];
+            numStr[0] = "0";
+            numStr[1] = tempStr;
+        }
+
+        for (int i = 0; i < numStr.length; i++) {
+            System.out.println(numStr[i]);
+            result[i] = new BigDecimal(numStr[i]);
+        }
+        if (salary.contains("万/年")) {
+            result[0] = result[0].divide(new BigDecimal("12"), 2, BigDecimal.ROUND_HALF_UP);
+            result[1] = result[1].divide(new BigDecimal("12"), 2, BigDecimal.ROUND_HALF_UP);
+        }
+        if (salary.contains("千/月")) {
+            result[0] = result[0].multiply(new BigDecimal("0.1"));
+            result[1] = result[1].multiply(new BigDecimal("0.1"));
+        }
+
+        return result;
+    }
+
 
     public static void main(String[] args) {
+        RecruitInfo recruitInfo = new RecruitInfo();
+        recruitInfo.setSalary("1.5-3万/月");
 
+        BigDecimal[] result = splitSalary(recruitInfo);
+        if (result != null) {
+            for (BigDecimal bigDecimal : result) {
+                System.out.println(bigDecimal.toString());
+            }
+        } else {
+            System.out.println("null");
+        }
     }
 
 

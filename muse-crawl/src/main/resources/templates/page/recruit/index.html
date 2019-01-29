@@ -116,20 +116,20 @@
         </table>
     </form>
 
-    <table class="content">
+    <table class="content" style="word-wrap:break-word; word-break:break-all;">
         <thead>
         <tr>
             <th style='width: 30px;'>序号</th>
             <th style='width: 120px;'>公司名称</th>
-            <th style='width: 120px;'>职位</th>
-            <th style='width: 60px;'>薪资</th>
-            <th style='width: 60px;'>人数</th>
+            <th style='width: 80px;'>职位</th>
+            <th style='width: 50px;'>薪资</th>
+            <th style='width: 50px;'>人数</th>
             <th style='width: 55px;'>经验</th>
-            <th style='width: 70px;'>性质</th>
-            <th style='width: 65px;'>规模</th>
-            <th style='width: 300px;'>描述</th>
-            <th style='width: 60px;'>发布日期</th>
-            <th style='width: 90px;'>创建日期</th>
+            <th style='width: 60px;'>性质</th>
+            <th style='width: 55px;'>规模</th>
+            <th style='width: 480px;'>描述</th>
+            <th style='width: 50px;'>发布日期</th>
+<!--            <th style='width: 90px;'>创建日期</th>-->
         </tr>
         </thead>
         <tbody id="table_content">
@@ -169,9 +169,9 @@
                 content += "<td>" + item.experience + "</td>";
                 content += "<td>" + item.companyType + "</td>";
                 content += "<td>" + item.companySize + "</td>";
-                content += "<td>" + item.welfare + "</td>";
+                content += "<td>" + item.jobInformation + "</td>";
                 content += "<td>" + item.releaseDate + "</td>";
-                content += "<td>" + item.createTime + "</td>";
+/*                content += "<td>" + item.createTime + "</td>";*/
                 content += "</tr>";
                 content += "<input type='hidden' id='" + detailId + "' value='" + item.jobInformation + "'/>";
             }
