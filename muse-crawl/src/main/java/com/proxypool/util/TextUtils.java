@@ -179,7 +179,7 @@ public class TextUtils {
         salary = salary.replaceAll("以下", "");
 
         // 千/月 万/月 万/年
-        String temp = salary.replaceAll("[\u4e00-\u9fa5]/[\u4e00-\u9fa5]", "");
+        String temp = salary.replaceAll("[\u4e00-\u9fa5]*/[\u4e00-\u9fa5]*", "");
         String[] numStr = temp.split("-");
         if (numStr.length == 1) {
             String tempStr = numStr[0];
@@ -189,8 +189,11 @@ public class TextUtils {
         }
 
         for (int i = 0; i < numStr.length; i++) {
-            System.out.println(numStr[i]);
-            result[i] = new BigDecimal(numStr[i]);
+            if (isNumber(numStr[i])) {
+                result[i] = new BigDecimal(numStr[i]);
+            } else {
+                log.error("[" + numStr[i] + "]转换成数字异常, ID=" + recruitInfo.getId());
+            }
         }
         if (salary.contains("万/年")) {
             result[0] = result[0].divide(new BigDecimal("12"), 2, BigDecimal.ROUND_HALF_UP);
@@ -200,23 +203,78 @@ public class TextUtils {
             result[0] = result[0].multiply(new BigDecimal("0.1"));
             result[1] = result[1].multiply(new BigDecimal("0.1"));
         }
+        if (salary.contains("元/天")) {
+            result[0] = result[0].divide(new BigDecimal("24"), 2, BigDecimal.ROUND_HALF_UP)
+                    .multiply(new BigDecimal("8")).multiply(new BigDecimal("30"))
+                    .divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP);
+            result[1] = result[1].divide(new BigDecimal("24"), 2, BigDecimal.ROUND_HALF_UP)
+                    .multiply(new BigDecimal("8")).multiply(new BigDecimal("30"))
+                    .divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP);
+        }
+        if (salary.contains("元/小时")) {
+            result[0] = result[0].multiply(new BigDecimal("8")).multiply(new BigDecimal("30"))
+                    .divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP);
+            result[1] = result[1].multiply(new BigDecimal("8")).multiply(new BigDecimal("30"))
+                    .divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP);
+        }
 
         return result;
     }
 
+    /**
+     * 检查给定的字符串是否是数字
+     *
+     * @param numStr 字符串
+     * @return Boolean
+     */
+    public static boolean isNumber(String numStr) {
+        if (StringUtils.isEmpty(numStr)) {
+            return false;
+        }
 
-    public static void main(String[] args) {
-        RecruitInfo recruitInfo = new RecruitInfo();
-        recruitInfo.setSalary("1.5-3万/月");
+        Pattern pattern = Pattern.compile("^\\d+(\\.\\d+)*$");
+        Matcher matcher = pattern.matcher(numStr.trim());
+        return matcher.find();
+    }
 
-        BigDecimal[] result = splitSalary(recruitInfo);
-        if (result != null) {
-            for (BigDecimal bigDecimal : result) {
-                System.out.println(bigDecimal.toString());
+    /**
+     * 拆分Experience属性
+     *
+     * @param recruitInfo JL信息
+     * @return int[]
+     */
+    public static int[] splitExperience(RecruitInfo recruitInfo) {
+        // 检查参数是否为空
+        if (recruitInfo == null || StringUtils.isEmpty(recruitInfo.getExperience())) {
+            return null;
+        }
+
+        int[] experiences = new int[]{0, 0};
+        if (recruitInfo.getExperience().equals("无工作经验")) {
+            return experiences;
+        }
+
+        String experience = recruitInfo.getExperience();
+        String temp = experience.replaceAll("[\u4e00-\u9fa5]+", "");
+
+        if (temp.contains("-")) {
+            String[] temps = temp.split("-");
+            if (temps.length == 1) {
+                experiences[1] = Integer.parseInt(temps[0].trim());
+            } else {
+                experiences[0] = Integer.parseInt(temps[0].trim());
+                experiences[1] = Integer.parseInt(temps[1].trim());
             }
         } else {
-            System.out.println("null");
+            experiences[1] = Integer.parseInt(temp.trim());
         }
+
+        return experiences;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(isNumber(".0123.0"));
     }
 
 

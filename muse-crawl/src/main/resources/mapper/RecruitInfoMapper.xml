@@ -31,6 +31,9 @@
         <result column="min_salary" jdbcType="DECIMAL" property="minSalary"/>
         <result column="max_salary" jdbcType="DECIMAL" property="maxSalary"/>
 
+        <result column="min_exp" jdbcType="INTEGER" property="minExp"/>
+        <result column="max_exp" jdbcType="INTEGER" property="maxExp"/>
+
 
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
@@ -42,7 +45,7 @@
     </sql>
 
     <sql id="Base_Column_List">
-        id, post_name, experience, number, contact, salary, min_salary, max_salary, area, education, welfare, job_information, company_name,
+        id, post_name, experience, min_exp, max_exp, number, contact, salary, min_salary, max_salary, area, education, welfare, job_information, company_name,
         company_type, company_size, company_industry, company_desc, release_date, source, detail_url, identification_code,
         release_dates, release_count
         version, modify_time, create_time
@@ -50,14 +53,14 @@
 
 
     <insert id="insert" parameterType="com.proxypool.entry.RecruitInfo">
-        insert into t_recruit_info (id, post_name, experience,
+        insert into t_recruit_info (id, post_name, experience, min_exp, max_exp,
           number, contact, company_name,
           company_type, company_size, company_industry,
           release_date, salary, min_salary, max_salary, area,
           education, welfare, job_information, company_desc, source, identification_code, detail_url,
           release_dates, release_count
           )
-        values (#{id,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR},
+        values (#{id,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR}, #{minExp,jdbcType=INTEGER}, #{maxExp,jdbcType=INTEGER},
           #{number,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
           #{companyType,jdbcType=VARCHAR}, #{companySize,jdbcType=VARCHAR}, #{companyIndustry,jdbcType=VARCHAR},
           #{releaseDate,jdbcType=VARCHAR}, #{salary,jdbcType=VARBINARY}, #{min_salary,jdbcType=DECIMAL}, #{max_salary,jdbcType=DECIMAL},
@@ -96,6 +99,8 @@
         set
           post_name = #{postName,jdbcType=VARCHAR},
           experience = #{experience,jdbcType=VARCHAR},
+          min_exp = #{minExp,jdbcType=INTEGER},
+          max_exp = #{maxExp,jdbcType=INTEGER},
           number = #{number,jdbcType=VARCHAR},
           contact = #{contact,jdbcType=VARCHAR},
           company_name = #{companyName,jdbcType=VARCHAR},
@@ -159,6 +164,12 @@
             <if test="releaseTime != null or releaseTime!=''">
                 and release_date like CONCAT('%' ,CONCAT(#{releaseTime},'%'))
             </if>
+            <if test="minSalary!=null and minSalary!=''">
+                <![CDATA[ and min_salary >= #{minSalary, jdbcType=DECIMAL}]]>
+            </if>
+            <if test="maxSalary!=null and maxSalary!=''">
+                <![CDATA[ and max_salary <= #{maxSalary, jdbcType=DECIMAL}]]>
+            </if>
         </where>
         order by create_time desc
     </select>
@@ -166,14 +177,15 @@
     <!-- 整理数据库中的数据 -->
     <select id="selectRecruit" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        id, number, experience, salary, release_date, release_dates
         from
         <include refid="Table_Name"/>
         order by id desc
     </select>
 
     <update id="updateBatch" parameterType="java.util.List">
-        update <include refid="Table_Name"/>
+        update
+        <include refid="Table_Name"/>
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="min_salary =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
@@ -198,6 +210,16 @@
             <trim prefix="number =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     when id=#{item.id} then #{item.number}
+                </foreach>
+            </trim>
+            <trim prefix="min_exp =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.minExp}
+                </foreach>
+            </trim>
+            <trim prefix="max_exp =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.maxExp}
                 </foreach>
             </trim>
         </trim>

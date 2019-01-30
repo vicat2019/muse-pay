@@ -75,8 +75,12 @@ public class MebookProcessor extends ProcessorTemplate {
                     if (bookInfo.canMoreHandle()) {
                         redisUtil.hset(MeBookInfo.REDIS_KEY_BOOK_LIST, bookInfo.getDetailUrl(), bookInfo);
                     }
+
+
+                    System.out.println(intro);
                 });
             }
+
 
         } else if (TextUtils.isMatch(DETAIL_URL_REGEX, currentUrl)) {
             MeBookInfo bookInfo;
@@ -125,7 +129,8 @@ public class MebookProcessor extends ProcessorTemplate {
             bookInfo.supplement(detailDesc, downloadUrl);
             currentList.add(bookInfo);
         }
-        return currentList;
+        //return currentList;
+        return null;
     }
 
     @Override
@@ -145,7 +150,7 @@ public class MebookProcessor extends ProcessorTemplate {
                 if (!StringUtil.isNumeric(pageNumStr)) {
                     return true;
                 }
-                return Integer.parseInt(pageNumStr) <= 3;
+                return Integer.parseInt(pageNumStr) <= 2;
             }).collect(Collectors.toList());
             // 去重
             Set<String> pageUrlSet = new HashSet<>(pageUrlList);
@@ -163,7 +168,8 @@ public class MebookProcessor extends ProcessorTemplate {
         }
 
         log.info("总地址数=" + urlList.size() + ", 详情页地址数=" + detailUrlCount + ", 分页地址数=" + pageUrlCount);
-        return urlList;
+        //return urlList;
+        return null;
     }
 
     @Override

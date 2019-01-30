@@ -117,7 +117,7 @@
         var category = $("#category").val();
         var desc = $("#desc").val();
 
-        $.post("/mb/list",
+        $.post("/mebook/list",
             {title: title, author: author, category: category, desc: desc, p: pn},
             function (data) {
                 if (data.code == 0) {

@@ -116,6 +116,9 @@ public class Job51Processor extends ProcessorTemplate {
                 recruitInfo.setNumber("");
             }
 
+            recruitInfo.setMultiSalary();
+            recruitInfo.setMultiExperience();
+
             resultList.add(recruitInfo);
             log.info("解析详情页，当前连接[" + currentUrl + "], 获取职位个数=" + resultList.size());
         }

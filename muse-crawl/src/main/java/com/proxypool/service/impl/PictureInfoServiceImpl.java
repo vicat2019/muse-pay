@@ -26,31 +26,43 @@ import java.util.List;
 public class PictureInfoServiceImpl extends BaseService<PictureInfoMapper, PictureInfo> implements PictureInfoService {
     private Logger log = LoggerFactory.getLogger("PictureInfoServiceImpl");
 
+    /**
+     * 保存图片信息
+     *
+     * @param pictureInfo 图片信息
+     * @return int
+     * @throws Exception 异常
+     */
     @Override
     public int insert(PictureInfo pictureInfo) throws Exception {
+        log.info("insert() 保存图片信息：" + ((pictureInfo != null) ? pictureInfo : "null"));
         // 检查参数
         Preconditions.checkNotNull(pictureInfo);
         // 地址是否为空
         Preconditions.checkArgument(!StringUtils.isEmpty(pictureInfo.getBigUrl()),
                 "主地址不能为空");
-
         return mapper.insertOrUpdate(pictureInfo);
     }
 
+    /**
+     * 查询图片列表
+     *
+     * @param page     页码
+     * @param pageSize 每页记录数
+     * @return PageInfo
+     * @throws Exception 异常
+     */
     @Override
     public PageInfo<Collection> query(int page, int pageSize) throws Exception {
         PageHelper.startPage(page, pageSize);
-
         List<PictureInfo> picList = mapper.queryPicture();
 
         // 分成矩阵的形式
         List<List<PictureInfo>> resultData = Lists.partition(picList, 4);
         PageInfo pageInfo = new PageInfo<>(picList);
-        log.info(pageInfo.toString());
-
         pageInfo.setList(resultData);
 
-        log.info("查询分页数据，page=" + page + ", size=" + pageSize + ", 返回数据=" + pageInfo.getList().size());
+        log.info("query() 查询图片列表：page=" + page + ", pageSize=" + pageSize + ", 返回数据=" + picList.size());
         return pageInfo;
     }
 

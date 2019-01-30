@@ -101,8 +101,14 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
     /**
      * 分页查询JL记录
      *
-     * @param page 页码
-     * @param size 每页记录数
+     * @param page        页码
+     * @param size        每页记录数
+     * @param companyName GS名称
+     * @param postName    ZW名称
+     * @param minSalary   最低GZ
+     * @param maxSalary   最高GZ
+     * @param releaseTime 发布日期
+     * @param createTime  创建日期
      * @return ResultData
      * @throws Exception 异常
      */
@@ -118,7 +124,7 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("code", "0");
 
-        if (recruitInfoList != null && recruitInfoList.size() > 0) {
+        if (recruitInfoList.size() > 0) {
             resultMap.put("message", "查询成功");
             resultMap.put("data", pageInfo);
         } else {
@@ -149,6 +155,9 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
             if (salaryAr != null) {
                 item.setMinSalary(salaryAr[0]);
                 item.setMaxSalary(salaryAr[1]);
+            } else {
+                item.setMinSalary(new BigDecimal("0"));
+                item.setMaxSalary(new BigDecimal("0"));
             }
 
             // 发布日期
@@ -156,31 +165,47 @@ public class RecruitInfoServiceImpl extends BaseService<RecruitInfoMapper, Recru
                 item.setReleaseDate(item.getNumber());
                 item.setNumber("");
             }
-
             // 去掉"发布"
-            if (item.getReleaseDate().contains("发布")) {
+            if (!StringUtils.isEmpty(item.getReleaseDate()) && item.getReleaseDate().contains("发布")) {
                 item.setReleaseDate(item.getReleaseDate().replaceAll("发布", ""));
             }
-            if (item.getReleaseDates().contains("发布")) {
+            if (!StringUtils.isEmpty(item.getReleaseDates()) && item.getReleaseDates().contains("发布")) {
                 item.setReleaseDates(item.getReleaseDates().replaceAll("发布", ""));
+            }
+
+            // 经验
+            int[] experiences = TextUtils.splitExperience(item);
+            if (experiences != null) {
+                item.setMinExp(experiences[0]);
+                item.setMaxExp(experiences[1]);
             }
         }
 
+        int rinseCount = 0;
         // 更新
         if (dataList.size() > 1000) {
             int count = (dataList.size() % 1000 == 0) ? (dataList.size() / 1000) : (dataList.size() / 1000 + 1);
-            for (int i=0; i<count; i++) {
-                mapper.updateBatch(dataList.subList((i * 1000), (i+1)*1000));
+            for (int i = 0; i < count; i++) {
+                List<RecruitInfo> temp;
+                if (i < count - 1) {
+                    temp = dataList.subList((i * 1000), (i + 1) * 1000);
+                } else {
+                    temp = dataList.subList((i * 1000), dataList.size());
+                }
+                mapper.updateBatch(temp);
+                rinseCount += temp.size();
             }
         } else {
             mapper.updateBatch(dataList);
+            rinseCount += dataList.size();
         }
+        log.info("rinseRecruit() 清洗数据个数=" + rinseCount);
 
         // 如果还有下一页
-/*        int maxPage = pageInfo.getPages();
+        int maxPage = pageInfo.getPages();
         if (page < maxPage) {
             rinseRecruit(page + 1, pageSize);
-        }*/
+        }
 
         return ResultData.getSuccessResult("完成数据处理");
     }

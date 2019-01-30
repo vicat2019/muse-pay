@@ -1,6 +1,8 @@
 package com.proxypool.entry;
 
 import com.muse.common.entity.BaseEntityInfo;
+import com.proxypool.util.TextUtils;
+import org.thymeleaf.util.StringUtils;
 
 import java.math.BigDecimal;
 
@@ -14,6 +16,10 @@ public class RecruitInfo extends BaseEntityInfo {
     private String postName;
 
     private String experience;
+
+    private int minExp;
+
+    private int maxExp;
 
     private String number;
 
@@ -56,7 +62,6 @@ public class RecruitInfo extends BaseEntityInfo {
     private int releaseCount;
 
 
-
     @Override
     public int hashCode() {
         int result = postName != null ? postName.hashCode() : 0;
@@ -75,6 +80,30 @@ public class RecruitInfo extends BaseEntityInfo {
         }
 
         return false;
+    }
+
+    /**
+     * 设置XZ
+     */
+    public void setMultiSalary() {
+        if (!StringUtils.isEmpty(this.salary)) {
+            BigDecimal[] salarys = TextUtils.splitSalary(this);
+            if (salarys != null) {
+                this.minSalary = salarys[0];
+                this.maxSalary = salarys[1];
+            }
+        }
+    }
+
+    /**
+     * 设置经验属性
+     */
+    public void setMultiExperience() {
+        if (!StringUtils.isEmpty(this.experience)) {
+            int[] experiences = TextUtils.splitExperience(this);
+            this.minExp = experiences[0];
+            this.maxExp = experiences[1];
+        }
     }
 
 
@@ -276,5 +305,21 @@ public class RecruitInfo extends BaseEntityInfo {
 
     public void setMaxSalary(BigDecimal maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    public int getMinExp() {
+        return minExp;
+    }
+
+    public void setMinExp(int minExp) {
+        this.minExp = minExp;
+    }
+
+    public int getMaxExp() {
+        return maxExp;
+    }
+
+    public void setMaxExp(int maxExp) {
+        this.maxExp = maxExp;
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: Vincent
  * @create: 2019-01-29 10:02
  **/
-@RequestMapping("/mb")
+@RequestMapping("/mebook")
 @Controller
 public class MeBookController {
     private Logger log = LoggerFactory.getLogger("MeBookController");

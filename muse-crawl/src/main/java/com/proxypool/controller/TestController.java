@@ -78,7 +78,7 @@ public class TestController {
     @RequestMapping("/mebook")
     public ResultData mebookProcessor() {
         try {
-            mebookProcessor.setInterval(600).setThreadCount(3).execute(meBookPipeline, null);
+            mebookProcessor.setInterval(600).setThreadCount(3).execute(null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -165,7 +165,11 @@ public class TestController {
     @RequestMapping("/rinse")
     public ResultData rinse() {
         try {
-            return recruitInfoService.rinseRecruit(1, 10);
+            long start = System.currentTimeMillis();
+            ResultData result = recruitInfoService.rinseRecruit(1, 5000);
+            log.info("清洗数据耗时=" + (System.currentTimeMillis() - start));
+            return result;
+            
         } catch (Exception e) {
             e.printStackTrace();
             return ResultData.getErrResult(e.getMessage());
