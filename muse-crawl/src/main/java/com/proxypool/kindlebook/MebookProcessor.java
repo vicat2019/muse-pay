@@ -75,12 +75,8 @@ public class MebookProcessor extends ProcessorTemplate {
                     if (bookInfo.canMoreHandle()) {
                         redisUtil.hset(MeBookInfo.REDIS_KEY_BOOK_LIST, bookInfo.getDetailUrl(), bookInfo);
                     }
-
-
-                    System.out.println(intro);
                 });
             }
-
 
         } else if (TextUtils.isMatch(DETAIL_URL_REGEX, currentUrl)) {
             MeBookInfo bookInfo;
@@ -112,6 +108,7 @@ public class MebookProcessor extends ProcessorTemplate {
                 bookInfo = MeBookInfo.from(name, category, author, postUrl, title, releaseTime, "", currentUrl);
             } else {
                 bookInfo = (MeBookInfo) cacheObj;
+                redisUtil.hdel(MeBookInfo.REDIS_KEY_BOOK_LIST, currentUrl);
             }
 
             // 详细内容
@@ -129,8 +126,7 @@ public class MebookProcessor extends ProcessorTemplate {
             bookInfo.supplement(detailDesc, downloadUrl);
             currentList.add(bookInfo);
         }
-        //return currentList;
-        return null;
+        return currentList;
     }
 
     @Override
@@ -168,8 +164,7 @@ public class MebookProcessor extends ProcessorTemplate {
         }
 
         log.info("总地址数=" + urlList.size() + ", 详情页地址数=" + detailUrlCount + ", 分页地址数=" + pageUrlCount);
-        //return urlList;
-        return null;
+        return urlList;
     }
 
     @Override

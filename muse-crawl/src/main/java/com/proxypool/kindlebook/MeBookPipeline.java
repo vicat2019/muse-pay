@@ -1,5 +1,6 @@
 package com.proxypool.kindlebook;
 
+import com.proxypool.config.InitRunner;
 import com.proxypool.service.MeBookService;
 import com.proxypool.util.RedisUtil;
 import org.slf4j.Logger;
@@ -28,7 +29,6 @@ public class MeBookPipeline implements Pipeline {
     @Autowired
     private RedisUtil redisUtil;
 
-
     @Override
     public void process(ResultItems resultItems, Task task) {
         if (resultItems == null) {
@@ -44,21 +44,27 @@ public class MeBookPipeline implements Pipeline {
         }
 
         // 遍历结果集
+        long start = System.currentTimeMillis();
         result.forEach(item -> {
             try {
                 // 检查是否已经存在
-                if (meBookService.getCountByCode(item.getCode()) > 0) {
+                if (InitRunner.bloomFilter.mightContain(item.getCode())) {
                     log.info("图书《" + item.getName() + "》已经存在");
                     return;
                 }
+
                 // 保存数据
                 meBookService.insert(item);
                 redisUtil.hdel(MeBookInfo.REDIS_KEY_BOOK_LIST, item.getDetailUrl());
+
+                InitRunner.bloomFilter.put(item.getCode());
+                log.info("初始化布隆过滤器，值个数=" + InitRunner.bloomFilter.approximateElementCount());
 
             } catch (Exception e) {
                 e.printStackTrace();
                 log.error("保存图书异常， 图书信息=" + item.toString() + ", 异常=" + e.getMessage());
             }
         });
+        log.info("保存图书，耗时=" + (System.currentTimeMillis() - start));
     }
 }

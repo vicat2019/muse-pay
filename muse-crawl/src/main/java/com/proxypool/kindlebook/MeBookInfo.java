@@ -36,6 +36,11 @@ public class MeBookInfo extends BaseEntityInfo {
     // 作者
     private String author;
 
+    // 评分
+    private double score;
+    // 数据来源
+    private String source;
+
 
     /**
      * 默认构造方法
@@ -129,11 +134,8 @@ public class MeBookInfo extends BaseEntityInfo {
                 ", code=" + code +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
-                ", id=" + id +
-                ", status='" + status + '\'' +
-                ", version=" + version +
-                ", modifyTime=" + modifyTime +
-                ", createTime=" + createTime +
+                ", score=" + score +
+                ", source='" + source + '\'' +
                 '}';
     }
 
@@ -142,7 +144,9 @@ public class MeBookInfo extends BaseEntityInfo {
         int hashCode = 17;
         String[] hashContents = new String[]{this.title, this.category, this.intro, this.releaseTime};
         for (String item : hashContents) {
-            hashCode += 31 * hashCode + item.hashCode();
+            if (!StringUtils.isEmpty(item)) {
+                hashCode += 31 * hashCode + item.hashCode();
+            }
         }
         return hashCode;
     }
@@ -233,5 +237,21 @@ public class MeBookInfo extends BaseEntityInfo {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

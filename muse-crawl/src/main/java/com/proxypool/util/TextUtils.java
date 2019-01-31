@@ -49,7 +49,7 @@ public class TextUtils {
     /**
      * 生成随机交易好
      *
-     * @return
+     * @return String
      */
     public static String makeTradeNo() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -89,9 +89,9 @@ public class TextUtils {
     /**
      * 获取匹配的内容
      *
-     * @param regex
-     * @param content
-     * @return
+     * @param regex   正则表达式
+     * @param content 内容
+     * @return String
      */
     public static String getMatch(String regex, String content) {
         if (StringUtils.isEmpty(regex) || StringUtils.isEmpty(content)) {
@@ -126,6 +126,12 @@ public class TextUtils {
         return name;
     }
 
+    /**
+     * 从标题中获取作者
+     *
+     * @param title 标题
+     * @return String
+     */
     public static String getAuthorFromTitle(String title) {
         String author = "";
         if (!StringUtils.isEmpty(title)) {
@@ -159,8 +165,9 @@ public class TextUtils {
         if (StringUtils.isEmpty(content)) {
             return "";
         }
-
-        return content.trim();
+        content = content.trim();
+        content = content.replaceAll("\t", "");
+        return content;
     }
 
     /**
@@ -187,7 +194,6 @@ public class TextUtils {
             numStr[0] = "0";
             numStr[1] = tempStr;
         }
-
         for (int i = 0; i < numStr.length; i++) {
             if (isNumber(numStr[i])) {
                 result[i] = new BigDecimal(numStr[i]);
@@ -231,7 +237,6 @@ public class TextUtils {
         if (StringUtils.isEmpty(numStr)) {
             return false;
         }
-
         Pattern pattern = Pattern.compile("^\\d+(\\.\\d+)*$");
         Matcher matcher = pattern.matcher(numStr.trim());
         return matcher.find();
@@ -248,15 +253,12 @@ public class TextUtils {
         if (recruitInfo == null || StringUtils.isEmpty(recruitInfo.getExperience())) {
             return null;
         }
-
         int[] experiences = new int[]{0, 0};
         if (recruitInfo.getExperience().equals("无工作经验")) {
             return experiences;
         }
-
         String experience = recruitInfo.getExperience();
         String temp = experience.replaceAll("[\u4e00-\u9fa5]+", "");
-
         if (temp.contains("-")) {
             String[] temps = temp.split("-");
             if (temps.length == 1) {
@@ -272,9 +274,29 @@ public class TextUtils {
         return experiences;
     }
 
+    /**
+     * 从字符串中获取数字
+     *
+     * @param content 字符串
+     * @return String
+     */
+    public static String getNumFrom(String content) {
+        String target = "0";
+        if (StringUtils.isEmpty(content)) {
+            return target;
+        }
+        Pattern pattern = Pattern.compile("(\\d+(?:\\.\\d+)?)");
+        Matcher matcher = pattern.matcher(content);
+        if (matcher.find()) {
+            target = matcher.group(1);
+        }
+
+        log.info("getNumFrom() 从字符串中获取数字=" + target + ", 字符串=" + content);
+        return target.trim();
+    }
 
     public static void main(String[] args) {
-        System.out.println(isNumber(".0123.0"));
+        System.out.println(getNumFrom(" 7.9分 豆瓣评分"));
     }
 
 

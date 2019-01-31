@@ -1,6 +1,7 @@
 package com.proxypool.controller;
 
 import com.muse.common.entity.ResultData;
+import com.proxypool.kindlebook.KdlBookProcessor;
 import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.proxyip.*;
@@ -65,6 +66,9 @@ public class CrawlController {
     @Autowired
     private MeBookPipeline meBookPipeline;
 
+    @Autowired
+    private KdlBookProcessor kdlBookProcessor;
+
 
     /**
      * 定时抓取JL
@@ -123,9 +127,23 @@ public class CrawlController {
     @Scheduled(cron = "${CRAWL_BOOK_CRON}")
     public void mebookProcessor() {
         try {
-            mebookProcessor.setInterval(1000).setThreadCount(3).execute(meBookPipeline, null);
+            mebookProcessor.setInterval(800).setThreadCount(3).execute(meBookPipeline, null);
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("抓取KD电子书信息异常=" + e.getMessage());
+        }
+    }
+
+    /**
+     * 抓取KDLBook电子书
+     */
+    @Scheduled(cron = "${CRAWL_BOOK_CRON_1}")
+    public void kdlbookProcessor() {
+        try {
+            kdlBookProcessor.setInterval(700).setThreadCount(3).execute(meBookPipeline, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("抓取KDLBook电子书异常=" + e.getMessage());
         }
     }
 
