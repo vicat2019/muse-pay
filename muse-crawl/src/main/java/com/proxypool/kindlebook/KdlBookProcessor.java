@@ -148,10 +148,22 @@ public class KdlBookProcessor extends ProcessorTemplate {
 
         // 详情页集合
         List<String> detailUrlList = page.getHtml().links().regex(DETAIL_PAGE_URL_REGEX).all();
-
         // 分页集合
         List<String> pageUrlList = page.getHtml().links().regex(LIST_PAGE_URL_REGEX).all();
         Set<String> pageUrlSet = Sets.newHashSet(pageUrlList);
+
+        // 初始化后，只查询前3页
+        pageUrlSet = pageUrlSet.stream().filter((s) -> {
+            int index = s.lastIndexOf("=");
+            if (index > 0) {
+                String pageNum = s.substring(index+1);
+                if (!StringUtils.isEmpty(pageNum) && TextUtils.isNumber(pageNum)) {
+                    int p = Integer.parseInt(pageNum);
+                    return p <= 3;
+                }
+            }
+            return false;
+        }).collect(Collectors.toSet());
 
         urlList.addAll(detailUrlList);
         urlList.addAll(pageUrlSet);

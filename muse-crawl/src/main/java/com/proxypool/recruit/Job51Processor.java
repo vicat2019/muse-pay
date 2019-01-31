@@ -3,6 +3,7 @@ package com.proxypool.recruit;
 import com.muse.common.util.SpringBeanUtils;
 import com.proxypool.entry.RecruitInfo;
 import com.proxypool.component.ProcessorTemplate;
+import com.proxypool.util.TextUtils;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @program: muse-pay
@@ -139,10 +141,19 @@ public class Job51Processor extends ProcessorTemplate {
 
         // 解析分页
         List<String> pageUrlList = page.getHtml().xpath("//div[@class='dw_page']/div/div/div/ul/li/a/@href").all();
+        pageUrlList = pageUrlList.stream().filter((s) -> {
+           String pageNum = TextUtils.getMatch("(\\d+)\\.html", s);
+           if (TextUtils.isNumber(pageNum)) {
+               return Integer.parseInt(pageNum) <= 50;
+           }
+           return false;
+        }).collect(Collectors.toList());
+
         // 解析列表页中每一项的地址
         List<String> detailList = page.getHtml().xpath("//div[@class='dw_table']/div[@class='el']/p/span/a/@href").all();
         urlList.addAll(pageUrlList);
         urlList.addAll(detailList);
+
         // 简单去重
         urlList = new ArrayList<>(new HashSet<>(urlList));
 

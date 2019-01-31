@@ -297,6 +297,9 @@ public class TextUtils {
 
     public static void main(String[] args) {
         System.out.println(getNumFrom(" 7.9分 豆瓣评分"));
+
+        String a = "https://search.51job.com/list/040000,000000,0000,00,9,99,java,2,6.html?lang=c&stype=1&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=";
+        System.out.println(getMatch("(\\d+)\\.html", a));
     }
 
 
