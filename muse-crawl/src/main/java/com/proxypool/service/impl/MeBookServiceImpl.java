@@ -76,13 +76,14 @@ public class MeBookServiceImpl extends BaseService<MeBookInfoMapper, MeBookInfo>
      * @param author   作者
      * @param category 类别
      * @param descr    描述
+     * @param source   来源
      * @param pageNum  页码
      * @param pageSize 记录数
      * @return ResultData
      * @throws Exception 异常
      */
     @Override
-    public ResultData queryBook(String title, String author, String category, String descr, int pageNum,
+    public ResultData queryBook(String title, String author, String category, String descr, String source, int pageNum,
                                 int pageSize) throws Exception {
         log.info("queryBook() 分页查询电子书：title=" + title + ", author=" + author + ", category=" + category
                 + ", descr=" + descr + ", pageNum=" + pageNum + ", pageSize=" + pageSize);
@@ -103,6 +104,9 @@ public class MeBookServiceImpl extends BaseService<MeBookInfoMapper, MeBookInfo>
         }
         if (!StringUtils.isEmpty(descr)) {
             params.put("detailDesc", descr);
+        }
+        if (!StringUtils.isEmpty(source)) {
+            params.put("source", source);
         }
 
         // 查询并返回结果

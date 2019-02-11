@@ -204,9 +204,7 @@ public abstract class ProcessorTemplate<T extends BaseEntityInfo> implements Pag
         if (this.site == null) {
             initSite();
         }
-        cookiesMap.forEach((k, v) -> {
-            site.addCookie(k, v);
-        });
+        cookiesMap.forEach((k, v) -> site.addCookie(k, v));
     }
 
     /**

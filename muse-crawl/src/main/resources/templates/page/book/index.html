@@ -85,6 +85,12 @@
             </td>
         </tr>
         <tr>
+            <td style="text-align: right;">
+                来源：<input class="query-input" type="text" id="source"/>&nbsp;&nbsp;
+                <button class="layui-btn layui-btn-xs" style="height:24px;background-color: #FF5722;" onclick="clearQuery()">清空</button>
+            </td>
+        </tr>
+        <tr>
             <td id="query_result" style="text-align: left;padding-left: 3px;width:100%;color: #e0861a;"></td>
         </tr>
     </table>
@@ -116,9 +122,10 @@
         var author = $("#author").val();
         var category = $("#category").val();
         var desc = $("#desc").val();
+        var source = $("#source").val();
 
         $.post("/mebook/list",
-            {title: title, author: author, category: category, desc: desc, p: pn},
+            {title: title, author: author, category: category, desc: desc, p: pn, source:source},
             function (data) {
                 if (data.code == 0) {
                     parseData(data, type);
@@ -151,12 +158,14 @@
                     + item.postUrl + "' style='width:85px;height:120px;'/></a></td>";
 
                 content += "<td><table><tr><td class='book-name'><a target='_blank' href='" + item['detailUrl'] + "'>"
-                    + item['name'] + "</a></td></tr>";
+                    + item['name'] + "&nbsp;&nbsp;<a target='_blank' href='https://book.douban.com/subject_search?search_text=" + item['name']
+                    + "&cat=1001'><img src='https://img3.doubanio.com/favicon.ico' width='15' height='15'></a>&nbsp;&nbsp;" + "</a></td></tr>";
                 content += "<tr><td>作者：" + item.author + "</td></tr>";
                 content += "<tr><td>类型：" + item.category + "</td></tr>";
                 content += "<tr><td>简介：" + item.intro + "</td></tr>";
-                content += "<tr><td>日期：" + item.createTime + "</td>";
-                content += "</tr></table></td>";
+                content += "<tr><td>日期：" + item.createTime + "</td></tr>";
+                content += "<tr><td>来源：" + item.source + "</td></tr>";
+                content += "</table></td>";
                 content += "</tr>";
             }
 
@@ -184,9 +193,12 @@
         $("#author").val("");
         $("#category").val("");
         $("#desc").val("");
+        $("#source").val("");
 
         $("#pn").val("1");
         $("#maxPn").val("1");
+
+        query();
     }
 
     $(function () {

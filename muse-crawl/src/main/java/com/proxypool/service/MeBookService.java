@@ -62,12 +62,13 @@ public interface MeBookService {
      * @param author   作者
      * @param category 类别
      * @param descr    描述
+     * @param source   来源
      * @param pageNum  页码
      * @param pageSize 记录数
      * @return ResultData
      * @throws Exception 异常
      */
-    ResultData queryBook(String title, String author, String category, String descr, int pageNum, int pageSize) throws Exception;
+    ResultData queryBook(String title, String author, String category, String descr, String source, int pageNum, int pageSize) throws Exception;
 
 
 }

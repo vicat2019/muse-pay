@@ -39,11 +39,12 @@ public class MeBookController {
                                 @RequestParam(required = false, defaultValue = "") String author,
                                 @RequestParam(required = false, defaultValue = "") String desc,
                                 @RequestParam(required = false, defaultValue = "") String category,
+                                @RequestParam(required = false, defaultValue = "") String source,
                                 ModelMap modelMap) {
         ResultData result;
 
         try {
-            result = meBookService.queryBook(title, author, category, desc, p, s);
+            result = meBookService.queryBook(title, author, category, desc, source, p, s);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("查询电子书分页异常=" + e.getMessage());

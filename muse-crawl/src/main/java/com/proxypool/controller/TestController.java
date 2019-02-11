@@ -1,5 +1,6 @@
 package com.proxypool.controller;
 
+import com.google.common.collect.Maps;
 import com.muse.common.entity.ResultData;
 import com.proxypool.config.GuavaCacheUtil;
 import com.proxypool.kindlebook.KdlBookProcessor;
@@ -7,6 +8,7 @@ import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.picture.PictureInfoPipeline;
 import com.proxypool.picture.WallhavenProcessor;
+import com.proxypool.secretgarden.SecretGardenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RecruitInfoService;
 import com.proxypool.service.RpSequenceInfoService;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: muse-pay
@@ -54,6 +57,9 @@ public class TestController {
 
     @Autowired
     private KdlBookProcessor kdlBookProcessor;
+
+    @Autowired
+    private SecretGardenProcessor secretGardenProcessor;
 
 
     @RequestMapping("/sequence/{count}")
@@ -144,6 +150,17 @@ public class TestController {
     public void kdlbook() {
         try {
             kdlBookProcessor.setInterval(800).setThreadCount(3).execute(meBookPipeline, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/sg")
+    public void secretGarden() {
+        try {
+            Map<String, String> cookiesMap = Maps.newHashMap();
+            cookiesMap.put("__cfduid", "d2a8a7ca83f1eb76bdb445da62267316f1549868344");
+            secretGardenProcessor.execute(null, false, cookiesMap, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -124,6 +124,8 @@ public class MebookProcessor extends ProcessorTemplate {
             String downloadUrl = page.getHtml().xpath("//p[@class='downlink']/strong/a/@href").toString();
             // 补充信息
             bookInfo.supplement(detailDesc, downloadUrl);
+            // 来源
+            bookInfo.setSource("我的小书屋");
             currentList.add(bookInfo);
         }
         return currentList;

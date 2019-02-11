@@ -36,7 +36,8 @@
     </sql>
 
     <insert id="insertOrUpdate" parameterType="com.proxypool.kindlebook.MeBookInfo">
-        insert into<include refid="table_name"/>(code, name, title, author, category, score, post_url, release_time, intro,
+        insert into<include refid="table_name"/>(code, name, title, author, category, score, post_url, release_time,
+        intro,
         detail_url, detail_desc, download_url, source)
         values(
         #{code, jdbcType=INTEGER},
@@ -81,7 +82,8 @@
 
     <!-- 查询所有记录code值 -->
     <select id="getAllCode" resultType="java.lang.Integer">
-        select code from <include refid="table_name"/>
+        select code from
+        <include refid="table_name"/>
     </select>
 
     <!--检查是否已存在-->
@@ -127,6 +129,9 @@
             </if>
             <if test="detailDesc!=null and detailDesc != ''">
                 and detail_desc like CONCAT('%' ,CONCAT(#{detailDesc},'%'))
+            </if>
+            <if test="source!=null and source != ''">
+                and source like CONCAT('%' ,CONCAT(#{source},'%'))
             </if>
         </where>
         order by id desc

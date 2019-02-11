@@ -10,10 +10,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -84,14 +84,37 @@ public class Test {
 
 
         System.getProperties().setProperty("webdriver.chrome.driver", "D:/chromedriver/chromedriver.exe");
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.get("https://weibo.com/");
+        /*WebDriver webDriver = new ChromeDriver();
+        webDriver.get("http://cc.gxia.icu/thread0806.php?fid=8");
         WebElement webElement = webDriver.findElement(By.xpath("/html"));
         System.out.println(webElement.getAttribute("outerHTML"));
-        webDriver.close();
+        webDriver.close();*/
+
+        WebDriver driver=getPhantomJSDriver();
+        driver.get("http://cc.gxia.icu/thread0806.php?fid=8");
+        System.out.println(driver.getPageSource());
 
 
     }
+
+    public static PhantomJSDriver getPhantomJSDriver(){
+        //设置必要参数
+        DesiredCapabilities dcaps = new DesiredCapabilities();
+        //ssl证书支持
+        dcaps.setCapability("acceptSslCerts", true);
+        //截屏支持
+        dcaps.setCapability("takesScreenshot", false);
+        //css搜索支持
+        dcaps.setCapability("cssSelectorsEnabled", true);
+        //js支持
+        dcaps.setJavascriptEnabled(true);
+        //驱动支持
+        dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"D:\\chromedriver\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
+
+        PhantomJSDriver driver = new PhantomJSDriver(dcaps);
+        return  driver;
+    }
+
 
 
     private static void genRandomInfo(int size) {

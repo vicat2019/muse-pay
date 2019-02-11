@@ -1,7 +1,10 @@
 package com.proxypool.recruit;
 
+import com.muse.common.entity.ResultData;
 import com.proxypool.entry.RecruitInfo;
 import com.proxypool.service.RecruitInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.ResultItems;
@@ -18,6 +21,7 @@ import java.util.List;
  **/
 @Service("recruitInfoPipeline")
 public class RecruitInfoPipeline implements Pipeline {
+    private Logger log = LoggerFactory.getLogger("RecruitInfoPipeline");
 
     @Autowired
     private RecruitInfoService recruitInfoService;
@@ -31,9 +35,12 @@ public class RecruitInfoPipeline implements Pipeline {
 
         result.forEach(item -> {
             try {
-                recruitInfoService.add(item);
+                ResultData addResult = recruitInfoService.add(item);
+                log.info("保存JL数据结果=" + addResult);
+
             } catch (Exception e) {
                 e.printStackTrace();
+                log.error("保存JL数据结果异常=" + e.getMessage());
             }
         });
 
