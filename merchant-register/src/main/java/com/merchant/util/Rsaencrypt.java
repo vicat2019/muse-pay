@@ -1,5 +1,8 @@
 package com.merchant.util;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.Signature;
@@ -16,35 +19,27 @@ import java.util.TreeMap;
  **/
 public class Rsaencrypt {
 
-    /**
-     * 加密算法RSA
-     */
+    // 加密算法RSA
     public static final String KEY_ALGORITHM = "RSA";
 
-    /**
-     * 签名算法
-     */
+    // 签名算法
     public static final String SIGNATURE_ALGORITHM = "SHA1withRSA";
 
-    /**
-     * 获取公钥的key
-     */
+    // 公钥的key
     private static final String PUBLIC_KEY = "RSAPublicKey";
 
-    /**
-     * 获取私钥的key
-     */
+    // 私钥的key
     public static final String PRIVATE_KEY = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKsN3HDm9jFRns3+AA6r7NQsvUbQGOax/7Q1Oj9+/+O+8XLuhE4ENiDQIwL3ZaFrWcpsGMc2K8ZByDTh/kUZ5NxzbxVJroUNWqw9t/T7EpgR2rOHVASB1MNvmMk1kLwp7lEAhuVe+UVEU/EzvoTGh0h4YDTGgra34uJGy1YMDVPvAgMBAAECgYAPJ2U2I2AAMojtGumKYzTR/zytf1YVagOLRYPpiCjHVm0xj2vtNXZOJeJUKvK4ADiuNDFlxKjQIZfJB5RtLsQVln3oKaiDnBJPBzgk/9PoCus4z4BqUX8bdpJKC2ATMUrsRWmMOhofspfFxKmEB7K64tGEpnI1FPTxHwPnS4/OIQJBAOGFwFlYtlN+8xDJwH4XnpcboJ6k4juYZn+wzouwVdLZxQEqjFwWlk9J6XWEQ0VCzizQLOLljUVp0ha+L0ZjGVcCQQDCK7S5+82kWEedUG7eHrHs48VGSDr4Tk91hE2o/UyePXvYTYxwOA4TqaDmjzw/n+ZAyUk8SjNy6avsdO5bh8MpAkBV4JTKcRmc2e69KdZ/LYdai06ymp77iqEdZrqAPvmvfPWj6Avi1UcPklmwQllLepEAR5WQIVGWaSFzP6DI8NupAkADaDztnouHPL1U91par3Mz0vNdPls6jDU8vKuYMYmspSuNKh8ywOkOU0Wthgnqm+WwcVfFpQ+uDoejyJF+La2xAkEAnqVsk00S5VpErMr1TLU+Opwp4bBFoS9jr9QXs09W1/un1OaKjvoQAaPHHxjOg7EwwhcclMxvaFMN2DB/sfbucQ==";
 
-    /**
-     * RSA最大加密明文大小
-     */
+    // RSA最大加密明文大小
     private static final int MAX_ENCRYPT_BLOCK = 117;
 
-    /**
-     * RSA最大解密密文大小
-     */
+    // RSA最大解密密文大小
     private static final int MAX_DECRYPT_BLOCK = 128;
+
+
+    public static final String deskey = "7ba87a2ecc6bd4d8fe133524";
+
 
     private static Signature signature;
 
@@ -109,4 +104,22 @@ public class Rsaencrypt {
         }
         return null;
     }
+
+
+    public static String java_openssl_encrypt(String data, String password, String iv) throws Exception {
+        byte[] key = new byte[32];
+        for (int i = 0; i < 32; i++) {
+            if (i < password.getBytes().length) {
+                key[i] = password.getBytes()[i];
+            } else {
+                key[i] = 0;
+            }
+        }
+
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv.getBytes()));
+        String base64Str = java.util.Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes()));
+        return base64Str;
+    }
+
 }

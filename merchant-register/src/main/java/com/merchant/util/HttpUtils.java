@@ -1,7 +1,7 @@
 package com.merchant.util;
 
 import com.alibaba.fastjson.JSON;
-import com.muse.common.entity.ResultData;
+import com.merchant.entity.ResultData;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;

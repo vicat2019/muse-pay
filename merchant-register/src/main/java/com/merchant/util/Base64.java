@@ -117,4 +117,15 @@ public class Base64 {
             }
         }
     }
+
+    //base64 解码
+    public static String decode2(byte[] bytes) {
+        return new String(org.apache.commons.codec.binary.Base64.decodeBase64(bytes));
+    }
+
+    //base64 编码
+    public static String encode2(byte[] bytes) {
+        return new String(org.apache.commons.codec.binary.Base64.encodeBase64(bytes));
+    }
+
 }

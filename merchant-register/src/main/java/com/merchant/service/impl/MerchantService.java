@@ -1,7 +1,7 @@
 package com.merchant.service.impl;
 
+import com.merchant.entity.ResultData;
 import com.merchant.entity.RuiShengUserInfo;
-import com.muse.common.entity.ResultData;
 
 /**
  * @Description: 商户服务接口类

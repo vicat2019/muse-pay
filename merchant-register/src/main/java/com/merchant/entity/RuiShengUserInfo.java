@@ -135,13 +135,9 @@ public class RuiShengUserInfo implements Serializable {
         if (!StringUtils.isEmpty(channelinfo)) {
             Map<String, Object> rate = new HashMap<>();
             Map<String, Integer> sub = Maps.newHashMap();
-            sub.put("rate", Integer.valueOf(channelinfo));
+            sub.put("rate", 60);
             sub.put("fee", 0);
-            rate.put("alipayQR", sub);
-            sub = Maps.newHashMap();
-            sub.put("rate", 0);
-            sub.put("fee", 2);
-            rate.put("otherFul", sub);
+            rate.put("bnwxFix", sub);
             paramMap.put("channelinfo", JSONObject.toJSONString(rate));
         }
 

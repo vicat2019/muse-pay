@@ -3,18 +3,17 @@ package com.merchant.service;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import com.merchant.entity.ResultData;
 import com.merchant.entity.RuiShengUserInfo;
 import com.merchant.service.impl.MerchantService;
 import com.merchant.util.HttpUtils;
 import com.merchant.util.Rsaencrypt;
-import com.muse.common.entity.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,10 +28,10 @@ public class MerchantServiceImpl implements MerchantService {
     private Logger log = LoggerFactory.getLogger("MerchantServiceImpl");
 
     // 商户进件地址
-    private static final String REGISTER_URL = "http://api.ruishengglass.cn/api-v1-user/register";
+    private static final String REGISTER_URL = "http://www.ruishengglass.cn/api-v1-user/register";
 
     // 修改费率地址
-    private static final String MODIFY_RATE_URL = "http://api.ruishengglass.cn/api-v1-user/channel";
+    private static final String MODIFY_RATE_URL = "http://www.ruishengglass.cn/api-v1-user/channel";
 
     @Autowired
     private HttpUtils httpUtils;
@@ -42,27 +41,35 @@ public class MerchantServiceImpl implements MerchantService {
     public ResultData add(RuiShengUserInfo userInfo) throws Exception {
         userInfo = new RuiShengUserInfo();
         userInfo.setMchid("00020019");
-        userInfo.setName("测试商户");
+        userInfo.setName("首战（珠海）科技");
         userInfo.setProvince("440000");
-        userInfo.setCity("440300");
-        userInfo.setArea("440306");
-        userInfo.setAddress("西乡街道办宝源路1号");
-        userInfo.setLegelname("李白");
-        userInfo.setLegelcertno("45682419900102542685122");
-        userInfo.setEmail("test@qq.com");
-        userInfo.setPhone("18902132301");
+        userInfo.setCity("440400");
+        userInfo.setArea("440402");
+        userInfo.setAddress("珠海市香洲区园林路1号32栋202房");
+        userInfo.setLegelname("陈裕明");
+        userInfo.setEmail("bm555111122@sohu.com");
+        userInfo.setPhone("17841629387");
 
-        userInfo.setBankno("3080000");
-        userInfo.setBranchno("308584001821");
-        userInfo.setCardno("6225887832365325");
-        userInfo.setPayname("测试2");
-        userInfo.setPayphone("18902132301");
+        userInfo.setBankno("1040000");
+        userInfo.setBranchno("104584002488");
+
+        userInfo.setEcardno("Du91QHgJLpVDmVJNNjIpHWy+JE+joE2l");
+
+        userInfo.setCardno("+2ySH0gNfCntROMFXwSYrOFC0lXUJt3I");
+        //userInfo.setCardno(Rsaencrypt.java_openssl_encrypt("6225887832365325", "7ba87a2ecc6bd4d8fe133524", "1234567890123456"));
+        userInfo.setLegelcertno("vYm5mkOEpOy+LIZ457oV5fAVCDjZT0Iq");
+        // userInfo.setLegelcertno(Rsaencrypt.java_openssl_encrypt("45682419900102542685122", "7ba87a2ecc6bd4d8fe133524", "1234567890123456"));
+        userInfo.setPayname("qmOAxAXXWIjBVvLChuuF7g==");
+        //userInfo.setPayname(Rsaencrypt.java_openssl_encrypt("测试2", "7ba87a2ecc6bd4d8fe133524", "1234567890123456"));
+        userInfo.setCertno("vYm5mkOEpOy+LIZ457oV5fAVCDjZT0Iq");
+        //userInfo.setCertno(Rsaencrypt.java_openssl_encrypt("9144030008386556X5", "7ba87a2ecc6bd4d8fe133524", "1234567890123456"));
+
+        userInfo.setPayphone("13160721607");
         userInfo.setCardprovince("440000");
         userInfo.setCardcity("440300");
-        userInfo.setCardarea("440306");
+        userInfo.setCardarea("440307");
         userInfo.setType("1");
         userInfo.setCerttype("1");
-        userInfo.setCertno("9144030008386556X5");
 
         userInfo.setBuslicpic("/uploads/50/8b2790293d519840c6070b842821df.jpg");
         userInfo.setLegfrontpic("/uploads/97/cccab652e8720cd0999eb417360bf8.jpg");
@@ -70,16 +77,7 @@ public class MerchantServiceImpl implements MerchantService {
         userInfo.setHandpic("/uploads/e4/3192cc27528a96222a9915f509ecf2.jpg");
         userInfo.setDoorpic("/uploads/50/8b2790293d519840c6070b842821df.jpg");
 
-        Map<String, Object> rate = new HashMap<>();
-        Map<String, Integer> temp = Maps.newHashMap();
-        temp.put("rate", 60);
-        temp.put("fee", 0);
-        rate.put("alipayQR", temp);
-        temp = Maps.newHashMap();
-        temp.put("rate", 0);
-        temp.put("fee", 2);
-        rate.put("otherFul", temp);
-        userInfo.setChannelinfo(JSONObject.toJSONString(rate));
+        userInfo.setChannelinfo("60");
 
 
         Map<String, Object> params = userInfo.toMap();

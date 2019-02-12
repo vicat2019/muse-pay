@@ -1,8 +1,8 @@
 package com.merchant.controller;
 
+import com.merchant.entity.ResultData;
 import com.merchant.entity.RuiShengUserInfo;
 import com.merchant.service.MerchantServiceImpl;
-import com.muse.common.entity.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
