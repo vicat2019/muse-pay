@@ -28,8 +28,10 @@ import java.util.TreeMap;
 public class MerchantServiceImpl implements MerchantService {
     private Logger log = LoggerFactory.getLogger("MerchantServiceImpl");
 
+    // 商户进件地址
     private static final String REGISTER_URL = "http://api.ruishengglass.cn/api-v1-user/register";
 
+    // 修改费率地址
     private static final String MODIFY_RATE_URL = "http://api.ruishengglass.cn/api-v1-user/channel";
 
     @Autowired
@@ -62,11 +64,11 @@ public class MerchantServiceImpl implements MerchantService {
         userInfo.setCerttype("1");
         userInfo.setCertno("9144030008386556X5");
 
-        userInfo.setBuslicpic("http://");
-        userInfo.setLegfrontpic("http://");
-        userInfo.setLegbackpic("http://");
-        userInfo.setHandpic("http://");
-        userInfo.setDoorpic("http://");
+        userInfo.setBuslicpic("/uploads/50/8b2790293d519840c6070b842821df.jpg");
+        userInfo.setLegfrontpic("/uploads/97/cccab652e8720cd0999eb417360bf8.jpg");
+        userInfo.setLegbackpic("/uploads/97/cccab652e8720cd0999eb417360bf8.jpg");
+        userInfo.setHandpic("/uploads/e4/3192cc27528a96222a9915f509ecf2.jpg");
+        userInfo.setDoorpic("/uploads/50/8b2790293d519840c6070b842821df.jpg");
 
         Map<String, Object> rate = new HashMap<>();
         Map<String, Integer> temp = Maps.newHashMap();
