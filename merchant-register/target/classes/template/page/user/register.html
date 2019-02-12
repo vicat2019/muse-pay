@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商户进件</title>
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/js/ajaxfileupload.js"></script>
+
+</head>
+<style type="text/css">
+
+    body {
+        font-family: "等线 Light";
+        color: #74787c;
+    }
+
+    input {
+        width: 190px;
+    }
+
+    tr {
+        height: 30px;
+    }
+
+    .up_btn {
+        width: 100px;
+    }
+
+    .input_text {
+        border: 1px solid #a1a3a6;
+        height: 20px;
+        padding-left: 3px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+
+    .select_type {
+        width: 196px;
+        height: 23px;
+    }
+
+</style>
+
+<body>
+<center>
+    <h2>商户进件</h2>
+    <hr style="height:1px;border:none;border-top:1px solid #7c8577;" />
+    <form id="registerForm" action="/merchant/p/r" method="post">
+        <table style="background-color: #fffef9;padding: 5px 5px;margin-top: 30px;">
+            <tr>
+                <td>代理商编号：</td>
+                <td><input type="text" class="input_text" name="mchid"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;代理商名称：</td>
+                <td><input type="text" class="input_text" name="name"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>商户所在省份：</td>
+                <td><select id="province" name="province" class="select_type" onchange="getCityBy('province', 'city')">
+                    <option value="0">选择省份</option>
+                </select> </td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;城市：</td>
+                <td><select id="city" name="city" class="select_type" onchange="getAreaBy('city', 'area')">
+                    <option value="0">选择城市</option>
+                </select></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;区县：</td><td><select id="area" name="area" class="select_type">
+                    <option value="0">选择区县</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>商户所在详细地址：</td>
+                <td><input type="text" class="input_text" name="address"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>商户法人姓名：</td><td><input type="text" class="input_text" name="legelname"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;身份证号：</td><td><input type="text" class="input_text" name="legelcertno"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>商户邮件：</td><td><input type="text" class="input_text" name="email"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;客服电话：</td><td><input type="text" class="input_text" name="phone"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>收款卡对应银行代码：</td>
+                <td><select id="bankno" name="bankno" class="select_type" onchange="getSubBank()">
+                    <option value="0">选择银行</option>
+                </select></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;支行代码：</td>
+                <td><select id="branchno" name="branchno" class="select_type">
+                    <option value="0">选择支行</option>
+                </select></td>
+                <td></td>
+                </td><td>
+            </tr>
+            <tr>
+                <td>收款卡号：</td>
+                <td><input type="text" class="input_text" name="cardno"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;收款人姓名：</td>
+                <td><input type="text" class="input_text" name="payname"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;对应电话：</td>
+                <td><input type="text" class="input_text" name="payphone"></td>
+            </tr>
+            <tr>
+                <td>收款卡所在省份：</td>
+                <td><select id="cardprovince" name="cardprovince" class="select_type" onchange="getCityBy('cardprovince', 'cardcity')">
+                    <option value="0">选择省份</option>
+                </select></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;城市：</td>
+                <td><select id="cardcity" name="cardcity" class="select_type" onchange="getAreaBy('cardcity', 'cardarea')">
+                    <option value="0">选择城市</option>
+                </select></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;区县：</td>
+                <td><select id="cardarea" name="cardarea" class="select_type">
+                    <option value="0">选择区县</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td>商户类型：</td><td><input type="text" class="input_text" name="type"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;证件类型：</td><td><input type="text" class="input_text" name="certtype"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;证件号：</td><td><input type="text" class="input_text" name="certno"></td>
+            </tr>
+
+            <tr style="height: 10px;">
+                <td colspan="6" style="height: 10px;"></td>
+            </tr>
+
+            <tr>
+                <td colspan="6">营业执照照片：<input type="file" id="f_buslicpic" style="width: 200px;"/>
+                    <input type="button" id="up_buslicpic" class="up_btn" value="上传" onclick="upload_file('f_buslicpic', 'buslicpic')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="buslicpic" id="buslicpic" style="width: 300px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">身份证正面照片：<input type="file" id="f_legfrontpic" style="width: 200px;">
+                    <input type="button" id="up_legfrontpic" class="up_btn" value="上传" onclick="upload_file('f_legfrontpic', 'legfrontpic')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="legfrontpic" id="legfrontpic" style="width: 300px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">身份证反面照片：<input type="file" id="f_legbackpic" style="width: 200px;">
+                    <input type="button" id="up_legbackpic" class="up_btn" value="上传" onclick="upload_file('f_legbackpic', 'legbackpic')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="legbackpic" id="legbackpic" style="width: 300px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">手持身份证照片：<input type="file" id="f_handpic" style="width: 200px;">
+                    <input type="button" id="up_handpic" class="up_btn" value="上传" onclick="upload_file('f_handpic', 'handpic')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="handpic" id="handpic" style="width: 300px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">商户门头照照片：<input type="file" id="f_doorpic" style="width: 200px;">
+                    <input type="button" id="up_doorpic" class="up_btn" value="上传" onclick="upload_file('f_doorpic', 'doorpic')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="doorpic" id="doorpic" style="width: 300px;"/>
+                </td>
+            </tr>
+
+            <tr style="height: 10px;">
+                <td colspan="6" style="height: 10px;"></td>
+            </tr>
+
+            <tr>
+                <td colspan="6">商户通道费率参数：<input type="text" class="input_text" name="channelinfo"></td>
+            </tr>
+
+            <tr>
+                <td colspan="6" style="padding-top: 20px;text-align: center;">
+                    <input id="register" type="submit" value="提交" style="width:100px"/>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+</center>
+</body>
+<script type="text/javascript">
+    var url = "http://api.ruishengglass.cn/api-v1-user/upload.html";
+
+    $(function () {
+        /*$("#up_buslicpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_buslicpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#buslicpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_legfrontpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_legfrontpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#legfrontpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_legbackpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_legbackpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#legbackpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_handpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_handpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#handpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_doorpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_doorpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#doorpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_accopenpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_accopenpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#accopenpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });
+        $("#up_cashierpic").bind('click', function () {
+            var fd = new FormData();
+            var ajax = new XMLHttpRequest();
+            fd.append("upload", 1);
+            fd.append("upfile", document.getElementById("f_cashierpic").files[0]);
+            ajax.open("post", url, true);
+            ajax.onload = function () {
+                console.log(ajax.responseText);
+                var data = JSON.parse(ajax.responseText);
+                if (data.code == 1) {
+                    $("#cashierpic").val(data.data.upfile);
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+            };
+            ajax.send(fd);
+        });*/
+
+        console.log("---------------------------");
+
+        getProvinces('province');
+        getProvinces('cardprovince');
+
+
+        getBank();
+    });
+
+    function upload_file(fileId, showId) {
+        var fd = new FormData();
+        var ajax = new XMLHttpRequest();
+        fd.append("upload", 1);
+        fd.append("upfile", document.getElementById(fileId).files[0]);
+        ajax.open("post", url, true);
+        ajax.onload = function () {
+            console.log(ajax.responseText);
+            var data = JSON.parse(ajax.responseText);
+            if (data.code == 1) {
+                $("#" + showId).val(data.data.upfile);
+            } else {
+                alert("上传失败：" + data.msg);
+            }
+        };
+        ajax.send(fd);
+    }
+
+
+    /* jQuery 版 */
+    $('#upJQuery').on('click', function () {
+        var fd = new FormData();
+        fd.append("upload", 1);
+        fd.append("upfile", $("#upfile").get(0).files[0]);
+        $.ajax({
+            url: url,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (d) {
+                console.log(d);
+            }
+        });
+    });
+
+
+    function getProvinces(id) {
+        $.get("http://api.ruishengglass.cn/api-v1-zone/getProvince", function (data) {
+            if (data.code == 1) {
+                $("#" + id).empty();
+                $("#" + id).append("<option value='0'>选择省份</option>")
+
+                for (var i in data.data) {
+                    var item = data.data[i];
+                    var option = "<option value='" + item.value + "'>" + item.text + "</option>";
+                    $("#" + id).append(option);
+                }
+            } else {
+                console.log("查询省份失败=" + data);
+            }
+        });
+    }
+
+    function getCityBy(provinceId, cityId) {
+        var province = $("#" + provinceId).val();
+        console.log(province);
+
+        getCity(province, cityId);
+    }
+
+    function getCity(parent, cityId) {
+        $.get("http://api.ruishengglass.cn/api-v1-zone/getCity?parent=" + parent, function (data) {
+            if (data.code == 1) {
+                $("#" + cityId).empty();
+
+                for (var i in data.data) {
+                    var item = data.data[i];
+                    var option = "<option value='" + item.value + "'>" + item.text + "</option>";
+                    $("#" + cityId).append(option);
+                }
+            } else {
+                console.log("查询城市失败=" + data.msg);
+            }
+        });
+    }
+
+    function getAreaBy(cityId, areaId) {
+        var city = $("#" + cityId).val();
+        console.log(city);
+        getArea(city, areaId);
+    }
+
+    function getArea(parent, areaId) {
+        $.get("http://api.ruishengglass.cn/api-v1-zone/getArea?parent=" + parent, function (data) {
+            if (data.code == 1) {
+                $("#" + areaId).empty();
+
+                for (var i in data.data) {
+                    var item = data.data[i];
+                    var option = "<option value='" + item.value + "'>" + item.text + "</option>";
+                    $("#" + areaId).append(option);
+                }
+            } else {
+                console.log("查询区县失败=" + data.msg);
+            }
+        });
+    }
+
+
+    function getBank() {
+        $.get("http://api.ruishengglass.cn/api-v1-bank/getBankList", function (data) {
+            if (data.code == 1) {
+                $("#bankno").empty();
+                $("#bankno").append("<option value='0'>选择银行</option>");
+
+                for (var i in data.data) {
+                    var item = data.data[i];
+                    var option = "<option value='" + item.value + "'>" + item.text + "</option>";
+                    $("#bankno").append(option);
+                }
+            } else {
+                console.log("查询银行失败=" + data.msg);
+            }
+        });
+    }
+
+    function getSubBank() {
+        var bankno = $("#bankno").val();
+        console.log(bankno);
+        getSubBanks(bankno);
+    }
+
+    function getSubBanks(parent) {
+        $.get("http://api.ruishengglass.cn/api-v1-bank/getBranchList?parent=" + parent, function (data) {
+            if (data.code == 1) {
+                $("#branchno").empty();
+
+                for (var i in data.data) {
+                    var item = data.data[i];
+                    var option = "<option value='" + item.value + "'>" + item.text + "</option>";
+                    $("#branchno").append(option);
+                }
+            } else {
+                console.log("查询支行失败=" + data);
+            }
+        });
+    }
+
+
+</script>
+</html>

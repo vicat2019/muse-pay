@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/ztree_css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="/ztree_js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/ztree_js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="/ztree_js/jquery.ztree.excheck.js"></script>
+</head>
+<body>
+<center>
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</center>
+
+<input type="hidden" id="value" name="value" th:value="${data}">
+</body>
+
+<SCRIPT type="text/javascript">
+    <!--
+    /*<![CDATA[*/
+    var setting = {
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+    var zNodes2 =[
+        { id:1, pId:0, name:"随意勾选 1", open:true},
+        { id:11, pId:1, name:"随意勾选 1-1", open:true},
+        { id:111, pId:11, name:"随意勾选 1-1-1"},
+        { id:112, pId:11, name:"随意勾选 1-1-2"},
+        { id:12, pId:1, name:"随意勾选 1-2", open:true},
+        { id:121, pId:12, name:"随意勾选 1-2-1"},
+        { id:122, pId:12, name:"随意勾选 1-2-2"},
+        { id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
+        { id:21, pId:2, name:"随意勾选 2-1"},
+        { id:22, pId:2, name:"随意勾选 2-2", open:true},
+        { id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
+        { id:222, pId:22, name:"随意勾选 2-2-2"},
+        { id:23, pId:2, name:"随意勾选 2-3"}
+    ];
+
+    var str =  $("#value").val();
+    console.log(str);
+
+    var zNodes = JSON.parse(str);
+
+    function setCheck() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        var type = {"Y":"ps", "N":"ps"};
+        zTree.setting.check.chkboxType = type;
+    }
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        setCheck();
+    });
+    /*]]>*/
+    //-->
+</SCRIPT>
+
+</html>
