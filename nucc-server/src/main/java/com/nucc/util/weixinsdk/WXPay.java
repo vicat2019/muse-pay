@@ -50,19 +50,19 @@ public class WXPay {
 
     private void checkWXPayConfig() throws Exception {
         if (this.config == null) {
-            throw new Exception("com.appsocket.config is null");
+            throw new Exception("com.appsocket.com.merchant.config is null");
         }
         if (this.config.getAppID() == null || this.config.getAppID().trim().length() == 0) {
-            throw new Exception("appid in com.appsocket.config is empty");
+            throw new Exception("appid in com.appsocket.com.merchant.config is empty");
         }
         if (this.config.getMchID() == null || this.config.getMchID().trim().length() == 0) {
-            throw new Exception("appid in com.appsocket.config is empty");
+            throw new Exception("appid in com.appsocket.com.merchant.config is empty");
         }
         if (this.config.getCertStream() == null) {
-            throw new Exception("cert stream in com.appsocket.config is empty");
+            throw new Exception("cert stream in com.appsocket.com.merchant.config is empty");
         }
         if (this.config.getWXPayDomain() == null){
-            throw new Exception("com.appsocket.config.getWXPayDomain() is null");
+            throw new Exception("com.appsocket.com.merchant.config.getWXPayDomain() is null");
         }
 
         if (this.config.getHttpConnectTimeoutMs() < 10) {
@@ -552,7 +552,7 @@ public class WXPay {
     /**
      * 作用：对账单下载<br>
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付<br>
-     * 其他：无论是否成功都返回Map。若成功，返回的Map中含有return_code、return_msg、data，
+     * 其他：无论是否成功都返回Map。若成功，返回的Map中含有return_code、return_msg、static，
      *      其中return_code为`SUCCESS`，data为对账单数据。
      * @param reqData 向wxpay post的请求数据
      * @param connectTimeoutMs 连接超时时间，单位是毫秒

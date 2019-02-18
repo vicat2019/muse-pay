@@ -138,8 +138,8 @@
     function buy(bookId, userId) {
         console.log(bookId + ", " + userId);
 
-        var targetUrlList = '/shoppingCart/add?userId=' + userId + "&bookId=" + bookId + "&count=1";
-        $.get(targetUrlList, function (data) {
+        var url = '/shoppingCart/add?userId=' + userId + "&bookId=" + bookId + "&count=1";
+        $.get(url, function (data) {
             console.log(data);
 
             if (data.code == 0) {

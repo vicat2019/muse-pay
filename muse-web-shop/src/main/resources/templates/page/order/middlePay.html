@@ -108,9 +108,9 @@
         });
     })
 
-    function doPay(targetUrlList) {
-        console.log(targetUrlList);
-        location.href = "/orderPay/directPay?targetUrlList=" + encodeURI(targetUrlList);
+    function doPay(url) {
+        console.log(url);
+        location.href = "/orderPay/directPay?url=" + encodeURI(url);
     }
 
 </script>

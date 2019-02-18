@@ -1,0 +1,813 @@
+2019-02-18 12:09:39,333 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3c8d15db]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3c8d15db]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-18 16:20:30,972 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyDownloader': Unsatisfied dependency expressed through field 'proxyIpInfoService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyIpInfoService': Unsatisfied dependency expressed through field 'mapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyIpInfoMapper' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\dao\ProxyIpInfoMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'druidDataSourceConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:587)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:91)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:373)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1350)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:580)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyIpInfoService': Unsatisfied dependency expressed through field 'mapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyIpInfoMapper' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\dao\ProxyIpInfoMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'druidDataSourceConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:587)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:91)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:373)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1350)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:580)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:584)
+	... 24 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'proxyIpInfoMapper' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\dao\ProxyIpInfoMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'druidDataSourceConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1445)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:580)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:584)
+	... 37 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'druidDataSourceConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:732)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:474)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1256)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1105)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1430)
+	... 48 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'druidDataSourceConfig': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:379)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1350)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:580)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:372)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1256)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1105)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:818)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:724)
+	... 61 more
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'spring.datasource.url' in value "${spring.datasource.url}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:172)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:124)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:237)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:211)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:839)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1086)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:584)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:91)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:373)
+	... 82 more
+2019-02-18 16:26:24,200 ERROR Spider:324 - process request Request{url='http://cc.gxia.icu/htm_data/8/1902/3437076.html', method='null', extras=null, priority=0, headers={}, cookies={}} error
+java.lang.ClassCastException: com.proxypool.secretgarden.SecretGardenInfo cannot be cast to com.muse.common.entity.BaseEntityInfo
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:174)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1382)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:708)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:499)
+	at com.proxypool.component.ProcessorTemplate.process(ProcessorTemplate.java:87)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:414)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-18 16:31:47,495 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@43630100]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@43630100]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-18 16:33:14,974 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5285471e]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5285471e]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenPipeline;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenPipeline
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-18 16:35:22,795 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@6c4976de]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@6c4976de]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenPipeline;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenPipeline
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-18 16:35:48,763 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10254878.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10254878.jpg
+2019-02-18 16:35:49,292 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10254941.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10254941.jpg
+2019-02-18 16:35:49,825 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255037.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255037.jpg
+2019-02-18 16:35:50,475 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255130.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255130.jpg
+2019-02-18 16:35:51,211 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255155.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255155.jpg
+2019-02-18 16:35:51,871 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255271.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255271.jpg
+2019-02-18 16:35:52,594 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255346.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255346.jpg
+2019-02-18 16:35:53,087 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255466.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255466.jpg
+2019-02-18 16:35:53,617 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/1025557.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/1025557.jpg
+2019-02-18 16:35:54,255 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255589.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255589.jpg
+2019-02-18 16:35:56,050 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255627.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255627.jpg
+2019-02-18 16:35:56,727 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255711.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255711.jpg
+2019-02-18 16:35:57,263 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255850.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255850.jpg
+2019-02-18 16:35:57,780 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255891.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255891.jpg
+2019-02-18 16:35:58,281 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10255917.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10255917.jpg
+2019-02-18 16:35:59,104 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260086.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260086.jpg
+2019-02-18 16:35:59,773 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260129.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260129.jpg
+2019-02-18 16:36:00,542 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260116.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260116.jpg
+2019-02-18 16:36:01,075 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260295.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260295.jpg
+2019-02-18 16:36:01,614 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260315.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260315.jpg
+2019-02-18 16:36:02,120 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260336.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260336.jpg
+2019-02-18 16:36:02,658 ERROR SecretGardenPicTask:89 - 下载资源异常[https://www.skuimg.com/u/20190215/10260473.jpg]Server returned HTTP response code: 403 for URL: https://www.skuimg.com/u/20190215/10260473.jpg
+2019-02-18 18:00:01,795 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:02,837 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:03,849 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:04,855 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:05,861 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:06,869 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:07,875 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:08,881 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:09,888 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:10,897 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:11,907 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:12,917 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:13,926 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:14,931 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:15,941 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:16,954 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:17,963 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:18,973 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:19,981 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:20,990 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:21,996 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:23,002 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:24,009 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:25,019 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:26,028 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:27,037 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:28,045 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:29,053 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:30,061 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:31,067 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:32,076 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:33,081 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:34,087 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:35,094 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:36,101 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:37,107 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:38,113 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:39,122 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:40,131 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:41,138 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:42,145 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:43,151 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:44,160 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:45,168 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:46,176 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:47,185 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:48,191 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:49,199 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:50,205 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:51,209 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:52,215 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:53,224 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:54,232 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:55,239 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:56,244 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:57,251 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:58,260 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:00:59,268 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:00,275 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:01,283 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:02,289 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:03,296 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:04,305 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:05,315 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:06,324 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:07,328 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:08,332 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:09,338 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:10,345 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:11,353 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:12,359 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:13,362 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:14,367 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:15,375 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:16,381 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:17,389 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:18,397 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:19,409 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:20,415 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:21,422 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:22,429 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:23,435 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:24,444 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:25,453 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:26,460 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:27,467 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:28,474 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:29,481 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:30,487 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:31,496 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:32,505 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:33,513 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:34,519 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:35,526 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:36,532 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:37,541 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:38,548 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:39,554 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:40,571 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:41,579 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:43,963 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:44,970 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:45,977 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:46,985 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:47,993 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:49,000 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:50,005 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:51,011 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:52,017 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:53,025 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:54,033 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:55,039 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:56,043 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:57,047 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:58,053 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:01:59,061 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:00,071 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:01,077 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:02,084 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:03,088 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:04,094 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:05,100 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:06,105 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:07,112 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:08,120 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:09,126 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:10,133 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:11,137 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:12,142 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:13,148 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:14,155 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:15,163 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:16,167 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:17,173 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:18,182 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:19,189 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:20,196 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:21,204 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:22,211 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:23,218 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:24,223 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:25,229 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:26,235 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:27,240 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:28,247 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:29,255 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:30,264 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:31,271 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:32,275 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:33,281 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:34,289 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:35,295 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:36,301 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:37,310 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:38,314 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:39,320 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:40,326 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:41,333 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:42,338 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:43,345 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:44,353 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:45,362 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:46,368 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:47,375 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:48,383 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:49,390 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:50,398 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:51,405 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:52,412 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:53,420 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:54,424 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:55,430 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:56,436 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:57,441 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:58,449 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:02:59,455 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:00,463 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:01,471 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:02,478 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:03,484 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:04,492 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:05,500 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:06,506 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:07,512 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:08,519 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:09,524 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:10,530 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:11,535 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:12,542 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:13,550 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:14,557 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:15,562 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:16,570 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:17,577 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:18,583 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:19,591 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:20,599 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:21,606 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:22,612 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:23,618 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:26,069 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:27,076 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:28,084 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:29,092 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:30,098 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:31,105 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:32,110 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:33,114 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:34,119 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:35,125 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:36,130 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:37,136 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:38,143 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:39,152 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:40,159 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:41,164 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:42,168 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:43,176 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:44,186 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:45,193 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:46,199 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:47,206 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:48,211 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:49,218 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:50,226 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:51,234 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:52,240 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:53,245 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:54,250 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:55,257 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:56,266 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:57,274 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:58,279 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:03:59,287 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:00,293 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:01,297 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:02,301 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:03,308 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:04,316 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:05,323 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:06,330 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:07,338 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:08,344 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:09,351 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:10,357 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:11,364 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:12,372 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:13,379 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:14,387 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:15,392 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:16,400 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:17,406 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:18,412 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:19,418 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:20,424 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:21,433 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:22,439 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:23,446 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:24,452 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:25,457 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:26,463 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:27,467 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:28,471 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:29,478 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:30,484 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:31,488 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:32,494 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:33,499 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:34,504 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:35,508 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:36,512 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:37,518 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:38,523 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:39,529 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:40,534 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:41,538 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:42,549 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:43,554 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:44,560 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:45,565 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:46,573 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:47,580 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:48,583 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:49,587 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:50,592 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:51,594 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:52,599 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:53,606 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:54,612 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:55,615 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:56,623 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:57,626 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:58,644 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:59,649 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-18 18:04:59,649 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is java.lang.IllegalStateException: Pool not open
+2019-02-18 18:04:59,667 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:103)
+	at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84)
+	at io.netty.channel.AbstractChannel$CloseFuture.setClosed(AbstractChannel.java:1148)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:490)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-18 18:04:59,669 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:121)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetFailure(AbstractChannel.java:987)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:491)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-18 18:04:59,671 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:162)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:269)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)

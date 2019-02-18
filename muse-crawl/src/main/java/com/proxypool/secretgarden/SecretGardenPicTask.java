@@ -1,10 +1,10 @@
 package com.proxypool.secretgarden;
 
+import com.proxypool.util.DownloadHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.URL;
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -34,7 +34,7 @@ public class SecretGardenPicTask implements Runnable {
         SecretGardenInfo data = queue.poll();
         if (data != null) {
             // 创建目录
-            String folderName = "F:\\test" + File.separator + data.getTitle();
+            String folderName = "F:\\test" + File.separator + DownloadHelper.getFolderName(data.getTitle());
             File folderFile = new File(folderName);
             if (!folderFile.exists()) {
                 folderFile.mkdirs();
@@ -51,44 +51,15 @@ public class SecretGardenPicTask implements Runnable {
                     extension = url.substring(url.lastIndexOf("."));
                 }
                 File targetFile = new File(folderFile, num + extension);
-                downloadSource(url, targetFile.getAbsolutePath());
+                DownloadHelper.start(url, targetFile.getAbsolutePath());
+
+                log.info("成功下载资源=" + data.getTitle() + ", " + url);
             }
             log.info("下载资源[" + data.getTitle() + "], 个数=" + num);
         }
     }
 
-    /**
-     * 下载资源
-     *
-     * @param sourceUrl
-     * @param fileName
-     */
-    private void downloadSource(String sourceUrl, String fileName) {
-        try {
-            URL url = new URL(sourceUrl);
-            DataInputStream dataInputStream = new DataInputStream(url.openStream());
 
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(fileName));
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[1024];
-            int length;
-
-            while ((length = dataInputStream.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-            byte[] context = output.toByteArray();
-            fileOutputStream.write(context);
-            dataInputStream.close();
-            fileOutputStream.close();
-
-            log.info("成功下载资源=" + fileName + ", " + sourceUrl);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("下载资源异常[" + sourceUrl + "]" + e.getMessage());
-        }
-    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.gen;
 
+import com.gen.genservice.GenerateService;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
@@ -27,7 +28,7 @@ public class GeneratorMain {
             generate("sk_user_info", "UserInfo");
             generate("sk_success_info", "SuccessInfo");*/
 
-            generate("bbb_alipay_trans_order", "AlipayTransOrder");
+            generate("rs_merchant_info", "RsMerchantInfo");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,10 +54,10 @@ public class GeneratorMain {
 
         genLog.info("------------------------------开始生成------------------------------");
         // 生成MODEL, MAPPER
-        generateMyBatis(tableNameList, modelNameList);
+        //generateMyBatis(tableNameList, modelNameList);
 
         // 生成Service
-        // GenerateService.genService(tableName, modelName);
+        GenerateService.genService(tableName, modelName);
 
         // 生成Controller
         // GenerateService.genController(tableName, modelName);

@@ -2,6 +2,7 @@ package com.proxypool.controller;
 
 import com.google.common.collect.Maps;
 import com.muse.common.entity.ResultData;
+import com.muse.common.util.HttpUtils;
 import com.proxypool.component.PhantomJsDownloader;
 import com.proxypool.config.GuavaCacheUtil;
 import com.proxypool.kindlebook.KdlBookProcessor;
@@ -11,6 +12,7 @@ import com.proxypool.picture.PictureInfoPipeline;
 import com.proxypool.picture.WallhavenProcessor;
 import com.proxypool.recruit.Job51Processor;
 import com.proxypool.recruit.RecruitInfoPipeline;
+import com.proxypool.secretgarden.SecretGardenPipeline;
 import com.proxypool.secretgarden.SecretGardenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RecruitInfoService;
@@ -22,6 +24,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
@@ -161,12 +164,16 @@ public class TestController {
         }
     }
 
+
+    @Autowired
+    private SecretGardenPipeline secretGardenPipeline;
+
     @RequestMapping("/sg")
     public void secretGarden() {
         try {
             Map<String, String> cookiesMap = Maps.newHashMap();
             cookiesMap.put("__cfduid", "d2a8a7ca83f1eb76bdb445da62267316f1549868344");
-            secretGardenProcessor.execute(null, false, cookiesMap, new PhantomJsDownloader());
+            secretGardenProcessor.execute(secretGardenPipeline, false, cookiesMap, new PhantomJsDownloader());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,6 +192,21 @@ public class TestController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Autowired
+    public RestTemplate restTemplate;
+
+
+    @Autowired
+    private HttpUtils httpUtils;
+
+    @RequestMapping("/download")
+    public void dp() {
+        String url = "https://www.skuimg.com/u/20190215/10260129.jpg";
+
+        System.out.println(httpUtils.get(url, Maps.newHashMap()));
+
     }
 
 

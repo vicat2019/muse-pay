@@ -51,6 +51,10 @@ public class SecretGardenProcessor extends ProcessorTemplate {
             dataList = Lists.newArrayList(dataEntity);
         }
 
+        if (dataList!= null) {
+            dataList.forEach(item -> System.out.println(item.getTargetUrlList().size()));
+        }
+
         return dataList;
     }
 

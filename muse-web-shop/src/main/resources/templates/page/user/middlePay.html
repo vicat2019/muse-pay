@@ -84,7 +84,7 @@
         </tr>
         <tr>
             <td style="text-align: center;font-size: 18px;color: crimson;">
-                <span th:text="${targetUrlList}" />
+                <span th:text="${url}" />
             </td>
         </tr>
         <tr>
@@ -93,8 +93,8 @@
             </td>
         </tr>
     </table>
-    <input type="hidden" id="payMessage" th:value="${targetUrlList}">
-    <button type="button" th:onclick="@{'doPay(\'' + ${targetUrlList} + '\')'}" class="b_button" style="margin-top: 10px;display: none">直接支付</button>
+    <input type="hidden" id="payMessage" th:value="${url}">
+    <button type="button" th:onclick="@{'doPay(\'' + ${url} + '\')'}" class="b_button" style="margin-top: 10px;display: none">直接支付</button>
 
 </center>
 <script type="text/javascript">
@@ -108,9 +108,9 @@
         });
     })
 
-    function doPay(targetUrlList) {
-        console.log(targetUrlList);
-        location.href = "/orderPay/directPay?targetUrlList=" + encodeURI(targetUrlList);
+    function doPay(url) {
+        console.log(url);
+        location.href = "/orderPay/directPay?url=" + encodeURI(url);
     }
 
 </script>

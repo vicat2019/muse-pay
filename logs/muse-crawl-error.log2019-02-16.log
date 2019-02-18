@@ -1,0 +1,893 @@
+2019-02-16 14:38:52,150 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'crawlController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\CrawlController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.CrawlController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@1daa30bf]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.CrawlController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@1daa30bf]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/recruit/Job51Processor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.recruit.Job51Processor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 16:26:15,267 ERROR LoggingFailureAnalysisReporter:42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field secretGardenProcessor in com.proxypool.controller.TestController required a bean of type 'com.proxypool.secretgarden.SecretGardenProcessor' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.proxypool.secretgarden.SecretGardenProcessor' in your configuration.
+
+2019-02-16 16:26:20,112 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@71ffcc33]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@71ffcc33]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 17:30:16,804 ERROR Spider:324 - process request Request{targetUrlList='http://cc.gxia.icu/thread0806.php?fid=8', method='null', extras=null, priority=0, headers={}, cookies={}} error
+java.lang.NullPointerException: charsetName
+	at java.lang.String.<init>(String.java:424)
+	at java.lang.String.<init>(String.java:491)
+	at com.proxypool.component.PhantomJsDownloader.handleResponse(PhantomJsDownloader.java:95)
+	at com.proxypool.component.PhantomJsDownloader.download(PhantomJsDownloader.java:70)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:404)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:00:02,131 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:03,137 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:04,145 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:05,154 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:06,165 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:07,176 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:08,186 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:09,199 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:10,207 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:11,212 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:12,218 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:13,226 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:14,257 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:15,264 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:16,270 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:17,278 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:18,285 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:19,292 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:20,301 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:21,311 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:22,320 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:23,327 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:24,334 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:25,339 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:26,348 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:27,354 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:28,364 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:29,372 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:30,380 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:31,393 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:32,401 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:33,409 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:34,422 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:35,429 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:36,438 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:37,445 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:38,452 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:38,456 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:00:38,467 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:103)
+	at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84)
+	at io.netty.channel.AbstractChannel$CloseFuture.setClosed(AbstractChannel.java:1148)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:490)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:00:38,468 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:121)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetFailure(AbstractChannel.java:987)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:491)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:00:38,469 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:162)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:269)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:17:07,154 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@6f8d9b03]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@6f8d9b03]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 18:18:10,353 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@4d07f2c4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@4d07f2c4]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 18:18:40,537 ERROR LoggingFailureAnalysisReporter:42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field secretGardenProcessor in com.proxypool.controller.TestController required a bean of type 'com.proxypool.secretgarden.SecretGardenProcessor' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.proxypool.secretgarden.SecretGardenProcessor' in your configuration.
+
+2019-02-16 18:20:01,736 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:02,744 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:03,750 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:04,763 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:05,771 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:06,778 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:07,788 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:08,796 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:09,803 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:10,812 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:12,901 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:13,910 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:14,920 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:15,927 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:16,932 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:17,942 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:18,950 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:19,958 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:20,965 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:21,976 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:24,071 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:25,081 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:26,087 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:27,095 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:28,103 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:29,127 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:30,131 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:31,138 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:32,144 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:33,147 ERROR ProxyPipeline:76 - 保存数据到数据库异常=Could not get a resource from the pool; nested exception is io.lettuce.core.RedisConnectionException: Cannot connect to a Redis Sentinel: [RedisURI [host='192.168.0.90', port=26379]]
+2019-02-16 18:20:34,226 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:103)
+	at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84)
+	at io.netty.channel.AbstractChannel$CloseFuture.setClosed(AbstractChannel.java:1148)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:490)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:20:34,227 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:121)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetFailure(AbstractChannel.java:987)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:491)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:80)
+	at io.netty.channel.SingleThreadEventLoop.register(SingleThreadEventLoop.java:74)
+	at io.netty.channel.MultithreadEventLoopGroup.register(MultithreadEventLoopGroup.java:86)
+	at io.netty.bootstrap.AbstractBootstrap.initAndRegister(AbstractBootstrap.java:333)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect(Bootstrap.java:163)
+	at io.netty.bootstrap.Bootstrap.connect(Bootstrap.java:145)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:267)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:20:34,228 ERROR rejectedExecution:181 - Failed to submit a listener notification task. Event loop shut down?
+java.util.concurrent.RejectedExecutionException: event executor terminated
+	at io.netty.util.concurrent.SingleThreadEventExecutor.reject(SingleThreadEventExecutor.java:842)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.offerTask(SingleThreadEventExecutor.java:328)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.addTask(SingleThreadEventExecutor.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.execute(SingleThreadEventExecutor.java:765)
+	at io.netty.util.concurrent.DefaultPromise.safeExecute(DefaultPromise.java:764)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:432)
+	at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:162)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+	at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:269)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:549)
+	at io.lettuce.core.RedisClient.connectSentinel(RedisClient.java:480)
+	at io.lettuce.core.RedisClient.lookupRedis(RedisClient.java:726)
+	at io.lettuce.core.RedisClient.getSocketAddress(RedisClient.java:670)
+	at io.lettuce.core.RedisClient.lambda$getSocketAddressSupplier$9(RedisClient.java:713)
+	at io.lettuce.core.ConnectionBuilder.socketAddress(ConnectionBuilder.java:132)
+	at io.lettuce.core.AbstractRedisClient.initializeChannelAsync(AbstractRedisClient.java:251)
+	at io.lettuce.core.RedisClient.connectStatefulAsync(RedisClient.java:318)
+	at io.lettuce.core.RedisClient.connectStandaloneAsync(RedisClient.java:276)
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:252)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$null$0(LettucePoolingConnectionProvider.java:74)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:225)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:215)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:60)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:124)
+	at io.lettuce.core.support.ConnectionPoolSupport$1.borrowObject(ConnectionPoolSupport.java:120)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:80)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:959)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:934)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:786)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:300)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:48)
+	at com.proxypool.util.RedisUtil.get(RedisUtil.java:94)
+	at com.proxypool.proxyip.ProxyPipeline.lambda$process$0(ProxyPipeline.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at com.proxypool.proxyip.ProxyPipeline.process(ProxyPipeline.java:44)
+	at us.codecraft.webmagic.Spider.onDownloadSuccess(Spider.java:418)
+	at us.codecraft.webmagic.Spider.processRequest(Spider.java:406)
+	at us.codecraft.webmagic.Spider.access$000(Spider.java:61)
+	at us.codecraft.webmagic.Spider$1.run(Spider.java:320)
+	at us.codecraft.webmagic.thread.CountableThreadPool$1.run(CountableThreadPool.java:74)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-02-16 18:21:59,609 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@42f91e0e]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@42f91e0e]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 18:25:07,932 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5e4efd94]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5e4efd94]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 18:58:51,716 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2c54ef9c]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2c54ef9c]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 19:00:48,482 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3328818]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3328818]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more
+2019-02-16 19:00:58,622 ERROR SpringApplication:842 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'testController' defined in file [D:\muse-pay\muse-crawl\target\classes\com\proxypool\controller\TestController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3e629baf]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:558)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.proxypool.CrawlApplication.main(CrawlApplication.java:18)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.proxypool.controller.TestController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@3e629baf]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:758)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:690)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:355)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:339)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1022)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	... 20 more
+Caused by: java.lang.NoClassDefFoundError: Lcom/proxypool/secretgarden/SecretGardenProcessor;
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredFields(Class.java:1916)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:753)
+	... 26 more
+Caused by: java.lang.ClassNotFoundException: com.proxypool.secretgarden.SecretGardenProcessor
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 more

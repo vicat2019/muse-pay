@@ -131,7 +131,7 @@
 
             var form = $("#form");
             $.ajax({
-                    targetUrlList: '/user/doModPwd',
+                url: '/user/doModPwd',
                     type: 'post',
                     dataType: 'json',
                     data: form.serialize(),

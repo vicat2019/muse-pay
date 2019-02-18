@@ -1,6 +1,7 @@
 package com.proxypool.secretgarden;
 
-import java.io.Serializable;
+import com.muse.common.entity.BaseEntityInfo;
+
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author: Vincent
  * @create: 2019-02-18 15:12
  **/
-public class SecretGardenInfo implements Serializable {
+public class SecretGardenInfo extends BaseEntityInfo {
 
     private String title;
 
