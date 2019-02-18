@@ -418,7 +418,7 @@
       base64 += fromCharCode(dataView[i]);
     }
 
-    return 'data:image/jpeg;base64,' + btoa(base64);
+    return 'static:image/jpeg;base64,' + btoa(base64);
   }
 
   function Cropper(element, options) {
@@ -738,7 +738,7 @@
       this.setData(options.data);
       $this.one(EVENT_BUILT, options.built);
 
-      // Trigger the built event asynchronously to keep `data('cropper')` is defined
+      // Trigger the built event asynchronously to keep `static('cropper')` is defined
       this.completing = setTimeout($.proxy(function () {
         this.trigger(EVENT_BUILT);
         this.trigger(EVENT_CROP, this.getData());
@@ -2127,7 +2127,7 @@
             this.isReplaced = true;
           }
 
-          // Clear previous data
+          // Clear previous static
           this.options.data = null;
           this.load(url);
         }
@@ -2390,10 +2390,10 @@
     },
 
     /**
-     * Get the cropped area position and size data (base on the original image)
+     * Get the cropped area position and size static (base on the original image)
      *
      * @param {Boolean} isRounded (optional)
-     * @return {Object} data
+     * @return {Object} static
      */
     getData: function (isRounded) {
       var options = this.options;
@@ -2440,7 +2440,7 @@
     },
 
     /**
-     * Set the cropped area position and size with new data
+     * Set the cropped area position and size with new static
      *
      * @param {Object} data
      */
@@ -2506,27 +2506,27 @@
     },
 
     /**
-     * Get the container size data
+     * Get the container size static
      *
-     * @return {Object} data
+     * @return {Object} static
      */
     getContainerData: function () {
       return this.isBuilt ? this.container : {};
     },
 
     /**
-     * Get the image position and size data
+     * Get the image position and size static
      *
-     * @return {Object} data
+     * @return {Object} static
      */
     getImageData: function () {
       return this.isLoaded ? this.image : {};
     },
 
     /**
-     * Get the canvas position and size data
+     * Get the canvas position and size static
      *
-     * @return {Object} data
+     * @return {Object} static
      */
     getCanvasData: function () {
       var canvas = this.canvas;
@@ -2549,7 +2549,7 @@
     },
 
     /**
-     * Set the canvas position and size with new data
+     * Set the canvas position and size with new static
      *
      * @param {Object} data
      */
@@ -2583,9 +2583,9 @@
     },
 
     /**
-     * Get the crop box position and size data
+     * Get the crop box position and size static
      *
-     * @return {Object} data
+     * @return {Object} static
      */
     getCropBoxData: function () {
       var cropBox = this.cropBox;
@@ -2604,7 +2604,7 @@
     },
 
     /**
-     * Set the crop box position and size with new data
+     * Set the crop box position and size with new static
      *
      * @param {Object} data
      */
@@ -2843,7 +2843,7 @@
     // Define the aspect ratio of the crop box
     aspectRatio: NaN,
 
-    // An object with the previous cropping result data
+    // An object with the previous cropping result static
     data: null,
 
     // A jQuery selector for adding extra containers to preview
@@ -2946,18 +2946,18 @@
         '<span class="cropper-dashed dashed-v"></span>' +
         '<span class="cropper-center"></span>' +
         '<span class="cropper-face"></span>' +
-        '<span class="cropper-line line-e" data-action="e"></span>' +
-        '<span class="cropper-line line-n" data-action="n"></span>' +
-        '<span class="cropper-line line-w" data-action="w"></span>' +
-        '<span class="cropper-line line-s" data-action="s"></span>' +
-        '<span class="cropper-point point-e" data-action="e"></span>' +
-        '<span class="cropper-point point-n" data-action="n"></span>' +
-        '<span class="cropper-point point-w" data-action="w"></span>' +
-        '<span class="cropper-point point-s" data-action="s"></span>' +
-        '<span class="cropper-point point-ne" data-action="ne"></span>' +
-        '<span class="cropper-point point-nw" data-action="nw"></span>' +
-        '<span class="cropper-point point-sw" data-action="sw"></span>' +
-        '<span class="cropper-point point-se" data-action="se"></span>' +
+        '<span class="cropper-line line-e" static-action="e"></span>' +
+        '<span class="cropper-line line-n" static-action="n"></span>' +
+        '<span class="cropper-line line-w" static-action="w"></span>' +
+        '<span class="cropper-line line-s" static-action="s"></span>' +
+        '<span class="cropper-point point-e" static-action="e"></span>' +
+        '<span class="cropper-point point-n" static-action="n"></span>' +
+        '<span class="cropper-point point-w" static-action="w"></span>' +
+        '<span class="cropper-point point-s" static-action="s"></span>' +
+        '<span class="cropper-point point-ne" static-action="ne"></span>' +
+        '<span class="cropper-point point-nw" static-action="nw"></span>' +
+        '<span class="cropper-point point-sw" static-action="sw"></span>' +
+        '<span class="cropper-point point-se" static-action="se"></span>' +
       '</div>' +
     '</div>'
   );

@@ -38,7 +38,7 @@ public class GuavaCacheUtil {
                 /*if ("code".equals(key)) {
                     MeBookService meBookService = (MeBookService) SpringBeanUtils.getBean("meBookService");
                     List<Integer> codeList = meBookService.getAllCode();
-                    log.info("guava加载数据, key=" + key + ", data=" + (codeList != null ? codeList.size() : 0));
+                    log.info("guava加载数据, key=" + key + ", static=" + (codeList != null ? codeList.size() : 0));
                     return codeList;
                 } else {
                     log.info("guava加载数据, key=" + key);

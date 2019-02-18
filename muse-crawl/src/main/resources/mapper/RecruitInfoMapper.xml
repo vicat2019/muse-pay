@@ -63,7 +63,7 @@
         values (#{id,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR}, #{minExp,jdbcType=INTEGER}, #{maxExp,jdbcType=INTEGER},
           #{number,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
           #{companyType,jdbcType=VARCHAR}, #{companySize,jdbcType=VARCHAR}, #{companyIndustry,jdbcType=VARCHAR},
-          #{releaseDate,jdbcType=VARCHAR}, #{salary,jdbcType=VARBINARY}, #{minSalary,jdbcType=DECIMAL}, #{max_salary,jdbcType=DECIMAL},
+          #{releaseDate,jdbcType=VARCHAR}, #{salary,jdbcType=VARBINARY}, #{minSalary,jdbcType=DECIMAL}, #{maxSalary,jdbcType=DECIMAL},
           #{area,jdbcType=VARBINARY}, #{education,jdbcType=VARBINARY}, #{welfare,jdbcType=VARBINARY},
           #{jobInformation,jdbcType=LONGVARCHAR}, #{companyDesc,jdbcType=LONGVARCHAR}, #{source,jdbcType=LONGVARCHAR},
           #{identificationCode,jdbcType=LONGVARCHAR}, #{detailUrl,jdbcType=LONGVARCHAR}, #{releaseDates,jdbcType=LONGVARCHAR},

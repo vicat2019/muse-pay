@@ -158,7 +158,7 @@ public class ResultData<T> implements Serializable {
         return "ResultData{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
-                ", data=" + data +
+                ", static=" + data +
                 ", timestamp=" + timestamp +
                 '}';
     }

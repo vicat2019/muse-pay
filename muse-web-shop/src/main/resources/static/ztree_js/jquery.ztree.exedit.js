@@ -241,7 +241,7 @@
         return this.refresh();
       }
     },
-    //method of operate data
+    //method of operate static
     _data = {
       setSonNodeLevel: function (setting, parentNode, node) {
         if (!node) return;
@@ -966,7 +966,7 @@
           targetObj.after(nodeDom);
         }
 
-        //repair the data after move
+        //repair the static after move
         var i, l,
           tmpSrcIndex = -1,
           tmpTargetIndex = 0,

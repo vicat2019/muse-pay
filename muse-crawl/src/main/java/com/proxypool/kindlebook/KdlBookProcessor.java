@@ -92,7 +92,7 @@ public class KdlBookProcessor extends ProcessorTemplate {
             intros = intros.stream().filter(s -> !StringUtils.isEmpty(s)).collect(Collectors.toList());
             String intro = Joiner.on("").join(intros);
             // 下载地址
-            String downloadUrl = page.getHtml().xpath("//a[@class='baiduWP']/@data-surl").toString();
+            String downloadUrl = page.getHtml().xpath("//a[@class='baiduWP']/@static-surl").toString();
             // 更新日期
             String releaseDate = page.getHtml().xpath("//div[@class='BookData']/div[@class='BookData_Info']/div[4]/text()").toString();
             if (!StringUtils.isEmpty(releaseDate)) {

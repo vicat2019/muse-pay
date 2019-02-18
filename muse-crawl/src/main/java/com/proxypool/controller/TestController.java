@@ -2,12 +2,15 @@ package com.proxypool.controller;
 
 import com.google.common.collect.Maps;
 import com.muse.common.entity.ResultData;
+import com.proxypool.component.PhantomJsDownloader;
 import com.proxypool.config.GuavaCacheUtil;
 import com.proxypool.kindlebook.KdlBookProcessor;
 import com.proxypool.kindlebook.MeBookPipeline;
 import com.proxypool.kindlebook.MebookProcessor;
 import com.proxypool.picture.PictureInfoPipeline;
 import com.proxypool.picture.WallhavenProcessor;
+import com.proxypool.recruit.Job51Processor;
+import com.proxypool.recruit.RecruitInfoPipeline;
 import com.proxypool.secretgarden.SecretGardenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
 import com.proxypool.service.RecruitInfoService;
@@ -60,6 +63,9 @@ public class TestController {
 
     @Autowired
     private SecretGardenProcessor secretGardenProcessor;
+
+    @Autowired
+    private Job51Processor proxy51jobProcessor;
 
 
     @RequestMapping("/sequence/{count}")
@@ -160,7 +166,22 @@ public class TestController {
         try {
             Map<String, String> cookiesMap = Maps.newHashMap();
             cookiesMap.put("__cfduid", "d2a8a7ca83f1eb76bdb445da62267316f1549868344");
-            secretGardenProcessor.execute(null, false, cookiesMap, null);
+            secretGardenProcessor.execute(null, false, cookiesMap, new PhantomJsDownloader());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Autowired
+    private RecruitInfoPipeline recruitInfoPipelinel;
+
+    @RequestMapping("/testre")
+    public void testRecurite() {
+        try {
+            // 处理页面的时间间隔
+            proxy51jobProcessor.setInterval(700).setThreadCount(5);
+            proxy51jobProcessor.execute(recruitInfoPipelinel, false);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -31,7 +31,7 @@ public class PictureController {
             PageInfo<Collection> pageInfo = pictureInfoService.query(p, size);
             // 检查是否为空
             Preconditions.checkNotNull(pageInfo);
-            modelMap.put("data", pageInfo);
+            modelMap.put("static", pageInfo);
 
         } catch (Exception e) {
             e.printStackTrace();

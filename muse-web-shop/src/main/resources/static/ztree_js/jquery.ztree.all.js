@@ -131,7 +131,7 @@
       }
     },
     //default root of core
-    //zTree use root to save full data
+    //zTree use root to save full static
     _initRoot = function (setting) {
       var r = data.getRoot(setting);
       if (!r) {
@@ -345,7 +345,7 @@
       innerAfterA: [],
       zTreeTools: []
     },
-    //method of operate data
+    //method of operate static
     data = {
       addNodeCache: function (setting, node) {
         data.getCache(setting).nodes[data.getNodeCacheId(node.tId)] = node;
@@ -2206,7 +2206,7 @@
         }
       }
     },
-    //method of operate data
+    //method of operate static
     _data = {
       getRadioCheckedList: function (setting) {
         var checkedList = data.getRoot(setting).radioCheckedList;
@@ -2873,7 +2873,7 @@
         return this.refresh();
       }
     },
-    //method of operate data
+    //method of operate static
     _data = {
       setSonNodeLevel: function (setting, parentNode, node) {
         if (!node) return;
@@ -3598,7 +3598,7 @@
           targetObj.after(nodeDom);
         }
 
-        //repair the data after move
+        //repair the static after move
         var i, l,
           tmpSrcIndex = -1,
           tmpTargetIndex = 0,

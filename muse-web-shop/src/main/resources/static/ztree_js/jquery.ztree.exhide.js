@@ -58,7 +58,7 @@
         }
       }
     },
-    //method of operate data
+    //method of operate static
     _data = {
       initHideForExCheck: function (setting, n) {
         var isHidden = data.isHidden(setting, n);

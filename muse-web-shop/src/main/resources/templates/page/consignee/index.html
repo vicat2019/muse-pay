@@ -92,17 +92,17 @@
 
     <!--<table style="margin-top: 30px;">
         <tr>
-            <span th:each="index:${data.navigatepageNums}">
-                <td height="25"><span th:if="${data.pageNum ne index}">
+            <span th:each="index:${static.navigatepageNums}">
+                <td height="25"><span th:if="${static.pageNum ne index}">
                     <input type="button" th:value="${index}" th:onclick="'javascript:onPage('+ ${index} +')'"
                            class="page_button">
                     </span>
-                    <span th:if="${data.pageNum eq index}">
+                    <span th:if="${static.pageNum eq index}">
                     <input type="button" th:value="${index}" class="page_button_disable" disabled="disabled">
                     </span>
                 </td>
             </span>
-            <td height="25"><span class="page_tip"><span th:text="${data.pageNum}"/> / <span th:text="${data.pages}"/> 页</span>
+            <td height="25"><span class="page_tip"><span th:text="${static.pageNum}"/> / <span th:text="${static.pages}"/> 页</span>
             </td>
         </tr>
     </table>-->

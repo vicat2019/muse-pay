@@ -222,7 +222,7 @@
         }
       }
     },
-    //method of operate data
+    //method of operate static
     _data = {
       getRadioCheckedList: function (setting) {
         var checkedList = data.getRoot(setting).radioCheckedList;

@@ -130,7 +130,7 @@
       }
     },
     //default root of core
-    //zTree use root to save full data
+    //zTree use root to save full static
     _initRoot = function (setting) {
       var r = data.getRoot(setting);
       if (!r) {
@@ -344,7 +344,7 @@
       innerAfterA: [],
       zTreeTools: []
     },
-    //method of operate data
+    //method of operate static
     data = {
       addNodeCache: function (setting, node) {
         data.getCache(setting).nodes[data.getNodeCacheId(node.tId)] = node;
