@@ -95,7 +95,7 @@ public class OrderPayServiceImpl implements OrderPayService {
         if (orderInfo == null) {
             // 获取订单信息
             ResultData queryOrderResult = orderInfoService.getOrderByNo(orderNo);
-            if (!queryOrderResult.isOk() || queryOrderResult.resultIsEmpty()) {
+            if (!queryOrderResult.whetherOk() || queryOrderResult.resultIsEmpty()) {
                 return queryOrderResult;
             }
             orderInfo = (OrderInfo) queryOrderResult.getData();
@@ -129,7 +129,7 @@ public class OrderPayServiceImpl implements OrderPayService {
         log.info("向上游发送预下单请求，地址=" + payUrl + "，参数=" + payParams.toString() + "，结果=" + httpResult.getData()
                 + "，STG耗时=" + ((System.currentTimeMillis() - start) / 1000d));
 
-        if (!httpResult.isOk()) {
+        if (!httpResult.whetherOk()) {
             return httpResult;
         }
         JSONObject jsonObject = JSON.parseObject((String) httpResult.getData());
@@ -139,10 +139,10 @@ public class OrderPayServiceImpl implements OrderPayService {
         Map<String, String> resultMap = new HashMap<>();
         if (!"0000".equals(jsonObject.get("resultCode"))) {
             resultMap.put("msg", (String) jsonObject.get("errMsg"));
-            // 更新订单状态，异常
             orderInfo.setStatus("4");
             orderInfo.setRemark((String) jsonObject.get("errMsg"));
 
+            // 更新订单状态
             orderInfoService.updateOrderByNo(orderInfo);
         }
         resultMap.put("productName", productName);

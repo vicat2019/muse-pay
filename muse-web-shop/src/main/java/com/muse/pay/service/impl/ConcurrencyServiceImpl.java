@@ -44,8 +44,8 @@ public class ConcurrencyServiceImpl implements ConcurrencyService {
         // http://192.168.0.90:9091/shoppingCart/buy?userId=603&bookId=473&count=1
         long orderStart = System.currentTimeMillis();
         ResultData buyResult = shoppingCartService.buy(userId, bookIds);
-        if (!buyResult.isOk() || buyResult.resultIsEmpty()) {
-            log.info("concurrency() 商城生成订单，STS耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
+        if (!buyResult.whetherOk() || buyResult.resultIsEmpty()) {
+            log.info("concurrency() 1-商城生成订单，ORDER-PRE耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
             return buyResult;
         }
         // 订单号
@@ -54,12 +54,12 @@ public class ConcurrencyServiceImpl implements ConcurrencyService {
             log.info("concurrency() 商城生成订单耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
             return ResultData.getErrResult("返回的订单编号为空，用户ID[" + userId + "]，图书ID[" + bookIds + "]");
         }
-        log.info("concurrency() 1-商城生成订单，STS耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
+        log.info("concurrency() 1-商城生成订单，ORDER-PRE耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
 
         // 预下单
         // http://192.168.0.90:9091/orderPay/pay?userId=603&orderNo=201808281900563520040172915
         ResultData resultData = orderPayService.doPay(Integer.valueOf(userId), orderNo);
-        if (!resultData.isOk() || resultData.resultIsEmpty()) {
+        if (!resultData.whetherOk() || resultData.resultIsEmpty()) {
             return resultData;
         }
         Map<String, String> resultMap = (Map<String, String>) resultData.getData();
@@ -72,9 +72,8 @@ public class ConcurrencyServiceImpl implements ConcurrencyService {
         // url=http://192.168.0.90:9091/muse/pay/MUSE20180828190140292258725
         long start = System.currentTimeMillis();
         ResultData payResult = httpUtils.get(url, new HashMap<>());
-        if (!payResult.isOk() || payResult.resultIsEmpty()) {
-            log.info("concurrency() 3-预下单后，调用支付接口=" + url + "，返回=" + payResult.getMessage() + "，STM耗时="
-                    + ((System.currentTimeMillis() - start) / 1000d));
+        if (!payResult.whetherOk() || payResult.resultIsEmpty()) {
+            log.info("concurrency() 3-预下单后，调用支付接口=" + url + "，返回=" + payResult.getMessage() + "，ORDER-PAY耗时=" + ((System.currentTimeMillis() - start) / 1000d));
             log.info("concurrency() 0-并发测试，一个订单，CONCURRENCY耗时=" + ((System.currentTimeMillis() - orderStart) / 1000d));
             return payResult;
         }

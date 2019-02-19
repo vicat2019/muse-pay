@@ -60,7 +60,6 @@ public class SecretGardenProcessor extends ProcessorTemplate {
 
     @Override
     public List<String> parseUrl(Page page) {
-
         // 分页地址
         List<String> pageUrlList = page.getHtml().xpath("//div[@class='pages']/a/@href").all();
         pageUrlList = pageUrlList.stream().filter(s -> s.contains("page")).collect(Collectors.toList());
@@ -71,8 +70,7 @@ public class SecretGardenProcessor extends ProcessorTemplate {
             pageUrlList.add("http://cc.gxia.icu/" + item);
         }
 
-        // return pageUrlList;
-        return null;
+        return pageUrlList;
     }
 
     @Override

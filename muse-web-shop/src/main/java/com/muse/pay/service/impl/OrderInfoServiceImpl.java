@@ -103,7 +103,7 @@ public class OrderInfoServiceImpl extends BaseService<OrderInfoMapper, OrderInfo
 
         // 查询商品信息
         ResultData resultData = bookInfoService.queryBookIn(orderInfoVO.getBookIds());
-        if (!resultData.isOk() || resultData.getData() == null) {
+        if (!resultData.whetherOk() || resultData.getData() == null) {
             return resultData;
         }
         List<BookInfo> bookList = (List<BookInfo>) resultData.getData();

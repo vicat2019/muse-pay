@@ -137,7 +137,7 @@ public class ShoppingCartController extends BaseController {
         String orderNo = "";
         try {
             ResultData buyResult = shoppingCartService.buy(userId, bookId);
-            if (!buyResult.isOk() || buyResult.resultIsEmpty()) {
+            if (!buyResult.whetherOk() || buyResult.resultIsEmpty()) {
                 return new ModelAndView("redirect:/order/list" + userId);
             }
 

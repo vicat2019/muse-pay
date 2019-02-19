@@ -24,7 +24,6 @@ public class SecretGardenPipeline implements Pipeline {
 
     // 存放数据的队列
     private static ArrayBlockingQueue<SecretGardenInfo> queue;
-
     static {
         queue = new ArrayBlockingQueue(1024);
     }

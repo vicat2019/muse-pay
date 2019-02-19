@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proxypool.dao.SgDataInfoMapper">
+    <resultMap id="BaseResultMap" type="com.proxypool.secretgarden.SgDataInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="code" jdbcType="INTEGER" property="code"/>
+
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Table_Name">
+        sg_data_info
+    </sql>
+
+    <sql id="Base_Column_List">
+        id, title, url, code, status, create_time
+      </sql>
+
+    <insert id="insert" parameterType="com.proxypool.secretgarden.SgDataInfo">
+        insert into<include refid="Table_Name"/>(title, url, code, status) values (
+        #{title,jdbcType=VARCHAR},
+        #{url,jdbcType=VARCHAR},
+        #{code,jdbcType=INTEGER},
+        #{status,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.proxypool.secretgarden.SgDataInfo">
+        update
+        <include refid="Table_Name"/>
+        set status = #{status,jdbcType=VARCHAR},
+        title = #{title,jdbcType=VARCHAR},
+        url = #{url,jdbcType=VARCHAR},
+        code = #{code,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertBatch" parameterType="list">
+        insert into<include refid="Table_Name"/>(title, url, code, status) values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.title,jdbcType=VARCHAR},
+            #{data.url,jdbcType=VARCHAR},
+            #{data.code,jdbcType=INTEGER},
+            #{data.status,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from
+        <include refid="Table_Name"/>
+        where id=#{id, jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateStatusBatch" parameterType="list">
+        update
+        <include refid="Table_Name"/>
+        set status='SUCCESS'
+        where code in (
+        <foreach collection="list" item="code" separator="," open="(" close=")">
+            #{code, jdbcType=INTEGER}
+        </foreach>
+        )
+    </update>
+
+
+</mapper>

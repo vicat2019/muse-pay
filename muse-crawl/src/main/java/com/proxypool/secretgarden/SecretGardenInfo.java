@@ -18,21 +18,21 @@ public class SecretGardenInfo extends BaseEntityInfo {
 
     private String source;
 
-    private String detaulUrl;
+    private String detailUrl;
 
     /**
      * 构造方法
      *
      * @param title
      * @param url
-     * @param detaulUrl
+     * @param detailUrl
      * @param source
      */
-    public SecretGardenInfo(String title, List<String> url, String detaulUrl, String source) {
+    public SecretGardenInfo(String title, List<String> url, String detailUrl, String source) {
         this.title = title;
         this.targetUrlList = url;
         this.source = source;
-        this.detaulUrl = detaulUrl;
+        this.detailUrl = detailUrl;
     }
 
     public String getTitle() {
@@ -59,11 +59,11 @@ public class SecretGardenInfo extends BaseEntityInfo {
         this.source = source;
     }
 
-    public String getDetaulUrl() {
-        return detaulUrl;
+    public String getDetailUrl() {
+        return detailUrl;
     }
 
-    public void setDetaulUrl(String detaulUrl) {
-        this.detaulUrl = detaulUrl;
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
     }
 }

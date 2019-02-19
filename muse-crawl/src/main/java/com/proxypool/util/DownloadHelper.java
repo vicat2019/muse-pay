@@ -48,7 +48,7 @@ public class DownloadHelper {
     }
 
 
-    public static void start(String url, String destFile) {
+    public static boolean start(String url, String destFile) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault(); // 创建httpClient实例
@@ -66,7 +66,7 @@ public class DownloadHelper {
             FileOutputStream out = new FileOutputStream(new File(destFile));
             byte[] data = new byte[512];
 
-            int c = 0;
+            int c;
             while ((c = in.read(data)) > 0) {
                 out.write(data, 0, c);
             }
@@ -78,14 +78,15 @@ public class DownloadHelper {
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();
+            return false;
         } finally {
-            // 关闭连接,释放资源
             try {
                 httpclient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return true;
     }
 
 

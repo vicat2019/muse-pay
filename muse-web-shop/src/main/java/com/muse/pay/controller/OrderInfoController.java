@@ -89,7 +89,7 @@ public class OrderInfoController extends BaseController {
                             @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                             ModelMap modelMap) {
-        ResultData resultData = null;
+        ResultData resultData;
         try {
             resultData = orderInfoService.getUserOrders(userId, startTime, endTime, status, pageNum, pageSize);
             if (resultData.isOk()) {

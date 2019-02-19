@@ -131,7 +131,7 @@
         </table>
     </form>
 
-    <table th:if="${data} not eq null" th:each="item,userStat:${data.list}" class="order">
+    <table th:each="item,userStat:${data.list}" class="order">
         <tr class="bg1">
             <td style="margin-left: 0px;padding-left: 0px;text-align: left;color: #a1a3a6;"><span
                     th:text="${#dates.format(item.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span></td>

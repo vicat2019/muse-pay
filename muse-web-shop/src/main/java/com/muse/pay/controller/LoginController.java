@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
         return "user/to_login";
     }
 
-    @RequestMapping(value = "403")
+    @RequestMapping("/403")
     public String unAuth() {
         return "403";
     }

@@ -1,5 +1,6 @@
 package com.muse.pay.service.impl;
 
+import com.google.common.base.Splitter;
 import com.muse.common.entity.ResultData;
 import com.muse.common.service.BaseService;
 import com.muse.pay.dao.ShoppingCartMapper;
@@ -16,8 +17,8 @@ import org.thymeleaf.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -155,8 +156,8 @@ public class ShoppingCartServiceImpl extends BaseService<ShoppingCartMapper, Sho
         // 多本书
         List<String> bookIdList;
         if (bookId.contains("a")) {
-            bookIdList = Arrays.asList(bookId.split("a"));
-            bookIdList.stream().filter(StringUtils::isEmpty);
+            bookIdList = (List<String>) Splitter.on("a").split(bookId);
+            bookIdList = bookIdList.stream().filter(s -> !StringUtils.isEmpty(s)).collect(Collectors.toList());
         } else {
             bookIdList = new ArrayList<>();
             bookIdList.add(bookId);
@@ -166,7 +167,7 @@ public class ShoppingCartServiceImpl extends BaseService<ShoppingCartMapper, Sho
         // 查询图书
         for (String id : bookIdList) {
             ResultData bookResult = bookInfoService.get(Integer.valueOf(id));
-            if (!bookResult.isOk() || bookResult.resultIsEmpty()) {
+            if (!bookResult.whetherOk() || bookResult.resultIsEmpty()) {
                 return ResultData.getErrResult("该商品不存在[" + bookId + "]");
             }
         }
@@ -186,7 +187,7 @@ public class ShoppingCartServiceImpl extends BaseService<ShoppingCartMapper, Sho
         orderInfoVO.setBookCounts(bookCounts);
         // 保存订单
         ResultData orderResult = orderInfoService.addOrder(orderInfoVO);
-        if (!orderResult.isOk()) {
+        if (!orderResult.whetherOk()) {
             return orderResult;
         }
 

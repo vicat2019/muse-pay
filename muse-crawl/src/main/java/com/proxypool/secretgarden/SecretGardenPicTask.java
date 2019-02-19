@@ -17,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
 public class SecretGardenPicTask implements Runnable {
     private Logger log = LoggerFactory.getLogger("SecretGardenPicTask");
 
+    // 数据队列
     private BlockingQueue<SecretGardenInfo> queue;
 
     /**
@@ -30,7 +31,7 @@ public class SecretGardenPicTask implements Runnable {
 
     @Override
     public void run() {
-
+        // 取数据
         SecretGardenInfo data = queue.poll();
         if (data != null) {
             // 创建目录
@@ -40,6 +41,7 @@ public class SecretGardenPicTask implements Runnable {
                 folderFile.mkdirs();
             }
 
+            // 资源链接
             List<String> targetUrlList = data.getTargetUrlList();
 
             int num = 0;
@@ -51,15 +53,13 @@ public class SecretGardenPicTask implements Runnable {
                     extension = url.substring(url.lastIndexOf("."));
                 }
                 File targetFile = new File(folderFile, num + extension);
+                // 下载
                 DownloadHelper.start(url, targetFile.getAbsolutePath());
-
                 log.info("成功下载资源=" + data.getTitle() + ", " + url);
             }
             log.info("下载资源[" + data.getTitle() + "], 个数=" + num);
         }
     }
-
-
 
 
 }
