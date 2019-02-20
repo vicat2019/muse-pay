@@ -60,11 +60,10 @@
         update
         <include refid="Table_Name"/>
         set status='SUCCESS'
-        where code in (
+        where code in
         <foreach collection="list" item="code" separator="," open="(" close=")">
             #{code, jdbcType=INTEGER}
         </foreach>
-        )
     </update>
 
 
