@@ -88,7 +88,7 @@ public class Test {
         webDriver.close();*/
 
         WebDriver driver = PhantomJSDriverHelper.getDriver();
-        driver.get("http://cc.gxia.icu/thread0806.php?fid=8");
+        driver.get("https://weibo.com/?category=10007");
         System.out.println(driver.getPageSource());
 
 

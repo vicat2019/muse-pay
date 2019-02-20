@@ -1,5 +1,7 @@
 package com.proxypool.secretgarden;
 
+import com.google.common.collect.Lists;
+import com.proxypool.service.SgDataInfoService;
 import com.proxypool.util.DownloadHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +22,16 @@ public class SecretGardenPicTask implements Runnable {
     // 数据队列
     private BlockingQueue<SecretGardenInfo> queue;
 
+    private SgDataInfoService sgDataInfoService;
+
     /**
      * 构造方法
      *
      * @param queue
      */
-    public SecretGardenPicTask(BlockingQueue<SecretGardenInfo> queue) {
+    public SecretGardenPicTask(BlockingQueue<SecretGardenInfo> queue, SgDataInfoService sgDataInfoService) {
         this.queue = queue;
+        this.sgDataInfoService = sgDataInfoService;
     }
 
     @Override
@@ -43,6 +48,7 @@ public class SecretGardenPicTask implements Runnable {
 
             // 资源链接
             List<String> targetUrlList = data.getTargetUrlList();
+            List<Integer> successCodeList = Lists.newArrayList();
 
             int num = 0;
             for (String url : targetUrlList) {
@@ -56,8 +62,19 @@ public class SecretGardenPicTask implements Runnable {
                 // 下载
                 DownloadHelper.start(url, targetFile.getAbsolutePath());
                 log.info("成功下载资源=" + data.getTitle() + ", " + url);
+
+                // 记录成功的项
+                successCodeList.add(SgDataInfo.genHashCode(data.getTitle(), url));
             }
             log.info("下载资源[" + data.getTitle() + "], 个数=" + num);
+
+            // 更新状态
+            try {
+                sgDataInfoService.updateStatusBatch(successCodeList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("更新处理数据成功状态异常=" + e.getMessage());
+            }
         }
     }
 

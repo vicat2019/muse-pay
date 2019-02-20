@@ -1,6 +1,7 @@
 package com.proxypool.secretgarden;
 
 import com.muse.common.entity.BaseEntityInfo;
+import org.thymeleaf.util.StringUtils;
 
 /**
  * @program: muse-pay
@@ -18,23 +19,43 @@ public class SgDataInfo extends BaseEntityInfo {
 
     /**
      * 生成实例
-     * @param code
+     *
      * @param title
      * @param url
      * @return
      */
-    public SgDataInfo getInstance(int code, String title, String url) {
+    public static SgDataInfo getInstance(String title, String url) {
         SgDataInfo sgDataInfo = new SgDataInfo();
-        sgDataInfo.code = code;
         sgDataInfo.title = title;
         sgDataInfo.url = url;
 
         return sgDataInfo;
     }
 
+    @Override
+    public int hashCode() {
+        return genHashCode(this.title, this.url);
+    }
+
+    public static int genHashCode(String title, String url) {
+        int result = StringUtils.isEmpty(title) ? 0 : title.hashCode();
+        result = 31 * result + (StringUtils.isEmpty(url) ? 0 : url.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SgDataInfo) {
+            SgDataInfo proxy = (SgDataInfo) obj;
+            return title.equalsIgnoreCase(proxy.getTitle().trim())
+                    && url.equals(proxy.getUrl());
+        }
+
+        return false;
+    }
 
     public int getCode() {
-        return code;
+        return hashCode();
     }
 
     public void setCode(int code) {

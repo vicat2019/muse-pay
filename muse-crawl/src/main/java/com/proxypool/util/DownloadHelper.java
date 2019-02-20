@@ -32,7 +32,7 @@ public class DownloadHelper {
     public static String getFolderName(String content) {
         String name;
 
-        Pattern pattern = Pattern.compile("\\](.+)\\[.+P\\]");
+        Pattern pattern = Pattern.compile("(.+)\\[.+P\\]");
         Matcher matcher = pattern.matcher(content);
 
         if (matcher.find()) {
