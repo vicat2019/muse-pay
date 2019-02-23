@@ -1,5 +1,7 @@
 package com.proxypool.util;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.proxypool.entry.RecruitInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -295,11 +297,51 @@ public class TextUtils {
         return target.trim();
     }
 
-    public static void main(String[] args) {
-        System.out.println(getNumFrom(" 7.9分 豆瓣评分"));
 
-        String a = "https://search.51job.com/list/040000,000000,0000,00,9,99,java,2,6.html?lang=c&stype=1&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=";
-        System.out.println(getMatch("(\\d+)\\.html", a));
+
+
+
+
+
+
+
+
+    public static void main(String[] args) {
+        String a = "<div class=\"main yypop\" style=\"min-height: 100px; width: 170px\">\n" +
+                " 放号：\n" +
+                " <i>10</i>\n" +
+                " <br>剩余：\n" +
+                " <i>1</i>\n" +
+                " <br>费用：\n" +
+                " <i>50</i>元\n" +
+                " <br>门诊类型：\n" +
+                " <i>妇产科门诊</i>\n" +
+                "</div>";
+
+        String content = a.replaceAll("\n", "");
+        content = content.replaceAll("<div.*?>", "");
+        content = content.replaceAll("</div>", "");
+        content = content.replaceAll("</*i>", "");
+        content = content.replaceAll("\\s", "");
+
+        Lists.newArrayList(Splitter.on("<br>").split(content)).forEach(System.out::println);
+
+        System.out.println(content);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

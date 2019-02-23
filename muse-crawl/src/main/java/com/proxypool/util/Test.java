@@ -1,5 +1,6 @@
 package com.proxypool.util;
 
+import com.google.common.collect.Maps;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import org.apache.http.HttpEntity;
@@ -10,12 +11,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Map;
 
 /**
  * @program: muse-pay
@@ -81,17 +86,38 @@ public class Test {
 
 
         System.getProperties().setProperty("webdriver.chrome.driver", "D:/chromedriver/chromedriver.exe");
-        /*WebDriver webDriver = new ChromeDriver();
-        webDriver.get("http://cc.gxia.icu/thread0806.php?fid=8");
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("https://www.91160.com/dep/show/depid-3826.html");
         WebElement webElement = webDriver.findElement(By.xpath("/html"));
         System.out.println(webElement.getAttribute("outerHTML"));
-        webDriver.close();*/
+        webDriver.close();
 
-        WebDriver driver = PhantomJSDriverHelper.getDriver();
-        driver.get("https://weibo.com/?category=10007");
-        System.out.println(driver.getPageSource());
+        /*PhantomJSDriver driver = PhantomJSDriverHelper.getDriver();
+        try {
+            PhantomJSDriverHelper.setCookies(driver, getCookieStore());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        driver.get("https://www.91160.com/dep/show/depid-3826.html");
+        System.out.println(driver.getPageSource());*/
+
+    }
 
 
+    private static Map<String, String> getCookieStore() {
+        Map<String, String> cookieStore = Maps.newHashMap();
+        cookieStore.put("__guid", "MijNWz5c709f39737562.26040785");
+        cookieStore.put("__jsluid", "bc46d490240b92ccbd29fea887c0dbfe");
+        cookieStore.put("gr_user_id", "4288344b-21e1-47d9-9dfc-8c9bc13b1664");
+        cookieStore.put("FISKCDDCC", "7fe30d8c46661d9d724b540783246e10");
+        cookieStore.put("gr_session_id_88c697c1877e5045", "08f51ba5-0a09-492e-871d-de0568363e71");
+        cookieStore.put("gr_session_id_88c697c1877e5045_08f51ba5-0a09-492e-871d-de0568363e71", "true");
+        cookieStore.put("Hm_lpvt_c4e8e5b919a5c12647962ea08462e63b", "1550885276");
+        cookieStore.put("Hm_lvt_c4e8e5b919a5c12647962ea08462e63b", "1550884666");
+        cookieStore.put("ip_city", "sz");
+        cookieStore.put("is_read_index_notice_", "1");
+
+        return cookieStore;
     }
 
     private static void genRandomInfo(int size) {

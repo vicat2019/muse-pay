@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proxypool.dao.SubscribeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.proxypool.entry.SubscribeInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="unit_id" jdbcType="VARCHAR" property="unitId"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+
+        <result column="doctor_id" jdbcType="VARCHAR" property="doctorId"/>
+        <result column="doctor_name" jdbcType="VARCHAR" property="doctorName"/>
+
+        <result column="to_date" jdbcType="VARCHAR" property="toDate"/>
+
+        <result column="yuyue_max" jdbcType="VARCHAR" property="yuyueMax"/>
+        <result column="yuyue_num" jdbcType="VARCHAR" property="yuyueNum"/>
+        <result column="youzhi_max" jdbcType="VARCHAR" property="youzhiMax"/>
+        <result column="youzhi_num" jdbcType="VARCHAR" property="youzhiNum"/>
+
+        <result column="left_num" jdbcType="VARCHAR" property="leftNum"/>
+
+        <result column="time_type" jdbcType="VARCHAR" property="timeType"/>
+        <result column="time_type_desc" jdbcType="VARCHAR" property="timeTypeDesc"/>
+
+        <result column="y_state" jdbcType="VARCHAR" property="yState"/>
+        <result column="y_state_desc" jdbcType="VARCHAR" property="yStateDesc"/>
+
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, unit_id, state, doctor_id, doctor_name, to_date, yuyue_max, yuyue_num, youzhi_max, 
+    youzhi_num, left_num, time_type, time_type_desc, y_state, y_state_desc
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_subscribe_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_subscribe_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.proxypool.entry.SubscribeInfo">
+    insert into t_subscribe_info (id, unit_id, state, 
+      doctor_id, doctor_name, to_date, 
+      yuyue_max, yuyue_num, youzhi_max, 
+      youzhi_num, left_num, time_type, 
+      time_type_desc, y_state, y_state_desc
+      )
+    values (#{id,jdbcType=INTEGER}, #{unitId,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{doctorId,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR}, #{toDate,jdbcType=VARCHAR}, 
+      #{yuyueMax,jdbcType=VARCHAR}, #{yuyueNum,jdbcType=VARCHAR}, #{youzhiMax,jdbcType=VARCHAR}, 
+      #{youzhiNum,jdbcType=VARCHAR}, #{leftNum,jdbcType=VARCHAR}, #{timeType,jdbcType=VARCHAR}, 
+      #{timeTypeDesc,jdbcType=VARCHAR}, #{yState,jdbcType=VARCHAR}, #{yStateDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.proxypool.entry.SubscribeInfo">
+    update t_subscribe_info
+    set unit_id = #{unitId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      doctor_id = #{doctorId,jdbcType=VARCHAR},
+      doctor_name = #{doctorName,jdbcType=VARCHAR},
+      to_date = #{toDate,jdbcType=VARCHAR},
+      yuyue_max = #{yuyueMax,jdbcType=VARCHAR},
+      yuyue_num = #{yuyueNum,jdbcType=VARCHAR},
+      youzhi_max = #{youzhiMax,jdbcType=VARCHAR},
+      youzhi_num = #{youzhiNum,jdbcType=VARCHAR},
+      left_num = #{leftNum,jdbcType=VARCHAR},
+      time_type = #{timeType,jdbcType=VARCHAR},
+      time_type_desc = #{timeTypeDesc,jdbcType=VARCHAR},
+      y_state = #{yState,jdbcType=VARCHAR},
+      y_state_desc = #{yStateDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

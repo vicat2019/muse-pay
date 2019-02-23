@@ -1,10 +1,10 @@
 package com.proxypool.component;
 
-import com.proxypool.util.PhantomJSDriverHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: muse-pay
@@ -59,14 +60,16 @@ public class PhantomJsDownloader extends AbstractDownloader {
             throw new NullPointerException("Task任务不能为空");
         }
 
-        PhantomJSDriver driver = PhantomJSDriverHelper.getDriver();
-
         Page page = Page.fail();
         try {
             String url = request.getUrl();
             logger.info("下载地址=" + url);
+
+            /*PhantomJSDriver driver = PhantomJSDriverHelper.getDriver();
             driver.get(url);
-            String htmlContent = driver.getPageSource();
+            String htmlContent = driver.getPageSource();*/
+
+            String htmlContent = getContent(url);
             page = handleResponse(request, "utf-8", htmlContent);
 
             onSuccess(request);
@@ -77,6 +80,23 @@ public class PhantomJsDownloader extends AbstractDownloader {
             onError(request);
             return page;
         }
+    }
+
+    public String getContent(String url) {
+        System.getProperties().setProperty("webdriver.chrome.driver", "D:/chromedriver/chromedriver.exe");
+        WebDriver webDriver = new ChromeDriver();
+        String content = "";
+        try {
+            webDriver.get(url);
+            TimeUnit.SECONDS.sleep(3);
+            content = webDriver.getPageSource();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            webDriver.quit();
+        }
+        return content;
     }
 
     @Override

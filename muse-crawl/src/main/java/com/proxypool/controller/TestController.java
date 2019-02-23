@@ -12,6 +12,7 @@ import com.proxypool.picture.PictureInfoPipeline;
 import com.proxypool.picture.WallhavenProcessor;
 import com.proxypool.recruit.Job51Processor;
 import com.proxypool.recruit.RecruitInfoPipeline;
+import com.proxypool.registration.Doctor160JSONProcess;
 import com.proxypool.secretgarden.SecretGardenPipeline;
 import com.proxypool.secretgarden.SecretGardenProcessor;
 import com.proxypool.service.ProxyIpInfoService;
@@ -35,7 +36,7 @@ import java.util.Map;
  * @author: Vincent
  * @create: 2018-12-18 10:21
  **/
-@RequestMapping("/test")
+@RequestMapping("/crawl")
 @RestController
 public class TestController {
     private Logger log = LoggerFactory.getLogger("TestController");
@@ -206,6 +207,22 @@ public class TestController {
         String url = "https://www.skuimg.com/u/20190215/10260129.jpg";
 
         System.out.println(httpUtils.get(url, Maps.newHashMap()));
+
+    }
+
+    @Autowired
+    private Doctor160JSONProcess doctor160JSONProcess;
+
+    @RequestMapping("/doctor")
+    public void doctor() {
+        System.out.println("-------------------------------");
+        try {
+
+            doctor160JSONProcess.execute(null, null);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

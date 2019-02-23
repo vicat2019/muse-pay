@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proxypool.dao.DoctorInfoMapper">
+    <resultMap id="BaseResultMap" type="com.proxypool.entry.DoctorInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="doctor_id" jdbcType="VARCHAR" property="doctorId"/>
+        <result column="doctor_name" jdbcType="VARCHAR" property="doctorName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="doc_no" jdbcType="VARCHAR" property="docNo"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+        <result column="expert" jdbcType="VARCHAR" property="expert"/>
+
+        <result column="position" jdbcType="INTEGER" property="position"/>
+        <result column="level_code" jdbcType="INTEGER" property="levelCode"/>
+
+        <result column="dep_id" jdbcType="INTEGER" property="depId"/>
+        <result column="dep_name" jdbcType="VARCHAR" property="depName"/>
+
+        <result column="total_yuyue" jdbcType="INTEGER" property="totalYuyue"/>
+        <result column="good_thks" jdbcType="INTEGER" property="goodThks"/>
+
+        <result column="zc_id" jdbcType="INTEGER" property="zcId"/>
+        <result column="zc_name" jdbcType="VARCHAR" property="zcName"/>
+        <result column="link_id" jdbcType="INTEGER" property="linkId"/>
+
+        <result column="is_expert" jdbcType="INTEGER" property="isExpert"/>
+        <result column="is_recommend" jdbcType="INTEGER" property="isRecommend"/>
+        <result column="is_yuyue" jdbcType="INTEGER" property="isYuyue"/>
+        <result column="is_guahao" jdbcType="INTEGER" property="isGuahao"/>
+        
+        <result column="ask" jdbcType="INTEGER" property="ask"/>
+        <result column="sch" jdbcType="INTEGER" property="sch"/>
+        <result column="vip" jdbcType="INTEGER" property="vip"/>
+
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id, doctor_id, doctor_name, phone, sex, doc_no, image, expert, position, level_code,
+        dep_id, dep_name, total_yuyue, good_thks, zc_name, link_id, zc_id, is_expert, is_recommend,
+        is_yuyue, is_guahao, ask, sch, vip, modify_time, create_time
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_doctor_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_doctor_info
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.proxypool.entry.DoctorInfo">
+    insert into t_doctor_info (id, doctor_id, doctor_name,
+      phone, sex, doc_no,
+      image, expert, position,
+      level_code, dep_id, dep_name,
+      total_yuyue, good_thks, zc_name,
+      link_id, zc_id, is_expert,
+      is_recommend, is_yuyue, is_guahao,
+      ask, sch, vip, modify_time,
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{doctorId,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{docNo,jdbcType=VARCHAR},
+      #{image,jdbcType=VARCHAR}, #{expert,jdbcType=VARCHAR}, #{position,jdbcType=INTEGER},
+      #{levelCode,jdbcType=INTEGER}, #{depId,jdbcType=INTEGER}, #{depName,jdbcType=VARCHAR},
+      #{totalYuyue,jdbcType=INTEGER}, #{goodThks,jdbcType=INTEGER}, #{zcName,jdbcType=VARCHAR},
+      #{linkId,jdbcType=INTEGER}, #{zcId,jdbcType=INTEGER}, #{isExpert,jdbcType=INTEGER},
+      #{isRecommend,jdbcType=INTEGER}, #{isYuyue,jdbcType=INTEGER}, #{isGuahao,jdbcType=INTEGER},
+      #{ask,jdbcType=INTEGER}, #{sch,jdbcType=INTEGER}, #{vip,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.proxypool.entry.DoctorInfo">
+        update t_doctor_info
+        set doctor_id = #{doctorId,jdbcType=VARCHAR},
+          doctor_name = #{doctorName,jdbcType=VARCHAR},
+          phone = #{phone,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=INTEGER},
+          doc_no = #{docNo,jdbcType=VARCHAR},
+          image = #{image,jdbcType=VARCHAR},
+          expert = #{expert,jdbcType=VARCHAR},
+          position = #{position,jdbcType=INTEGER},
+          level_code = #{levelCode,jdbcType=INTEGER},
+          dep_id = #{depId,jdbcType=INTEGER},
+          dep_name = #{depName,jdbcType=VARCHAR},
+          total_yuyue = #{totalYuyue,jdbcType=INTEGER},
+          good_thks = #{goodThks,jdbcType=INTEGER},
+          zc_name = #{zcName,jdbcType=VARCHAR},
+          link_id = #{linkId,jdbcType=INTEGER},
+          zc_id = #{zcId,jdbcType=INTEGER},
+          is_expert = #{isExpert,jdbcType=INTEGER},
+          is_recommend = #{isRecommend,jdbcType=INTEGER},
+          is_yuyue = #{isYuyue,jdbcType=INTEGER},
+          is_guahao = #{isGuahao,jdbcType=INTEGER},
+          ask = #{ask,jdbcType=INTEGER},
+          sch = #{sch,jdbcType=INTEGER},
+          vip = #{vip,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+          create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+
+
+</mapper>
