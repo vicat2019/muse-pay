@@ -1,10 +1,12 @@
 package com.proxypool.component;
 
+import com.proxypool.util.PhantomJSDriverHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
@@ -65,11 +67,13 @@ public class PhantomJsDownloader extends AbstractDownloader {
             String url = request.getUrl();
             logger.info("下载地址=" + url);
 
-            /*PhantomJSDriver driver = PhantomJSDriverHelper.getDriver();
+            PhantomJSDriver driver = PhantomJSDriverHelper.getDriver();
             driver.get(url);
-            String htmlContent = driver.getPageSource();*/
+            String htmlContent = driver.getPageSource();
+            logger.info("下载长度=" + htmlContent.length());
 
-            String htmlContent = getContent(url);
+            // String htmlContent = getContent(url);
+
             page = handleResponse(request, "utf-8", htmlContent);
 
             onSuccess(request);

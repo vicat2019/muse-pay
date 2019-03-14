@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.merchant.dao.MerchantBaseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.merchant.entity.MerchantBaseInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="province_code" jdbcType="VARCHAR" property="provinceCode"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="door_pic_name" jdbcType="VARCHAR" property="doorPicName"/>
+        <result column="door_pic_path" jdbcType="VARCHAR" property="doorPicPath"/>
+
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+
+    <sql id="Table_Name">
+        rs_merchant_base_sy
+    </sql>
+
+    <sql id="Base_Column_List">
+        id, name, province_name, province_code, city_name, city_code, area_name, area_code,
+        address, door_pic_name, door_pic_path, version, modify_time, create_time, status
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from
+        <include refid="Table_Name"/>
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.merchant.entity.MerchantBaseInfo">
+        insert into
+        <include refid="Table_Name"/>
+        (name, province_name,
+        province_code, city_name, city_code,
+        area_name, area_code, address,
+        door_pic_name, door_pic_path, status)
+        values (#{name,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR},
+        #{provinceCode,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR},
+        #{areaName,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{doorPicName,jdbcType=VARCHAR}, #{doorPicPath,jdbcType=VARCHAR}, #{status, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.merchant.entity.MerchantBaseInfo">
+        update
+        <include refid="Table_Name"/>
+        set name = #{name,jdbcType=VARCHAR},
+        province_name = #{provinceName,jdbcType=VARCHAR},
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+        city_name = #{cityName,jdbcType=VARCHAR},
+        city_code = #{cityCode,jdbcType=VARCHAR},
+        area_name = #{areaName,jdbcType=VARCHAR},
+        area_code = #{areaCode,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        door_pic_name = #{doorPicName,jdbcType=VARCHAR},
+        door_pic_path = #{doorPicPath,jdbcType=VARCHAR},
+        status = #{status, jdbcType=VARCHAR},
+        version = #{version,jdbcType=INTEGER},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getUnusedMerchantBase" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where status='UNUSED' order by id
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="insertByBatch" parameterType="java.util.List">
+        insert into
+        <include refid="Table_Name"/>
+        (name, province_name,
+        province_code, city_name, city_code,
+        area_name, area_code, address,
+        door_pic_name, door_pic_path, status)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.name,jdbcType=VARCHAR}, #{item.provinceName,jdbcType=VARCHAR},
+            #{item.provinceCode,jdbcType=VARCHAR}, #{item.cityName,jdbcType=VARCHAR}, #{item.cityCode,jdbcType=VARCHAR},
+            #{item.areaName,jdbcType=VARCHAR}, #{item.areaCode,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR},
+            #{item.doorPicName,jdbcType=VARCHAR}, #{item.doorPicPath,jdbcType=VARCHAR}, #{item.status, jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <!-- 修改状态 -->
+    <update id="updateStatus">
+        update
+        <include refid="Table_Name"/>
+        set
+        status = #{status, jdbcType=VARCHAR}
+        where
+        id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <update id="softDeleteById">
+        update
+        <include refid="Table_Name"/>
+        set
+        status = 'USED'
+        where
+        id = #{id, jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

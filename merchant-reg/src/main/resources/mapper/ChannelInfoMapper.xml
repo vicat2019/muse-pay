@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.merchant.dao.ChannelInfoMapper">
+    <resultMap id="BaseResultMap" type="com.merchant.entity.ChannelInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+
+        <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
+        <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
+        <result column="des_key" jdbcType="VARCHAR" property="desKey"/>
+        <result column="private_key" jdbcType="VARCHAR" property="privateKey"/>
+
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Table_Name">
+        rs_channel_info_sy
+    </sql>
+
+
+    <sql id="Base_Column_List">
+        id, mch_id, pwd, des_key, private_key, status, version, modify_time, create_time
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from <include refid="Table_Name"/>
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from <include refid="Table_Name"/>
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+
+    <insert id="insert" parameterType="com.merchant.entity.ChannelInfo">
+        insert into <include refid="Table_Name"/> (id, mch_id, pwd,
+          des_key, private_key, status,
+          version, modify_time, create_time
+          )
+        values (#{id,jdbcType=INTEGER}, #{mchId,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+          #{desKey,jdbcType=VARCHAR}, #{privateKey,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+          #{version,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+          )
+      </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.merchant.entity.ChannelInfo">
+        update <include refid="Table_Name"/>
+        set mch_id = #{mchId,jdbcType=VARCHAR},
+          pwd = #{pwd,jdbcType=VARCHAR},
+          des_key = #{desKey,jdbcType=VARCHAR},
+          private_key = #{privateKey,jdbcType=VARCHAR},
+          status = #{status,jdbcType=VARCHAR},
+          version = #{version,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+          create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+
+    <select id="getActiveChannel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where
+        status = 'ACTIVE'
+    </select>
+
+    <select id="getChannelByMchId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where
+        mch_id = #{mchId, jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

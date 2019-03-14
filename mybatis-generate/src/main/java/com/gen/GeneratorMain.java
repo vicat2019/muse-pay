@@ -28,7 +28,7 @@ public class GeneratorMain {
             generate("sk_user_info", "UserInfo");
             generate("sk_success_info", "SuccessInfo");*/
 
-            generate("rs_merchant_info", "RsMerchantInfo");
+            generate("rs_channel_info", "ChannelInfo");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class GeneratorMain {
 
         genLog.info("------------------------------开始生成------------------------------");
         // 生成MODEL, MAPPER
-        //generateMyBatis(tableNameList, modelNameList);
+        generateMyBatis(tableNameList, modelNameList);
 
         // 生成Service
         GenerateService.genService(tableName, modelName);

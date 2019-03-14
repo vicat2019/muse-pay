@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>沈阳商户进件</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+    <style type="text/css">
+        .progress {
+            width: 600px;
+            height: 1px;
+            border: 0px solid #ccc;
+            border-radius: 10px;
+            margin: 0px 0px;
+            overflow: hidden;
+        }
+
+        /* 初始状态设置进度条宽度为0px */
+        .progress > div {
+            width: 0px;
+            height: 100%;
+            background-color: yellowgreen;
+            transition: all .3s ease;
+        }
+
+        td {
+            border: 1px solid #ccc;
+        }
+
+    </style>
+</head>
+<body>
+<center>
+    <h2>沈阳商户进件</h2>
+    <hr style="height: 1px;">
+    <table style="display: none;">
+        <tr>
+            <td>新增二类卡信息</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>二类卡文件包:</td>
+            <td><input type="file" id="bankCardFile" name="bankCardFile"/><input type="button" value="上传"
+                                                                                 onclick="upload_file('bankCardFile', 1)">
+            </td>
+        </tr>
+        <tr>
+            <td>商户文件包:</td>
+            <td><input type="file" id="merchantFile" name="merchantFile"/><input type="button" value="上传"
+                                                                                 onclick="upload_file('merchantFile', 2)">
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr style="height: 30px;">
+            <td style="width: 120px;padding-left: 2px">
+                二类卡文件ZIP包：
+            </td>
+            <td style="text-align: left;padding-left: 3px;">
+                <input type="file" id="bank_car_file">
+            </td>
+            <td style="text-align: right;padding-right: 3px;">
+                <button onclick="uploadFile('bank_car_file', 1)">上传</button>
+            </td>
+        </tr>
+        <tr style="height: 30px;">
+            <td style="width: 120px;padding-left: 2px">
+                商户文件ZIP包：
+            </td>
+            <td style="text-align: left;padding-left: 2px;">
+                <input type="file" id="merchant_file">
+            </td>
+            <td style="text-align: right;padding-right: 2px;">
+                <button onclick="uploadFile('merchant_file', 2)">上传</button>
+            </td>
+        </tr>
+        <tr style="height: 5px;">
+            <td colspan="3" style="height: 5px;">
+                <div class="progress" style="text-align: left;">
+                    <div></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+</center>
+</body>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    function upload_file(fileId, type) {
+        var url = "/merchant/upload";
+
+        var fd = new FormData();
+        var ajax = new XMLHttpRequest();
+        fd.append("fileType", type);
+        fd.append("file", document.getElementById(fileId).files[0]);
+        ajax.open("post", url, true);
+
+        ajax.onload = function () {
+            console.log(ajax.responseText);
+            var data = JSON.parse(ajax.responseText);
+            if (data.code == 0) {
+                alert("上传成功");
+            } else {
+                alert("上传失败：" + data.msg);
+            }
+        };
+        ajax.send(fd);
+    }
+
+    function uploadFile(fileId, fileType) {
+        //获取上传的文件
+        var uploadFile = $('#' + fileId)[0].files[0];
+        var formData = new FormData();
+        formData.append('file', uploadFile);
+        formData.append('fileType', fileType);
+
+        if (uploadFile == null) {
+            alert("文件不能为空");
+            return;
+        }
+
+        $.ajax({
+            url: '/merchant/upload',
+            type: 'POST',
+            dataType: 'jsonp',
+            data: formData,
+            processData: false,
+            contentType: false,
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                //使用XMLHttpRequest.upload监听上传过程，注册progress事件，打印回调函数中的event事件
+                xhr.upload.addEventListener('progress', function (e) {
+                    // console.log(e);
+                    // loaded代表上传了多少
+                    // total代表总数为多少
+                    var progressRate = (e.loaded / e.total) * 100 + '%';
+
+                    //通过设置进度条的宽度达到效果
+                    $('.progress > div').css('display', 'block');
+                    $('.progress > div').css('width', progressRate);
+                });
+                return xhr;
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+                console.log(XMLHttpRequest);
+                var data_str = XMLHttpRequest.responseText;
+                var data = JSON.parse(data_str);
+                if (data.code == 0) {
+                    alert("上传成功");
+                } else {
+                    alert("上传失败：" + data.msg);
+                }
+
+                $('.progress > div').css('display', 'none');
+                $('.progress > div').css('width', 0);
+            }
+        })
+    }
+
+</script>
+
+
+</html>

@@ -39,7 +39,7 @@ public class AsyncServiceImpl implements AsyncService {
 
         try {
             ResultData resultData = museOrderInfoService.getByOrderNo(orderNo);
-            if (!resultData.isOk() || resultData.getData() == null) {
+            if (!resultData.whetherOk() || resultData.getData() == null) {
                 log.error("处理回调异常，查询订单[" + orderNo + "]失败=" + resultData.getMessage());
                 return;
             }
@@ -57,7 +57,7 @@ public class AsyncServiceImpl implements AsyncService {
 
             // 查询商户信息
             ResultData merchantResult = museMerchantInfoService.getByUserNo(museOrderInfo.getMerchantNo());
-            if (!merchantResult.isOk() || merchantResult.getData() == null) {
+            if (!merchantResult.whetherOk() || merchantResult.getData() == null) {
                 log.error("查询商户信息异常，" + museOrderInfo.getMerchantNo());
                 return;
             }

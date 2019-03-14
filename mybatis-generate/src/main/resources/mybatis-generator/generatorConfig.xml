@@ -27,7 +27,7 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.seckill.entity" targetProject="${project}">
+        <javaModelGenerator targetPackage="com.gen.entity" targetProject="${project}">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -38,7 +38,7 @@
         </sqlMapGenerator>
 
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.seckill.dao" targetProject="${project}">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gen.dao" targetProject="${project}">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

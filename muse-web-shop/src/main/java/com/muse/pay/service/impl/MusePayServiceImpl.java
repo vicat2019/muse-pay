@@ -89,7 +89,7 @@ public class MusePayServiceImpl implements MusePayService {
         ResultData<MuseOrderInfo> queryResult = museOrderInfoService.getByMerchantAndOrderCode(unifiedOrder.getMerchantNo(),
                 unifiedOrder.getTradeNo());
         // 订单已经存在
-        if (queryResult.isOk() && queryResult.resultIsNotEmpty()) {
+        if (queryResult.whetherOk() && queryResult.resultIsNotEmpty()) {
             MuseOrderInfo orderInfo = queryResult.getData();
             // 是否是等待支付
             if (MuseOrderInfo.STATUS_WAITING_PAY.equals(orderInfo.getStatus())) {
@@ -141,7 +141,7 @@ public class MusePayServiceImpl implements MusePayService {
 
         // 查询订单
         ResultData<MuseOrderInfo> resultData = museOrderInfoService.getByOrderNo(orderNo);
-        if (!resultData.isOk() || resultData.resultIsEmpty()) {
+        if (!resultData.whetherOk() || resultData.resultIsEmpty()) {
             return ResultData.getErrResult(resultData.getMessage());
         }
 

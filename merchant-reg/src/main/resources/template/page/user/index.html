@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>商户列表</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/layui/layui.js" charset="UTF-8"></script>
+    <style type="text/css">
+        table {
+            width: 90%;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #e6e6e6;
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+        tr {
+            height: 40px;
+            border: 1px solid #e6e6e6;
+        }
+
+        th {
+            height: 40px;
+            border: 1px solid #e6e6e6;
+            font-weight: lighter;
+            color: #e6e6e6;
+            font-size: 15px;
+            background-color: #8a8c8e;
+        }
+
+        td {
+            position: relative;
+            font-size: 14px;
+            font-family: "等线 Light";
+            font-weight: normal;
+            padding: 3px 5px;
+            border: 1px solid #e6e6e6;
+        }
+
+        a:link {color:#666;}		/* 未被访问的链接 */
+        a:visited {color:#666;}	/* 已被访问的链接 */
+        a:hover {color:#666;}	/* 鼠标指针移动到链接上 */
+        a:active {color:#666;}	/* 正在被点击的链接 */
+
+        .index {
+            text-align: center;
+        }
+
+        .even {
+            background-color: #F5F5F5;
+            color: #8a8c8e;
+        }
+
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        ul.pagination li {
+            display: inline;
+        }
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 6px 12px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+        ul.pagination li a.active {
+            background-color: #33a3dc;
+            color: white;
+        }
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+    </style>
+</head>
+<body>
+<center>
+    <table class="content" style="word-wrap:break-word; word-break:break-all;">
+        <thead>
+        <tr>
+            <th style='width: 50px;'>序号</th>
+            <th style='width: 120px;'>代理商编号</th>
+            <th style='width: 80px;'>商户编号</th>
+            <th style='width: 80px;'>商户名称</th>
+            <th style='width: 50px;'>省份</th>
+            <th style='width: 50px;'>城市</th>
+            <th style='width: 55px;'>区县</th>
+            <th style='width: 200px;'>详细地址</th>
+            <th style='width: 75px;'>法人</th>
+            <th style='width: 100px;'>法人身份证</th>
+            <th style='width: 70px;'>邮箱</th>
+            <th style='width: 70px;'>客服电话</th>
+            <th style='width: 70px;'>银行类型</th>
+            <th style='width: 70px;'>支行名称</th>
+            <th style='width: 70px;'>银行卡号</th>
+            <th style='width: 70px;'>电子卡号</th>
+            <th style='width: 70px;'>户名</th>
+            <th style='width: 70px;'>户名手机</th>
+            <th style='width: 70px;'>开户省份</th>
+            <th style='width: 70px;'>开户城市</th>
+            <th style='width: 70px;'>开户区县</th>
+            <th style='width: 70px;'>证件号</th>
+            <th style='width: 70px;'>创建时间</th>
+        </tr>
+        </thead>
+        <tbody id="table_content">
+        </tbody>
+    </table>
+
+    <input type="hidden" id="p" name="p">
+    <input type="hidden" id="s" name="s">
+
+    <div id="pageContent"></div>
+</center>
+<script src="/layui/layui.js"></script>
+<script th:inline="none">
+
+    function loadData(pn) {
+        $.get('/merchant/list?p=' + pn, function (data) {
+            parseResult(data);
+
+            parsePage(data['data']);
+        });
+    }
+
+    function parseResult(data) {
+        var content = "";
+
+        if (data.data != null) {
+            for (var i = 0; i < data['data']['list'].length; i++) {
+                var item = data['data']['list'][i];
+                content += "<tr id='tr_" + (i + 1) + "' onmouseover='ms(" + (i + 1) + ");' onmouseout='mo(" + (i + 1) + ")'>";
+                content += "<td class='index'>" + (i + 1) + "</td>";
+                content += "<td>" + item.mchId + "</td>";
+                content += "<td>" + item.submchid + "</td>";
+                content += "<td>" + item.name + "</td>";
+                content += "<td>" + item.provincename + "</td>";
+                content += "<td>" + item.cityname + "</td>";
+                content += "<td>" + item.areaname + "</td>";
+                content += "<td>" + item.address + "</td>";
+                content += "<td>" + item.legelname + "</td>";
+                content += "<td>" + item.legelcertno + "</td>";
+                content += "<td>" + item.email + "</td>";
+                content += "<td>" + item.phone + "</td>";
+
+                content += "<td>" + item.bankname + "</td>";
+                content += "<td>" + item.branchname + "</td>";
+                content += "<td>" + item.cardno + "</td>";
+                content += "<td>" + item.ecardno + "</td>";
+                content += "<td>" + item.payname + "</td>";
+                content += "<td>" + item.payphone + "</td>";
+                content += "<td>" + item.cardprovincename + "</td>";
+                content += "<td>" + item.cardcityname + "</td>";
+                content += "<td>" + item.cardareaname + "</td>";
+                content += "<td>" + item.certno + "</td>";
+                content += "<td>" + item.createTime + "</td>";
+                content += "</tr>";
+            }
+        } else {
+            content = "<tr><td colspan='11' style='text-align: center;font-size: 15px;'>" + data.message + "</td></tr>";
+        }
+
+        $("#table_content").html(content);
+    }
+
+    function parsePage(data) {
+        $("#pageContent").empty();
+
+        var pages = data['navigatepageNums'];
+        var pageContent = "<ul class='pagination'><li><a href='#' onclick='prePage(" + (data['pageNum'] - 1) + ")'}>«</a></li>";
+        for (var item in pages) {
+            if (pages[item] == data['pageNum']) {
+                pageContent += "<li><span><a href='#' id='" + pages[item] + "' class='active'>" + pages[item] + "</a></span>";
+            } else {
+                pageContent += "<li><span><a href='#' id='" + pages[item] + "' onclick='onPage(" + pages[item] + ")'>" + pages[item] + "</a></span>";
+            }
+        }
+        pageContent += "<li><a href='#' onclick='nextPage(" + (data['pageNum'] + 1) + ")'>»</a></li></ul>";
+        $("#pageContent").html(pageContent);
+
+        $("#query_result").html("查询结果：共" + data.total + "条，共" + data.pages + "页");
+    }
+
+
+    function ms(index) {
+        $("#tr_" + index).addClass("even");
+    }
+
+    function mo(index) {
+        $("#tr_" + index).removeClass("even");
+    }
+
+    $(function () {
+        clearQuery();
+
+        loadData(1);
+    });
+
+    function query(type) {
+        var p = $("#p").val();
+        if (type == 'f') {
+            $("#p").val("1");
+            p = "1";
+        }
+
+        $.post("/merchant/list", {
+            p: p
+        }, function (data) {
+            parseResult(data);
+            parsePage(data['data']);
+        });
+    }
+
+    function clearQuery() {
+        $("#p").val("");
+    }
+
+    function onPage(pn) {
+        $("#p").val(pn);
+        $("#" + pn).addClass("active");
+        query();
+    }
+
+    function prePage(pn) {
+        console.log(pn);
+        $("#p").val(pn);
+        query();
+    }
+
+    function nextPage(pn) {
+        console.log(pn);
+        $("#p").val(pn);
+        query();
+    }
+    
+    function showInformation(id) {
+        console.log($(id).val());
+
+        //页面层
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['420px', '240px'], //宽高
+            content: "<img src='/default.jpg'/>"
+        });
+    }
+
+</script>
+</body>
+</html>

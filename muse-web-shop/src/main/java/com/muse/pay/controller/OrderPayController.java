@@ -83,7 +83,7 @@ public class OrderPayController extends BaseController {
 
         try {
             ResultData resultData = orderPayService.doPay(userId, orderNo);
-            if (!resultData.isOk() || resultData.resultIsEmpty()) {
+            if (!resultData.whetherOk() || resultData.resultIsEmpty()) {
                 modelMap.addAttribute("msg", resultData.getMessage());
                 return "order/middlePay";
             }

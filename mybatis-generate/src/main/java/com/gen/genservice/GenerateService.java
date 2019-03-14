@@ -25,7 +25,7 @@ public class GenerateService {
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 
     // 项目名称
-    private static final String PROJECT_NAME = "sec-kill";//"mybatis-generate";
+    private static final String PROJECT_NAME = "mybatis-generate";//"mybatis-generate";
     // 项目在硬盘上的基础路径=D:\muse-pay
     private static final String PROJECT_PATH = System.getProperty("user.dir");
     // 模板位置

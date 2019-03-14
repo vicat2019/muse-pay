@@ -26,7 +26,6 @@
         <module>muse-web-boss</module>
         <module>rpc-test</module>
         <module>nucc-server</module>
-        <module>mq-test</module>
         <module>mybatis-generate</module>
     </modules>
 

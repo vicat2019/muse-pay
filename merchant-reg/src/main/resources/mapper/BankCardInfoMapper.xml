@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.merchant.dao.BankCardInfoMapper">
+    <resultMap id="BaseResultMap" type="com.merchant.entity.BankCardInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
+
+        <result column="legel_name" jdbcType="VARCHAR" property="legelName"/>
+        <result column="legel_cert_no" jdbcType="VARCHAR" property="legelCertNo"/>
+        <result column="bank_no" jdbcType="VARCHAR" property="bankNo"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+        <result column="branch_no" jdbcType="VARCHAR" property="branchNo"/>
+        <result column="branch_name" jdbcType="VARCHAR" property="branchName"/>
+        <result column="card_no" jdbcType="VARCHAR" property="cardNo"/>
+        <result column="ecard_no" jdbcType="VARCHAR" property="ecardNo"/>
+        <result column="pay_name" jdbcType="VARCHAR" property="payName"/>
+        <result column="pay_phone" jdbcType="VARCHAR" property="payPhone"/>
+
+        <result column="card_province" jdbcType="VARCHAR" property="cardProvince"/>
+        <result column="card_province_name" jdbcType="VARCHAR" property="cardProvinceName"/>
+        <result column="card_city" jdbcType="VARCHAR" property="cardCity"/>
+        <result column="card_city_name" jdbcType="VARCHAR" property="cardCityName"/>
+        <result column="card_area" jdbcType="VARCHAR" property="cardArea"/>
+        <result column="card_area_name" jdbcType="VARCHAR" property="cardAreaName"/>
+        <result column="cert_no" jdbcType="VARCHAR" property="certNo"/>
+
+        <result column="buslic_pic" jdbcType="VARCHAR" property="buslicPic"/>
+        <result column="leg_front_pic" jdbcType="VARCHAR" property="legFrontPic"/>
+        <result column="leg_back_pic" jdbcType="VARCHAR" property="legBackPic"/>
+        <result column="hand_pic" jdbcType="VARCHAR" property="handPic"/>
+        <result column="door_pic" jdbcType="VARCHAR" property="doorPic"/>
+
+        <result column="channel_no" jdbcType="VARCHAR" property="channelNo"/>
+        <result column="register_count" jdbcType="INTEGER" property="registerCount"/>
+        <result column="register_max_count" jdbcType="INTEGER" property="registerMaxCount"/>
+
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Table_Name">
+        rs_bank_card_info_sy
+    </sql>
+
+    <sql id="Base_Column_List">
+        id, mch_id, legel_name, legel_cert_no, bank_no, bank_name, branch_no, branch_name,
+        card_no, ecard_no, pay_name, card_province, card_province_name, card_city, card_city_name,
+        card_area, card_area_name, cert_no, buslic_pic, leg_front_pic, hand_pic, door_pic,
+        channel_no, register_count, register_max_count, remark, status, version, modify_time,
+        create_time, leg_back_pic, pay_phone
+      </sql>
+
+    <insert id="insert" parameterType="com.merchant.entity.BankCardInfo">
+        insert into <include refid="Table_Name"/> (mch_id, legel_name,
+          legel_cert_no, bank_no, bank_name,
+          branch_no, branch_name, card_no,
+          ecard_no, pay_name, pay_phone,
+          card_province, card_province_name, card_city,
+          card_city_name, card_area, card_area_name,
+          cert_no, buslic_pic, leg_front_pic,
+          leg_back_pic, hand_pic, door_pic,
+          channel_no, register_count, register_max_count,
+          remark, status)
+        values (#{mchId,jdbcType=VARCHAR}, #{legelName,jdbcType=VARCHAR},
+          #{legelCertNo,jdbcType=VARCHAR}, #{bankNo,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR},
+          #{branchNo,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR},
+          #{ecardNo,jdbcType=VARCHAR}, #{payName,jdbcType=VARCHAR}, #{payPhone,jdbcType=VARCHAR},
+          #{cardProvince,jdbcType=VARCHAR}, #{cardProvinceName,jdbcType=VARCHAR}, #{cardCity,jdbcType=VARCHAR},
+          #{cardCityName,jdbcType=VARCHAR}, #{cardArea,jdbcType=VARCHAR}, #{cardAreaName,jdbcType=VARCHAR},
+          #{certNo,jdbcType=VARCHAR}, #{buslicPic,jdbcType=VARCHAR}, #{legFrontPic,jdbcType=VARCHAR},
+          #{legBackPic,jdbcType=VARCHAR}, #{handPic,jdbcType=VARCHAR}, #{doorPic,jdbcType=VARCHAR},
+          #{channelNo,jdbcType=VARCHAR}, #{registerCount,jdbcType=INTEGER}, #{registerMaxCount,jdbcType=INTEGER},
+          #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+      </insert>
+
+    <!-- 批量添加 -->
+    <insert id="insertByBatch" parameterType="java.util.List">
+        insert into
+        <include refid="Table_Name"/>
+        (mch_id, legel_name,
+        legel_cert_no, bank_no, bank_name,
+        branch_no, branch_name, card_no,
+        ecard_no, pay_name, pay_phone,
+        card_province, card_province_name, card_city,
+        card_city_name, card_area, card_area_name,
+        cert_no, buslic_pic, leg_front_pic,
+        leg_back_pic, hand_pic, door_pic,
+        channel_no, register_count, register_max_count,
+        remark, status)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.mchId,jdbcType=VARCHAR}, #{item.legelName,jdbcType=VARCHAR},
+            #{item.legelCertNo,jdbcType=VARCHAR}, #{item.bankNo,jdbcType=VARCHAR}, #{item.bankName,jdbcType=VARCHAR},
+            #{item.branchNo,jdbcType=VARCHAR}, #{item.branchName,jdbcType=VARCHAR}, #{item.cardNo,jdbcType=VARCHAR},
+            #{item.ecardNo,jdbcType=VARCHAR}, #{item.payName,jdbcType=VARCHAR}, #{item.payPhone,jdbcType=VARCHAR},
+            #{item.cardProvince,jdbcType=VARCHAR}, #{item.cardProvinceName,jdbcType=VARCHAR}, #{item.cardCity,jdbcType=VARCHAR},
+            #{item.cardCityName,jdbcType=VARCHAR}, #{item.cardArea,jdbcType=VARCHAR}, #{item.cardAreaName,jdbcType=VARCHAR},
+            #{item.certNo,jdbcType=VARCHAR}, #{item.buslicPic,jdbcType=VARCHAR}, #{item.legFrontPic,jdbcType=VARCHAR},
+            #{item.legBackPic,jdbcType=VARCHAR}, #{item.handPic,jdbcType=VARCHAR}, #{item.doorPic,jdbcType=VARCHAR},
+            #{item.channelNo,jdbcType=VARCHAR}, #{item.registerCount,jdbcType=INTEGER}, #{item.registerMaxCount,jdbcType=INTEGER},
+            #{item.remark,jdbcType=VARCHAR}, #{item.status,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from rs_bank_card_info
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="com.merchant.entity.BankCardInfo">
+        update
+        <include refid="Table_Name"/>
+        set mch_id = #{mchId,jdbcType=VARCHAR},
+        legel_name = #{legelName,jdbcType=VARCHAR},
+        legel_cert_no = #{legelCertNo,jdbcType=VARCHAR},
+        bank_no = #{bankNo,jdbcType=VARCHAR},
+        bank_name = #{bankName,jdbcType=VARCHAR},
+        branch_no = #{branchNo,jdbcType=VARCHAR},
+        branch_name = #{branchName,jdbcType=VARCHAR},
+        card_no = #{cardNo,jdbcType=VARCHAR},
+        ecard_no = #{ecardNo,jdbcType=VARCHAR},
+        pay_name = #{payName,jdbcType=VARCHAR},
+        pay_phone = #{payPhone,jdbcType=VARCHAR},
+        card_province = #{cardProvince,jdbcType=VARCHAR},
+        card_province_name = #{cardProvinceName,jdbcType=VARCHAR},
+        card_city = #{cardCity,jdbcType=VARCHAR},
+        card_city_name = #{cardCityName,jdbcType=VARCHAR},
+        card_area = #{cardArea,jdbcType=VARCHAR},
+        card_area_name = #{cardAreaName,jdbcType=VARCHAR},
+        cert_no = #{certNo,jdbcType=VARCHAR},
+        buslic_pic = #{buslicPic,jdbcType=VARCHAR},
+        leg_front_pic = #{legFrontPic,jdbcType=VARCHAR},
+        leg_back_pic = #{legBackPic,jdbcType=VARCHAR},
+        hand_pic = #{handPic,jdbcType=VARCHAR},
+        door_pic = #{doorPic,jdbcType=VARCHAR},
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+        register_count = #{registerCount,jdbcType=INTEGER},
+        register_max_count = #{registerMaxCount,jdbcType=INTEGER},
+        remark = #{remark,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        version = #{version,jdbcType=INTEGER},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 查询可以进件的二类卡信息 -->
+    <select id="getAvailableBankCard" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where
+        <![CDATA[ register_count < register_max_count ]]>
+        and
+        status = 'ACTIVE'
+    </select>
+
+    <!-- 查询可以进件的二类卡信息 -->
+    <select id="getAllBankCard" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+    </select>
+
+    <select id="getAllBankCardByChannel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"/>
+        where
+        mch_id = #{mchId, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 更新二类卡的已注册数 -->
+    <update id="updateRegInfo">
+        update
+        <include refid="Table_Name"/>
+        set register_count=#{registerCount, jdbcType=INTEGER}, status=#{status, jdbcType=VARCHAR}
+        where
+        id=#{id, jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

@@ -20,26 +20,30 @@ import java.util.Map;
 public class PhantomJSDriverHelper {
 
     public static PhantomJSDriver getDriver() {
-        //设置必要参数
+        // 设置必要参数
         DesiredCapabilities dcaps = new DesiredCapabilities();
-        //ssl证书支持
+        // ssl证书支持
         dcaps.setCapability("acceptSslCerts", true);
-        //截屏支持
+        // 截屏支持
         dcaps.setCapability("takesScreenshot", false);
-        //css搜索支持
+        // css搜索支持
         dcaps.setCapability("cssSelectorsEnabled", true);
 
+        /*
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Content-Type", "text/html; charset=gbk");
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0");
-        dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Accept", "text/html,application/xhtml+xm…ml;q=0.9,image/webp,*/*;q=0.8");
+        */
+        //dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Accept", "text/html,application/xhtml+xm…ml;q=0.9,image/webp,*/*;q=0.8");
+        /*
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Accept-Encoding", "gzip, deflate, br");
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Accept-Language", "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2");
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_CUSTOMHEADERS_PREFIX + "Connection", "keep-alive");
+        */
 
-        //js支持
+        // js支持
         dcaps.setJavascriptEnabled(true);
 
-        //驱动支持
+        // 驱动支持
         dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
                 "D:\\chromedriver\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
 

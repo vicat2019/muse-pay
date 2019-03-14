@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商户操作结果</title>
+    <script type="application/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="/js/ajaxfileupload.js"></script>
+
+</head>
+<style type="text/css">
+
+    body {
+        font-family: "等线 Light";
+        color: #464547;
+    }
+
+    input {
+        width: 190px;
+    }
+
+    table {
+        width: 50%;
+        border: 0px solid #cde6c7;
+    }
+
+    tr {
+        padding: 5px 10px;
+        height: 26px;
+    }
+
+    td {
+        font-size: 20px;
+    }
+
+
+
+</style>
+
+<body>
+<center>
+    <h2>商户操作结果</h2>
+    <hr style="height:1px;border:none;border-top:1px solid #7c8577;" />
+
+    <table>
+        <tr>
+            <td colspan="2"><span style="color: mediumseagreen;font-size: 20px;font-weight: bold;">商户进件成功！</span></td>
+        </tr>
+        <tr>
+            <td style="width: 100px;">商户编号：</td>
+            <td><span th:text="${submchid}"/></td>
+        </tr>
+    </table>
+
+</center>
+</body>
+
+</html>
